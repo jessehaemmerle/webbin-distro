@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Modern Desktop Showcase Script
+# Demonstrates the sleek and modern features of the desktop
+
+echo "🎨 Modern Desktop Features Showcase"
+echo "=================================="
+echo ""
+
+echo "✨ Visual Features:"
+echo "  • Catppuccin-inspired color scheme"
+echo "  • Transparent blur effects on Waybar"
+echo "  • Modern gradient wallpapers"
+echo "  • Smooth animations and transitions"
+echo "  • Rounded corners and modern typography"
+echo ""
+
+echo "🚀 Desktop Components:"
+echo "  • Sway: Modern tiling window manager"
+echo "  • Waybar: Beautiful status bar with icons"
+echo "  • Rofi: Sleek application launcher"
+echo "  • Alacritty: GPU-accelerated terminal"
+echo "  • Mako: Modern notification system"
+echo ""
+
+echo "🎯 Key Features:"
+echo "  • Modern workspace icons (󰈹 󰖟 󰘐 󰗃 󰙯)"
+echo "  • Smart gaps and window decorations"
+echo "  • Arc-Dark theme with Papirus icons"
+echo "  • Inter font for clean typography"
+echo "  • Media player integration"
+echo "  • Power menu and system controls"
+echo ""
+
+echo "⌨️  Key Bindings:"
+echo "  • Super + Return: Terminal"
+echo "  • Super + D: Application launcher"
+echo "  • Super + W: Web browser"
+echo "  • Super + E: File manager"
+echo "  • Super + C: Code editor"
+echo "  • Super + Shift + S: Screenshot"
+echo "  • Super + Shift + X: System menu"
+echo ""
+
+echo "🎨 Color Palette:"
+echo "  • Background: #1e1e2e (Deep dark)"
+echo "  • Accent: #89b4fa (Modern blue)"
+echo "  • Text: #cdd6f4 (Soft white)"
+echo "  • Success: #a6e3a1 (Modern green)"
+echo "  • Warning: #f9e2af (Warm yellow)"
+echo "  • Error: #f38ba8 (Soft red)"
+echo ""
+
+echo "📱 Modern UX Elements:"
+echo "  • Hover effects with smooth transitions"
+echo "  • Animated battery and network indicators"
+echo "  • Smart notification positioning"
+echo "  • Contextual workspace switching"
+echo "  • Adaptive system controls"
+echo ""
+
+echo "🔧 Customization Ready:"
+echo "  • Modular Waybar configuration"
+echo "  • Themeable Rofi launcher"
+echo "  • Configurable Sway keybindings"
+echo "  • GTK theme integration"
+echo "  • Font and icon customization"
+echo ""
+
+echo "Ready to experience modern Linux desktop aesthetics! 🌟"
