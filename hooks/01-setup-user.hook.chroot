@@ -1,17 +1,66 @@
 #!/bin/bash
 
-# Setup default user configuration
+# Setup modern desktop configuration
 # This hook runs in the chroot environment during build
 
 set -e
 
 # Create default user directories
-mkdir -p /home/user/.config/sway
-mkdir -p /home/user/.config/waybar
+mkdir -p /home/user/.config/sway/scripts
+mkdir -p /home/user/.config/sway/wallpapers
+mkdir -p /home/user/.config/waybar/scripts
+mkdir -p /home/user/.config/rofi/themes
+mkdir -p /home/user/.config/alacritty
+mkdir -p /home/user/.config/mako
+mkdir -p /home/user/.config/swaylock
+mkdir -p /home/user/.config/gtk-3.0
+mkdir -p /home/user/.config/fontconfig
 mkdir -p /home/user/.local/share/applications
 
 # Copy sway configuration
 cp /etc/sway/config /home/user/.config/sway/config
+
+# Make scripts executable
+chmod +x /home/user/.config/sway/scripts/autostart.sh
+chmod +x /home/user/.config/waybar/scripts/mediaplayer.py
+chmod +x /home/user/.config/sway/scripts/wallpaper_generator.py
+
+# Install additional packages for modern look
+apt update
+apt install -y python3-pil python3-pillow || true
+
+# Generate initial wallpapers
+cd /home/user/.config/sway/scripts
+python3 wallpaper_generator.py || echo "Wallpaper generation failed, using fallback"
+
+# Create fallback wallpaper if generation failed
+if [ ! -f "/home/user/.config/sway/wallpapers/modern-gradient.jpg" ]; then
+    mkdir -p /home/user/.config/sway/wallpapers
+    # Create a simple solid color as fallback
+    convert -size 1920x1080 canvas:"#1e1e2e" /home/user/.config/sway/wallpapers/modern-gradient.jpg 2>/dev/null || \
+    echo "Fallback wallpaper creation failed"
+fi
+
+# Set proper ownership
+chown -R 1000:1000 /home/user
+
+# System services
+systemctl enable gdm
+systemctl enable NetworkManager
+systemctl enable systemd-resolved
+systemctl enable apparmor
+systemctl enable ufw
+
+# Install Nerd Fonts
+mkdir -p /usr/share/fonts/truetype/nerd-fonts
+cd /tmp
+wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip || true
+if [ -f FiraCode.zip ]; then
+    unzip -q FiraCode.zip -d /usr/share/fonts/truetype/nerd-fonts/
+    fc-cache -fv
+fi
+
+echo "Modern desktop configuration setup completed"
 
 # Create waybar configuration
 cat > /home/user/.config/waybar/config << 'EOF'
