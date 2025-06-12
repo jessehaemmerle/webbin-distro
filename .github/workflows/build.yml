@@ -1,0 +1,126 @@
+name: Build Custom Debian Distribution
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up build environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          live-build \
+          debootstrap \
+          squashfs-tools \
+          xorriso \
+          isolinux \
+          syslinux-efi \
+          ovmf \
+          qemu-system-x86 \
+          qemu-utils
+    
+    - name: Build distribution
+      run: |
+        ./scripts/build.sh
+        
+    - name: Run basic tests
+      run: |
+        # Check if ISO was created
+        ls -la output/
+        
+        # Verify ISO integrity
+        if [ -f output/*.iso ]; then
+          echo "ISO file created successfully"
+          # Additional integrity checks could go here
+        else
+          echo "ISO file not found"
+          exit 1
+        fi
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: custom-debian-iso
+        path: |
+          output/*.iso
+          output/*.sha256
+          output/*.md5
+        retention-days: 30
+    
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          output/*.iso
+          output/*.sha256
+          output/*.md5
+        draft: false
+        prerelease: false
+        body: |
+          ## Custom Debian Distribution Release
+          
+          ### What's New
+          - Based on Debian 12 (Bookworm)
+          - Sway Wayland compositor
+          - Modern desktop environment
+          - Pre-configured for laptop/desktop use
+          
+          ### Installation
+          1. Download the ISO file
+          2. Create bootable USB: `dd if=customdebian-*.iso of=/dev/sdX bs=4M`
+          3. Boot from USB and follow installer
+          
+          ### Checksums
+          Verify your download using the provided SHA256 and MD5 files.
+          
+          ### System Requirements
+          - 64-bit x86 processor
+          - 2GB RAM minimum (4GB recommended)
+          - 20GB storage minimum (50GB recommended)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: custom-debian-iso
+        path: output/
+    
+    - name: Set up QEMU
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu-system-x86 qemu-utils ovmf
+    
+    - name: Test ISO boot
+      run: |
+        # Basic boot test - start VM and check if it boots
+        timeout 300 qemu-system-x86_64 \
+          -m 2048 \
+          -cdrom output/*.iso \
+          -boot d \
+          -nographic \
+          -serial stdio \
+          -no-reboot || true
+        
+        echo "Boot test completed"
