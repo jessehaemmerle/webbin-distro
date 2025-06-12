@@ -18,117 +18,377 @@ cat > /home/user/.config/waybar/config << 'EOF'
 {
     "layer": "top",
     "position": "top",
-    "height": 30,
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "height": 34,
+    "margin": "8 12 0 12",
+    "spacing": 0,
+    
+    "modules-left": ["custom/logo", "sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "battery", "clock"],
+    "modules-right": ["custom/media", "pulseaudio", "network", "bluetooth", "battery", "clock", "custom/power"],
+
+    "custom/logo": {
+        "format": "󰣇",
+        "tooltip": false,
+        "on-click": "rofi -show drun"
+    },
+
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/window": {
-        "max-length": 50
-    },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-disconnected": "Disconnected ⚠"
-    },
-    "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-muted": "",
+        "all-outputs": false,
+        "format": "{icon}",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "1": "󰈹",
+            "2": "󰖟", 
+            "3": "󰘐",
+            "4": "󰗃",
+            "5": "󰙯",
+            "6": "󰠮",
+            "7": "󰎆",
+            "8": "󰎇",
+            "9": "󰎈",
+            "10": "󰿳",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        },
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
         }
     },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">  {}</span>",
+        "tooltip": false
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 50,
+        "tooltip": false,
+        "rewrite": {
+            "(.*) — Firefox": "󰈹 $1",
+            "(.*) - Visual Studio Code": "󰨞 $1",
+            "(.*) — Thunderbird": "󰇮 $1"
+        }
+    },
+
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "󰓇",
+            "default": "󰐊"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null",
+        "on-click": "playerctl play-pause"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip": false
+    },
+
+    "network": {
+        "interface": "wl*",
+        "format-wifi": "󰤨 {signalStrength}%",
+        "format-ethernet": "󰈀 Connected",
+        "format-disconnected": "󰤭 Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%): {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-on": "󰂯",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-full": "󰁹 Full",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{timeTo}, {capacity}% - {power}W"
+    },
+
     "clock": {
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "󰥔 {:%H:%M}",
+        "format-alt": "󰃭 {:%Y-%m-%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
+        "on-click": "swaynag -t warning -m 'Power Menu' -B 'Shutdown' 'systemctl poweroff' -B 'Reboot' 'systemctl reboot' -B 'Logout' 'swaymsg exit' -B 'Suspend' 'systemctl suspend'"
     }
 }
 EOF
 
-# Create waybar style
+# Create modern waybar style
 cat > /home/user/.config/waybar/style.css << 'EOF'
+/* Modern Sleek Waybar Style */
+
 * {
     border: none;
     border-radius: 0;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Inter", "Font Awesome 6 Free", sans-serif;
+    font-weight: 500;
     font-size: 13px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.95);
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background: linear-gradient(135deg, rgba(30, 30, 46, 0.9), rgba(49, 50, 68, 0.9));
+    backdrop-filter: blur(10px);
+    color: #cdd6f4;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    margin: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modules-left {
+    background: rgba(137, 180, 250, 0.1);
+    border-radius: 12px 0 0 12px;
+    margin: 4px 0 4px 4px;
+    padding: 0 8px;
+}
+
+.modules-center {
+    background: rgba(166, 227, 161, 0.1);
+    border-radius: 8px;
+    margin: 4px;
+    padding: 0 16px;
+}
+
+.modules-right {
+    background: rgba(245, 194, 231, 0.1);
+    border-radius: 0 12px 12px 0;
+    margin: 4px 4px 4px 0;
+    padding: 0 8px;
+}
+
+#custom-logo {
+    color: #89b4fa;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 8px 0 0;
+    padding: 8px 12px;
+    background: linear-gradient(45deg, #89b4fa, #b4befe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#workspaces {
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
-    border-bottom: 3px solid transparent;
+    padding: 8px 12px;
+    margin: 0 2px;
+    background: transparent;
+    color: #6c7086;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+#workspaces button:hover {
+    background: rgba(137, 180, 250, 0.2);
+    color: #89b4fa;
+    transform: translateY(-1px);
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    background: linear-gradient(45deg, #89b4fa, #b4befe);
+    color: #1e1e2e;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(137, 180, 250, 0.3);
+}
+
+#workspaces button.urgent {
+    background: linear-gradient(45deg, #f38ba8, #eba0ac);
+    color: #1e1e2e;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 #mode {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    background: linear-gradient(45deg, #f9e2af, #f5c2e7);
+    color: #1e1e2e;
+    padding: 8px 16px;
+    margin: 0 8px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
+#window {
+    color: #a6e3a1;
+    font-weight: 500;
+    padding: 8px 0;
+}
+
 #custom-media,
-#tray,
-#mode,
-#idle_inhibitor {
-    padding: 0 10px;
-    margin: 0 4px;
-    color: #ffffff;
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#clock,
+#custom-power {
+    padding: 8px 12px;
+    margin: 0 2px;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-#battery.charging {
-    color: #ffffff;
-    background-color: #26A65B;
+#custom-media:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#battery:hover,
+#clock:hover,
+#custom-power:hover {
+    background: rgba(205, 214, 244, 0.1);
+    transform: translateY(-1px);
+}
+
+#custom-media {
+    color: #a6e3a1;
+}
+
+#pulseaudio {
+    color: #f9e2af;
+}
+
+#network {
+    color: #89b4fa;
+}
+
+#network.disconnected {
+    color: #f38ba8;
+}
+
+#bluetooth {
+    color: #94e2d5;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #6c7086;
+}
+
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #f9e2af;
+    background: linear-gradient(45deg, rgba(249, 226, 175, 0.2), rgba(245, 194, 231, 0.2));
 }
 
 #battery.warning:not(.charging) {
-    background-color: #ffbe61;
-    color: black;
+    color: #fab387;
+    animation: warning 3s ease-in-out infinite;
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    color: #f38ba8;
+    animation: critical 1s ease-in-out infinite;
+}
+
+@keyframes warning {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(250, 179, 135, 0.2); }
+}
+
+@keyframes critical {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(243, 139, 168, 0.3); }
+}
+
+#clock {
+    color: #b4befe;
+    font-weight: 600;
+}
+
+#custom-power {
+    color: #f38ba8;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#custom-power:hover {
+    background: rgba(243, 139, 168, 0.2);
+    color: #eba0ac;
+}
+
+/* Tooltip styling */
+tooltip {
+    background: rgba(30, 30, 46, 0.95);
+    border: 1px solid #89b4fa;
+    border-radius: 8px;
+    color: #cdd6f4;
+}
+
+tooltip label {
+    color: #cdd6f4;
+    padding: 8px;
 }
 EOF
 
