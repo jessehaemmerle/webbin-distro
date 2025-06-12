@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to Custom Debian! This guide will help you install and use your new Linux distribution.
+Welcome to WebbinOS! This guide will help you install and use your new Linux distribution.
 
 ## System Requirements
 
