@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-PROJECT_NAME="Custom Debian Distribution"
+PROJECT_NAME="WebbinOS"
 VERSION="1.0"
 
 # Colors
