@@ -1,0 +1,41 @@
+# System Base
+systemd
+systemd-resolved
+networkd-dispatcher
+
+# Network Management
+network-manager
+network-manager-gnome
+wireless-tools
+wpasupplicant
+
+# Hardware Support
+firmware-linux
+firmware-linux-nonfree
+firmware-iwlwifi
+firmware-realtek
+firmware-amd-graphics
+intel-microcode
+amd64-microcode
+
+# Filesystem Support
+ntfs-3g
+exfat-fuse
+btrfs-progs
+
+# Security
+ufw
+apparmor
+apparmor-profiles
+apparmor-utils
+
+# Package Management
+apt-transport-https
+software-properties-common
+synaptic
+
+# System Utilities
+sudo
+gparted
+timeshift
+bleachbit

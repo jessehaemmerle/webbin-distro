@@ -1,0 +1,58 @@
+# Desktop Environment - Sway (Wayland compositor)
+sway
+swaylock
+swayidle
+waybar
+rofi
+wl-clipboard
+xwayland
+
+# Display Manager
+gdm3
+
+# File Manager and Basic Applications
+nautilus
+nautilus-extension-gnome-terminal
+gnome-terminal
+alacritty
+
+# Web Browser
+firefox-esr
+
+# Office Suite
+libreoffice
+thunderbird
+
+# Media Applications
+vlc
+rhythmbox
+eog
+evince
+
+# Graphics and Image Editing
+gimp
+inkscape
+
+# Text Editors
+gedit
+vim
+nano
+
+# Development Tools
+code
+git
+curl
+wget
+build-essential
+python3
+python3-pip
+nodejs
+npm
+
+# System Tools
+htop
+tree
+unzip
+zip
+rsync
+ssh
