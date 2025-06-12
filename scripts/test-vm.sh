@@ -8,7 +8,7 @@ set -e
 # Configuration
 ISO_PATH="output"
 ISO_NAME=""
-VM_NAME="CustomDebian-Test"
+VM_NAME="Webbin-Test"
 VM_MEMORY="2048"
 VM_DISK_SIZE="20G"
 VM_CPUS="2"
