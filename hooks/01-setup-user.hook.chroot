@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# Setup default user configuration
+# This hook runs in the chroot environment during build
+
+set -e
+
+# Create default user directories
+mkdir -p /home/user/.config/sway
+mkdir -p /home/user/.config/waybar
+mkdir -p /home/user/.local/share/applications
+
+# Copy sway configuration
+cp /etc/sway/config /home/user/.config/sway/config
+
+# Create waybar configuration
+cat > /home/user/.config/waybar/config << 'EOF'
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "network", "battery", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/window": {
+        "max-length": 50
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "Disconnected ⚠"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        }
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}"
+    }
+}
+EOF
+
+# Create waybar style
+cat > /home/user/.config/waybar/style.css << 'EOF'
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(43, 48, 59, 0.95);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #ffffff;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+    border-bottom: 3px solid #ffffff;
+}
+
+#mode {
+    background-color: #64727D;
+    border-bottom: 3px solid #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor {
+    padding: 0 10px;
+    margin: 0 4px;
+    color: #ffffff;
+}
+
+#battery.charging {
+    color: #ffffff;
+    background-color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+    background-color: #ffbe61;
+    color: black;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+EOF
+
+# Set proper ownership
+chown -R 1000:1000 /home/user
+
+# Enable GDM
+systemctl enable gdm
+
+# Enable NetworkManager
+systemctl enable NetworkManager
+
+# Enable systemd-resolved
+systemctl enable systemd-resolved
+
+# Enable AppArmor
+systemctl enable apparmor
+
+# Enable UFW (but don't start it yet)
+systemctl enable ufw
+
+echo "User configuration setup completed"
