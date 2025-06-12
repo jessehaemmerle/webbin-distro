@@ -19,7 +19,7 @@ A modern, Wayland-based Linux distribution built on Debian foundations, optimize
 1. **Set up build environment** (on Debian/Ubuntu):
 ```bash
 sudo apt update
-sudo apt install live-build debootstrap
+sudo apt install live-build debootstrap squashfs-tools xorriso isolinux syslinux-efi
 ```
 
 2. **Build the ISO**:
@@ -32,11 +32,43 @@ sudo apt install live-build debootstrap
 ./scripts/test-vm.sh
 ```
 
+4. **Maintenance**:
+```bash
+./scripts/maintenance.sh validate  # Check configuration
+./scripts/maintenance.sh stats     # Show project statistics
+./scripts/maintenance.sh clean     # Clean build artifacts
+```
+
 ### Installation
 
 1. Download the latest ISO from releases
-2. Create bootable USB: `dd if=custom-debian.iso of=/dev/sdX bs=4M`
-3. Boot from USB and follow installer
+2. Create bootable USB: `dd if=customdebian-1.0.iso of=/dev/sdX bs=4M status=progress`
+3. Boot from USB and follow the Calamares installer
+
+## 📋 What's Included
+
+### Desktop Environment
+- **Sway**: Tiling Wayland compositor
+- **Waybar**: Modern status bar
+- **Rofi**: Application launcher
+- **GDM3**: Display manager
+- **Nautilus**: File manager
+
+### Applications
+- **Firefox ESR**: Web browser
+- **Thunderbird**: Email client
+- **LibreOffice**: Office suite
+- **GIMP**: Image editor
+- **Inkscape**: Vector graphics
+- **VLC**: Media player
+- **VS Code**: Code editor
+
+### System Tools
+- **PipeWire**: Modern audio system
+- **NetworkManager**: Network management
+- **UFW**: Firewall
+- **AppArmor**: Security framework
+- **Timeshift**: System snapshots
 
 ## Documentation
 
