@@ -52,11 +52,20 @@ sudo apt install live-build debootstrap squashfs-tools xorriso isolinux syslinux
 ## 📋 What's Included
 
 ### Desktop Environment
-- **Sway**: Tiling Wayland compositor
-- **Waybar**: Modern status bar
-- **Rofi**: Application launcher
-- **GDM3**: Display manager
-- **Nautilus**: File manager
+- **Sway**: Modern tiling Wayland compositor
+- **Waybar**: Sleek status bar with blur effects and modern icons
+- **Rofi**: Beautiful application launcher with custom theme
+- **GDM3**: Display manager with Wayland support
+- **Nautilus**: File manager with modern styling
+- **Alacritty**: GPU-accelerated terminal with transparency
+
+### Visual Design
+- **Color Scheme**: Catppuccin-inspired dark theme
+- **Typography**: Inter font family for clean readability
+- **Icons**: Papirus icon theme with modern workspace symbols
+- **Effects**: Transparency, blur, rounded corners
+- **Animations**: Smooth transitions and hover effects
+- **Wallpapers**: Procedurally generated gradient backgrounds
 
 ### Applications
 - **Firefox ESR**: Web browser
