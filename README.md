@@ -36,9 +36,9 @@ sudo apt install live-build debootstrap squashfs-tools xorriso isolinux syslinux
 ./scripts/test-vm.sh
 ```
 
-4. **Maintenance**:
+4. **Modern Desktop Showcase**:
 ```bash
-./scripts/maintenance.sh validate  # Check configuration
+./scripts/showcase.sh     # See all modern features
 ./scripts/maintenance.sh stats     # Show project statistics
 ./scripts/maintenance.sh clean     # Clean build artifacts
 ```
