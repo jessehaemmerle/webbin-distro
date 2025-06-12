@@ -3,9 +3,28 @@ sway
 swaylock
 swayidle
 waybar
+swaybg
 rofi
 wl-clipboard
 xwayland
+grim
+slurp
+wf-recorder
+mako-notifier
+
+# Modern Themes and Icons
+arc-theme
+papirus-icon-theme
+numix-icon-theme
+breeze-cursor-theme
+adwaita-icon-theme
+
+# Fonts for Modern Look
+fonts-firacode
+fonts-inter
+fonts-roboto
+fonts-noto
+fonts-font-awesome
 
 # Display Manager
 gdm3
@@ -15,6 +34,7 @@ nautilus
 nautilus-extension-gnome-terminal
 gnome-terminal
 alacritty
+kitty
 
 # Web Browser
 firefox-esr
@@ -56,3 +76,8 @@ unzip
 zip
 rsync
 ssh
+neofetch
+
+# Additional Modern Tools
+brightnessctl
+playerctl
