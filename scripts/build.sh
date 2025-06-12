@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-DISTRO_NAME="CustomDebian"
+DISTRO_NAME="Webbin"
 DISTRO_VERSION="1.0"
 BUILD_DIR="build"
 OUTPUT_DIR="output"
