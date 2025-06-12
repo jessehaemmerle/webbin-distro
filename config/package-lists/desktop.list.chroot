@@ -11,6 +11,7 @@ grim
 slurp
 wf-recorder
 mako-notifier
+kanshi
 
 # Modern Themes and Icons
 arc-theme
@@ -25,6 +26,11 @@ fonts-inter
 fonts-roboto
 fonts-noto
 fonts-font-awesome
+
+# Additional font packages
+fonts-liberation
+fonts-opensymbol
+ttf-dejavu
 
 # Display Manager
 gdm3
@@ -66,6 +72,7 @@ wget
 build-essential
 python3
 python3-pip
+python3-pil
 nodejs
 npm
 
@@ -81,3 +88,7 @@ neofetch
 # Additional Modern Tools
 brightnessctl
 playerctl
+pavucontrol
+blueman
+network-manager-gnome
+imagemagick
