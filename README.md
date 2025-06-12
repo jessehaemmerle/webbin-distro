@@ -6,11 +6,15 @@ A modern, Wayland-based Linux distribution built on Debian foundations, optimize
 
 - **Base**: Debian 12 (Bookworm) Stable
 - **Desktop**: Sway (Wayland compositor) with Waybar
+- **Modern Design**: Catppuccin-inspired color scheme with smooth animations
+- **Visual Effects**: Transparent blur, rounded corners, gradient wallpapers
 - **Security**: Full disk encryption, AppArmor, UFW firewall
-- **Modern**: Latest Wayland technologies and PipeWire audio
+- **Audio**: Latest PipeWire with modern audio management
 - **Development Ready**: VS Code, Git, build tools pre-installed
 - **Multimedia**: Complete codec support and media applications
-- **Minimal**: Clean, focused package selection (82 packages)
+- **Typography**: Inter font with FiraCode for terminal
+- **Icons**: Papirus icon theme with modern workspace symbols
+- **Optimized**: Clean, focused package selection (90+ packages)
 
 ## Quick Start
 
