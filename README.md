@@ -2,13 +2,15 @@
 
 A modern, Wayland-based Linux distribution built on Debian foundations, optimized for laptop and desktop use.
 
-## Features
+## 🚀 Features
 
 - **Base**: Debian 12 (Bookworm) Stable
-- **Desktop**: Sway (Wayland compositor)
-- **Security**: Full disk encryption, AppArmor, automatic updates
-- **Modern**: Latest Wayland technologies
-- **Minimal**: Clean, focused package selection
+- **Desktop**: Sway (Wayland compositor) with Waybar
+- **Security**: Full disk encryption, AppArmor, UFW firewall
+- **Modern**: Latest Wayland technologies and PipeWire audio
+- **Development Ready**: VS Code, Git, build tools pre-installed
+- **Multimedia**: Complete codec support and media applications
+- **Minimal**: Clean, focused package selection (82 packages)
 
 ## Quick Start
 
