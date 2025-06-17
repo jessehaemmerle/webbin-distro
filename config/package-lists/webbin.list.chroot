@@ -1,0 +1,34 @@
+# Desktop Environment - Sway (Wayland compositor)
+sway
+swaylock
+swayidle
+waybar
+swaybg
+rofi
+wl-clipboard
+xwayland
+grim
+slurp
+wf-recorder
+mako-notifier
+kanshi
+
+# Fonts, Themes, Terminal, Tools, etc.
+fonts-firacode
+fonts-inter
+fonts-roboto
+fonts-noto
+fonts-font-awesome
+nautilus
+firefox-esr
+alacritty
+gdm3
+neofetch
+...
+
+# System Tools
+firmware-linux-free
+firmware-linux-nonfree
+firmware-iwlwifi
+firmware-realtek
+intel-microcode
