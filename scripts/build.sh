@@ -96,6 +96,7 @@ setup_config() {
         --iso-volume "$DISTRO_NAME $DISTRO_VERSION" \
         --memtest memtest86+ \
         --win32-loader false
+        --archive-areas "main contrib non-free non-free-firmware" \
     
     cd ..
 }
