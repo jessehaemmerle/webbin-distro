@@ -83,7 +83,6 @@ setup_config() {
     lb config \
         --distribution bookworm \
         --archive-areas "main contrib non-free non-free-firmware" \
-        --package-lists minimal \
         --architectures amd64 \
         --linux-flavours amd64 \
         --debian-installer live \
