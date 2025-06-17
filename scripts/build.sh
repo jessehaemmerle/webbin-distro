@@ -82,6 +82,7 @@ setup_config() {
     # Initialize live-build configuration
     lb config \
         --distribution bookworm \
+        --archive-areas "main contrib non-free non-free-firmware" \
         --package-lists minimal \
         --architectures amd64 \
         --linux-flavours amd64 \
@@ -96,7 +97,6 @@ setup_config() {
         --iso-volume "$DISTRO_NAME $DISTRO_VERSION" \
         --memtest memtest86+ \
         --win32-loader false
-        --archive-areas "main contrib non-free non-free-firmware" \
     
     cd ..
 }
