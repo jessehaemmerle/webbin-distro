@@ -1,0 +1,64 @@
+#!/bin/bash
+# Create desktop entries for common applications
+
+set -e
+
+echo "Setting up desktop entries..."
+
+# Create desktop entry for system installer
+cat > /usr/share/applications/install-system.desktop << 'EOF'
+[Desktop Entry]
+Name=Install Debian Sway
+Name[de]=Debian Sway installieren
+Comment=Install the system to your hard drive
+Comment[de]=System auf Festplatte installieren
+Exec=sudo calamares
+Icon=system-installer
+Terminal=false
+Type=Application
+Categories=System;
+EOF
+
+# Create desktop entry for system information
+cat > /usr/share/applications/system-info.desktop << 'EOF'
+[Desktop Entry]
+Name=System Information
+Name[de]=Systeminformationen
+Comment=View system information
+Comment[de]=Systeminformationen anzeigen
+Exec=foot -e inxi -Fxz
+Icon=system-info
+Terminal=false
+Type=Application
+Categories=System;
+EOF
+
+# Create desktop entry for hardware info
+cat > /usr/share/applications/hardware-info.desktop << 'EOF'
+[Desktop Entry]
+Name=Hardware Information
+Name[de]=Hardware-Informationen
+Comment=View hardware information
+Comment[de]=Hardware-Informationen anzeigen
+Exec=foot -e lshw -short
+Icon=computer
+Terminal=false
+Type=Application
+Categories=System;
+EOF
+
+# Create desktop entry for network configuration
+cat > /usr/share/applications/network-config.desktop << 'EOF'
+[Desktop Entry]
+Name=Network Configuration
+Name[de]=Netzwerk-Konfiguration
+Comment=Configure network settings
+Comment[de]=Netzwerk-Einstellungen konfigurieren
+Exec=nm-connection-editor
+Icon=network-workgroup
+Terminal=false
+Type=Application
+Categories=System;Network;
+EOF
+
+echo "Desktop entries created."

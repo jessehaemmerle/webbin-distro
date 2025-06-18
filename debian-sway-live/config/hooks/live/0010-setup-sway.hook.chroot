@@ -1,0 +1,60 @@
+#!/bin/bash
+# Setup Sway environment for live system
+
+set -e
+
+echo "Setting up Sway environment..."
+
+# Enable required services
+systemctl enable NetworkManager
+systemctl enable pulseaudio
+
+# Configure default user
+useradd -m -s /bin/bash -G audio,video,netdev,plugdev,sudo user
+echo "user:live" | chpasswd
+
+# Set up user directories
+mkdir -p /home/user/{Documents,Downloads,Pictures,Videos,Music,Desktop}
+mkdir -p /home/user/.config/{sway,waybar,mako,foot,wofi}
+mkdir -p /home/user/.local/share/applications
+
+# Set ownership
+chown -R user:user /home/user/
+
+# Copy system configs to user home
+if [ -d "/etc/sway" ]; then
+    cp -r /etc/sway/* /home/user/.config/sway/ 2>/dev/null || true
+fi
+
+# Create autostart directory
+mkdir -p /etc/xdg/autostart
+
+# Enable automatic login for live user
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+cat > /etc/systemd/system/getty@tty1.service.d/override.conf << 'EOF'
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin user --noclear %I $TERM
+EOF
+
+# Create session starter script
+cat > /home/user/.bash_profile << 'EOF'
+# Auto-start Sway on login
+if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+    exec sway
+fi
+EOF
+
+# Set up directories permissions
+chown -R user:user /home/user/
+chmod +x /home/user/.bash_profile
+
+# Configure locale
+locale-gen
+update-locale LANG=de_DE.UTF-8
+
+# Configure timezone
+ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
+dpkg-reconfigure -f noninteractive tzdata
+
+echo "Sway environment setup completed."
