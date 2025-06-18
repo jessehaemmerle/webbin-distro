@@ -1,0 +1,28 @@
+# Mako notification daemon configuration
+# Nord theme colors
+
+background-color=#2e3440
+text-color=#d8dee9
+border-color=#5e81ac
+border-size=2
+border-radius=5
+
+font=JetBrains Mono 11
+default-timeout=5000
+ignore-timeout=1
+
+# Grouping
+group-by=summary
+max-visible=5
+
+# Position
+anchor=top-right
+margin=10
+padding=15
+
+# Icons
+icon-path=/usr/share/icons/Adwaita
+max-icon-size=48
+
+# Sound
+on-notify=exec paplay /usr/share/sounds/freedesktop/stereo/message-new-instant.oga
