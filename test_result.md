@@ -101,3 +101,80 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Create a bootable Debian system as ISO with live-build. Requirements: Based on Debian bookworm (stable), use Sway (Wayland-based tiling window manager) as only GUI, custom Sway configuration with keybindings/themes/waybar, preinstall packages (sway, waybar, foot, mako, etc.), German language, DE keyboard layout, Europe/Vienna timezone, works as live system and allows installation."
+
+backend:
+  - task: "Install and configure live-build environment"
+    implemented: false
+    working: "NA"
+    file: "/app/live-build-setup.sh"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history: []
+
+  - task: "Create live-build configuration structure"
+    implemented: false
+    working: "NA" 
+    file: "/app/live-system/config/"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history: []
+
+  - task: "Configure package lists for Sway and tools"
+    implemented: false
+    working: "NA"
+    file: "/app/live-system/config/package-lists/"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history: []
+
+  - task: "Create custom Sway configuration files"
+    implemented: false
+    working: "NA"
+    file: "/app/live-system/config/includes.chroot/"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history: []
+
+  - task: "Configure localization (German, DE keyboard, Vienna timezone)"
+    implemented: false
+    working: "NA"
+    file: "/app/live-system/config/includes.chroot/etc/"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history: []
+
+  - task: "Build the live ISO"
+    implemented: false
+    working: "NA"
+    file: "/app/live-system/"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history: []
+
+frontend: []
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Install and configure live-build environment"
+    - "Create live-build configuration structure"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "sequential"
+
+agent_communication:
+  - agent: "main"
+    message: "Starting Debian live system creation with Sway window manager. This is a Linux system administration task, not web development. Will proceed step by step with live-build setup and configuration."
