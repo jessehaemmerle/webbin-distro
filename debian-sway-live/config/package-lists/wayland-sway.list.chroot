@@ -117,3 +117,7 @@ gparted
 baobab
 galculator
 mousepad
+
+# Image manipulation for wallpaper creation
+imagemagick
+librsvg2-bin
