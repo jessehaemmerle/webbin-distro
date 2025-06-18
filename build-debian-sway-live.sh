@@ -108,49 +108,44 @@ fi
 
 success "Configuration phase completed"
 
-# Bootstrap
-log "Starting bootstrap phase..."
-lb bootstrap
+# Build all stages with lb build (recommended approach)
+log "Starting complete build process (bootstrap + chroot + installer + binary)..."
+log "This will take a while - please be patient..."
+
+lb build
 
 if [ $? -ne 0 ]; then
-    error "Bootstrap phase failed"
+    error "Build process failed"
+    
+    # Try to provide more specific error information
+    if [ -f ".build/bootstrap" ]; then
+        log "Bootstrap stage was completed"
+    else
+        error "Bootstrap stage failed or was not completed"
+    fi
+    
+    if [ -f ".build/chroot" ]; then
+        log "Chroot stage was completed"
+    else
+        error "Chroot stage failed or was not completed"
+    fi
+    
+    if [ -f ".build/installer" ]; then
+        log "Installer stage was completed"
+    else
+        error "Installer stage failed or was not completed"
+    fi
+    
+    if [ -f ".build/binary" ]; then
+        log "Binary stage was completed"
+    else
+        error "Binary stage failed or was not completed"
+    fi
+    
     exit 1
 fi
 
-success "Bootstrap phase completed"
-
-# Chroot
-log "Starting chroot phase..."
-lb chroot
-
-if [ $? -ne 0 ]; then
-    error "Chroot phase failed"
-    exit 1
-fi
-
-success "Chroot phase completed"
-
-# Installer
-log "Starting installer phase..."
-lb installer
-
-if [ $? -ne 0 ]; then
-    error "Installer phase failed"
-    exit 1
-fi
-
-success "Installer phase completed"
-
-# Binary
-log "Starting binary phase (ISO creation)..."
-lb binary
-
-if [ $? -ne 0 ]; then
-    error "Binary phase failed"
-    exit 1
-fi
-
-success "Binary phase completed"
+success "Complete build process finished successfully"
 
 # Calculate build time
 BUILD_END=$(date +%s)
