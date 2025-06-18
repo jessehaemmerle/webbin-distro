@@ -1,0 +1,17 @@
+# German localization
+locales
+locales-all
+keyboard-configuration
+console-setup
+console-data
+
+# German language packs
+task-german
+task-german-desktop
+
+# Timezone data
+tzdata
+
+# Input method for German
+ibus
+ibus-gtk3

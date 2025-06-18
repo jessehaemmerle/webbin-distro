@@ -1,0 +1,13 @@
+# Debian installer components
+debian-installer-launcher
+live-installer
+ubiquity-frontend-gtk
+calamares
+
+# System installation tools
+partman-auto
+partman-ext3
+partman-basicfilesystems
+grub-pc
+grub-efi-amd64
+os-prober

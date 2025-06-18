@@ -1,0 +1,119 @@
+# Sway and Wayland components
+sway
+waybar
+swaybg
+swayidle
+swaylock
+wlroots
+wayland-protocols
+
+# Terminal and basic tools
+foot
+alacritty
+
+# Notification daemon
+mako-notifier
+
+# Application launcher
+wofi
+
+# Screenshot tools
+grim
+slurp
+
+# Image viewer
+imv
+
+# File manager
+thunar
+thunar-archive-plugin
+thunar-media-tags-plugin
+
+# Archive support
+file-roller
+unzip
+zip
+p7zip-full
+rar
+unrar
+
+# Network manager
+network-manager
+network-manager-gnome
+
+# Audio
+pulseaudio
+pulseaudio-utils
+pavucontrol
+pipewire
+pipewire-pulse
+pipewire-alsa
+
+# Brightness control
+light
+brightnessctl
+
+# System utilities
+htop
+btop
+neofetch
+tree
+curl
+wget
+git
+nano
+micro
+jq
+
+# Web browser
+chromium
+firefox-esr
+
+# Media player
+mpv
+
+# PDF viewer
+zathura
+zathura-pdf-poppler
+
+# Text editor
+gedit
+
+# System info and monitoring
+lshw
+inxi
+sensors-detect
+lm-sensors
+
+# Development tools
+build-essential
+cmake
+python3
+python3-pip
+nodejs
+npm
+
+# Fonts
+fonts-jetbrains-mono
+fonts-firacode
+fonts-noto
+fonts-noto-color-emoji
+fonts-liberation
+fonts-dejavu
+
+# Graphics drivers and firmware
+mesa-utils
+mesa-vulkan-drivers
+xserver-xorg-video-all
+firmware-linux
+firmware-linux-nonfree
+firmware-misc-nonfree
+firmware-realtek
+firmware-iwlwifi
+
+# Additional utilities
+gnome-disk-utility
+gparted
+baobab
+galculator
+mousepad
