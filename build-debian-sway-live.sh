@@ -71,6 +71,43 @@ fi
 log "Cleaning previous builds..."
 lb clean --all || true
 
+# Configuration
+log "Running live-build configuration..."
+lb config \
+    --distribution bookworm \
+    --architectures arm64 \
+    --linux-flavours generic \
+    --debian-installer live \
+    --debian-installer-gui false \
+    --bootappend-live "boot=live locales=de_DE.UTF-8 keyboard-layouts=de timezone=Europe/Vienna" \
+    --bootappend-install "locales=de_DE.UTF-8 keyboard-layouts=de timezone=Europe/Vienna" \
+    --mirror-bootstrap "http://deb.debian.org/debian" \
+    --mirror-chroot "http://deb.debian.org/debian" \
+    --mirror-chroot-security "http://deb.debian.org/debian-security" \
+    --mirror-binary "http://deb.debian.org/debian" \
+    --mirror-binary-security "http://deb.debian.org/debian-security" \
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --security true \
+    --updates true \
+    --backports false \
+    --parent-mirror-bootstrap "http://deb.debian.org/debian" \
+    --parent-mirror-chroot "http://deb.debian.org/debian" \
+    --parent-mirror-binary "http://deb.debian.org/debian" \
+    --parent-archive-areas "main contrib non-free non-free-firmware" \
+    --mode debian \
+    --system live \
+    --image-name "debian-sway-live" \
+    --iso-volume "Debian Sway Live" \
+    --iso-publisher "Custom Debian Live Build" \
+    --win32-loader false
+
+if [ $? -ne 0 ]; then
+    error "Configuration phase failed"
+    exit 1
+fi
+
+success "Configuration phase completed"
+
 # Bootstrap
 log "Starting bootstrap phase..."
 lb bootstrap
