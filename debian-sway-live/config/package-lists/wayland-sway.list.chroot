@@ -105,11 +105,13 @@ fonts-dejavu
 mesa-utils
 mesa-vulkan-drivers
 xserver-xorg-video-all
-firmware-linux
+firmware-linux-free
 firmware-linux-nonfree
 firmware-misc-nonfree
 firmware-realtek
 firmware-iwlwifi
+firmware-atheros
+firmware-brcm80211
 
 # Additional utilities
 gnome-disk-utility
