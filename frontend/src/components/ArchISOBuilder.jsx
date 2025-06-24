@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
 import { Separator } from './ui/separator';
-import { Download, Settings, Package, Users, Monitor, Server, Gamepad2, Code, HardDrive, Play, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+import { Download, Settings, Package, Users, Monitor, Server, Gamepad2, Code, HardDrive, Play, CheckCircle, Clock, AlertCircle, Search, Filter, X } from 'lucide-react';
 import { mockProfiles, mockPackageCategories, mockDesktopEnvironments, mockUserConfig, mockISOConfigs } from '../mock/data';
 import { useToast } from '../hooks/use-toast';
 
@@ -23,10 +23,13 @@ const ArchISOBuilder = () => {
   const [buildProgress, setBuildProgress] = useState(0);
   const [isBuilding, setIsBuilding] = useState(false);
   const [isoConfigs, setISOConfigs] = useState(mockISOConfigs);
+  const [packageSearch, setPackageSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const { toast } = useToast();
 
   const getProfileIcon = (profileId) => {
     const icons = {
+      custom: '🛠️',
       minimal: '📦',
       desktop: '🖥️',
       developer: '👨‍💻',
@@ -38,20 +41,38 @@ const ArchISOBuilder = () => {
 
   const selectProfile = (profile) => {
     setSelectedProfile(profile);
-    // Auto-select packages based on profile
-    const updatedCategories = packageCategories.map(category => ({
-      ...category,
-      packages: category.packages.map(pkg => ({
-        ...pkg,
-        selected: profile.packages.includes(pkg.name) || pkg.required
-      }))
-    }));
-    setPackageCategories(updatedCategories);
     
-    toast({
-      title: "Profile Selected",
-      description: `${profile.name} profile has been applied with ${profile.packages.length} packages.`,
-    });
+    if (profile.id === 'custom') {
+      // For custom profile, only select required packages
+      const updatedCategories = packageCategories.map(category => ({
+        ...category,
+        packages: category.packages.map(pkg => ({
+          ...pkg,
+          selected: pkg.required || false
+        }))
+      }));
+      setPackageCategories(updatedCategories);
+      
+      toast({
+        title: "Custom Profile Selected",
+        description: "Start with essential packages only. Add more packages as needed.",
+      });
+    } else {
+      // Auto-select packages based on profile
+      const updatedCategories = packageCategories.map(category => ({
+        ...category,
+        packages: category.packages.map(pkg => ({
+          ...pkg,
+          selected: profile.packages.includes(pkg.name) || pkg.required
+        }))
+      }));
+      setPackageCategories(updatedCategories);
+      
+      toast({
+        title: "Profile Selected",
+        description: `${profile.name} profile has been applied with ${profile.packages.length} packages.`,
+      });
+    }
   };
 
   const togglePackage = (categoryId, packageName) => {
@@ -81,6 +102,26 @@ const ArchISOBuilder = () => {
     return packageCategories.flatMap(category => 
       category.packages.filter(pkg => pkg.selected).map(pkg => pkg.name)
     );
+  };
+
+  const getFilteredPackages = () => {
+    return packageCategories.map(category => {
+      if (selectedCategory !== 'all' && category.id !== selectedCategory) {
+        return { ...category, packages: [] };
+      }
+      
+      const filteredPackages = category.packages.filter(pkg =>
+        pkg.name.toLowerCase().includes(packageSearch.toLowerCase()) ||
+        pkg.description.toLowerCase().includes(packageSearch.toLowerCase())
+      );
+      
+      return { ...category, packages: filteredPackages };
+    }).filter(category => category.packages.length > 0);
+  };
+
+  const clearFilters = () => {
+    setPackageSearch('');
+    setSelectedCategory('all');
   };
 
   const startBuild = () => {
@@ -169,7 +210,7 @@ const ArchISOBuilder = () => {
               <CardHeader>
                 <CardTitle className="text-white">Choose a Profile</CardTitle>
                 <CardDescription>
-                  Start with a pre-configured profile or create a custom configuration
+                  Start with a pre-configured profile or create a completely custom configuration
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -189,8 +230,15 @@ const ArchISOBuilder = () => {
                         <h3 className="text-lg font-semibold text-white mb-2">{profile.name}</h3>
                         <p className="text-sm text-gray-400 mb-4">{profile.description}</p>
                         <Badge variant="secondary" className="bg-slate-600">
-                          {profile.packages.length} packages
+                          {profile.id === 'custom' ? 'Full Control' : `${profile.packages.length} packages`}
                         </Badge>
+                        {profile.id === 'custom' && (
+                          <div className="mt-3">
+                            <Badge variant="outline" className="border-purple-500 text-purple-400">
+                              Recommended for Advanced Users
+                            </Badge>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
@@ -199,7 +247,7 @@ const ArchISOBuilder = () => {
             </Card>
           </TabsContent>
 
-          {/* Packages Tab */}
+          {/* Enhanced Packages Tab */}
           <TabsContent value="packages" className="space-y-6">
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
@@ -209,14 +257,79 @@ const ArchISOBuilder = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
+                {/* Search and Filter Controls */}
+                <div className="flex flex-col md:flex-row gap-4 mb-6">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      placeholder="Search packages..."
+                      value={packageSearch}
+                      onChange={(e) => setPackageSearch(e.target.value)}
+                      className="pl-10 bg-slate-700 border-slate-600 text-white"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                      <SelectTrigger className="w-48 bg-slate-700 border-slate-600 text-white">
+                        <Filter className="h-4 w-4 mr-2" />
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-700 border-slate-600">
+                        <SelectItem value="all">All Categories</SelectItem>
+                        {packageCategories.map(category => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {(packageSearch || selectedCategory !== 'all') && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={clearFilters}
+                        className="border-slate-600 text-white hover:bg-slate-600"
+                      >
+                        <X className="h-4 w-4 mr-2" />
+                        Clear
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Package Count Summary */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-slate-700 p-4 rounded-lg text-center">
+                    <div className="text-2xl font-bold text-white">{getSelectedPackages().length}</div>
+                    <div className="text-sm text-gray-400">Selected Packages</div>
+                  </div>
+                  <div className="bg-slate-700 p-4 rounded-lg text-center">
+                    <div className="text-2xl font-bold text-white">
+                      {packageCategories.flatMap(c => c.packages.filter(p => p.required)).length}
+                    </div>
+                    <div className="text-sm text-gray-400">Required Packages</div>
+                  </div>
+                  <div className="bg-slate-700 p-4 rounded-lg text-center">
+                    <div className="text-2xl font-bold text-white">
+                      {packageCategories.flatMap(c => c.packages).length}
+                    </div>
+                    <div className="text-sm text-gray-400">Total Available</div>
+                  </div>
+                </div>
+
                 <ScrollArea className="h-96">
-                  {packageCategories.map((category) => (
+                  {getFilteredPackages().map((category) => (
                     <div key={category.id} className="mb-6">
-                      <h3 className="text-lg font-semibold text-white mb-2">{category.name}</h3>
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-lg font-semibold text-white">{category.name}</h3>
+                        <Badge variant="secondary" className="bg-slate-600">
+                          {category.packages.filter(p => p.selected).length}/{category.packages.length} selected
+                        </Badge>
+                      </div>
                       <p className="text-sm text-gray-400 mb-3">{category.description}</p>
                       <div className="space-y-2">
                         {category.packages.map((pkg) => (
-                          <div key={pkg.name} className="flex items-center space-x-3 p-2 rounded-lg bg-slate-700">
+                          <div key={pkg.name} className="flex items-center space-x-3 p-3 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors">
                             <Checkbox
                               checked={pkg.selected}
                               disabled={pkg.required}
@@ -224,9 +337,10 @@ const ArchISOBuilder = () => {
                               className="data-[state=checked]:bg-purple-600"
                             />
                             <div className="flex-1">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2 mb-1">
                                 <span className="text-white font-medium">{pkg.name}</span>
                                 {pkg.required && <Badge variant="destructive" className="text-xs">Required</Badge>}
+                                {pkg.selected && !pkg.required && <Badge variant="default" className="text-xs bg-purple-600">Selected</Badge>}
                               </div>
                               <p className="text-sm text-gray-400">{pkg.description}</p>
                             </div>
@@ -236,6 +350,11 @@ const ArchISOBuilder = () => {
                       <Separator className="mt-4 bg-slate-600" />
                     </div>
                   ))}
+                  {getFilteredPackages().length === 0 && (
+                    <div className="text-center py-8">
+                      <p className="text-gray-400">No packages found matching your search criteria.</p>
+                    </div>
+                  )}
                 </ScrollArea>
               </CardContent>
             </Card>
@@ -349,7 +468,7 @@ const ArchISOBuilder = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-slate-700 p-4 rounded-lg">
                     <h4 className="text-white font-semibold mb-2">Profile</h4>
-                    <p className="text-gray-300">{selectedProfile?.name || 'Custom'}</p>
+                    <p className="text-gray-300">{selectedProfile?.name || 'No Profile Selected'}</p>
                   </div>
                   <div className="bg-slate-700 p-4 rounded-lg">
                     <h4 className="text-white font-semibold mb-2">Packages</h4>
@@ -375,12 +494,18 @@ const ArchISOBuilder = () => {
                 {/* Build Button */}
                 <Button 
                   onClick={startBuild}
-                  disabled={isBuilding}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 text-lg"
+                  disabled={isBuilding || !selectedProfile}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 text-lg disabled:opacity-50"
                 >
                   <HardDrive className="h-5 w-5 mr-2" />
                   {isBuilding ? 'Building ISO...' : 'Build Custom ISO'}
                 </Button>
+
+                {!selectedProfile && (
+                  <p className="text-center text-gray-400 text-sm">
+                    Please select a profile from the Profiles tab to continue.
+                  </p>
+                )}
 
                 {/* Previous Builds */}
                 <div className="mt-8">
