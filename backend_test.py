@@ -3,7 +3,12 @@ import unittest
 import json
 import time
 import uuid
+import os
+import sys
 from typing import Dict, Any, List, Optional
+
+# Add backend directory to Python path
+sys.path.append('/app/backend')
 
 # Configuration
 BASE_URL = "http://localhost:8001/api"  # Base URL for the backend API
