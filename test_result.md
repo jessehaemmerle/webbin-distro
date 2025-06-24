@@ -153,14 +153,17 @@ frontend:
   - task: "Frontend Testing"
     implemented: true
     working: "NA"
-    file: "/app/frontend/src/App.js"
+    file: "/app/frontend/src/components/ArchISOBuilder.jsx"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "testing"
         comment: "Frontend testing not in scope for this task"
+      - working: "NA"
+        agent: "testing"
+        comment: "Starting comprehensive testing of the Arch ISO Builder frontend application"
 
 metadata:
   created_by: "testing_agent"
