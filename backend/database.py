@@ -2,9 +2,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from backend.models import ISOConfigModel, BuildLogModel
 import os
 from typing import List, Optional
+from datetime import datetime
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017/')
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ.get('DB_NAME', 'arch_iso_builder')]
 
