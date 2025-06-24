@@ -11,7 +11,7 @@ from typing import Dict, Any, List, Optional
 sys.path.append('/app/backend')
 
 # Configuration
-BASE_URL = "http://localhost:8001/api"  # Base URL for the backend API
+BASE_URL = "http://0.0.0.0:8001/api"  # Base URL for the backend API
 
 class ArchISOBuilderAPITest(unittest.TestCase):
     """Test suite for the Arch ISO Builder API"""
