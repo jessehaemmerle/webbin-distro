@@ -1,5 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorClient
-from models import ISOConfigModel, BuildLogModel
+from backend.models import ISOConfigModel, BuildLogModel
 import os
 from typing import List, Optional
 
