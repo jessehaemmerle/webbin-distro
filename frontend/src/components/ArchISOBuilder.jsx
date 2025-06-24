@@ -10,33 +10,70 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
 import { Separator } from './ui/separator';
-import { Download, Settings, Package, Users, Monitor, Server, Gamepad2, Code, HardDrive, Play, CheckCircle, Clock, AlertCircle, Search, Filter, X } from 'lucide-react';
-import { mockProfiles, mockPackageCategories, mockDesktopEnvironments, mockUserConfig, mockISOConfigs } from '../mock/data';
+import { Download, Settings, Package, Users, Monitor, Play, CheckCircle, Clock, AlertCircle, Search, Filter, X, Loader2, RefreshCw } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import { archISOAPI } from '../services/api';
 
 const ArchISOBuilder = () => {
   const [currentTab, setCurrentTab] = useState('profiles');
   const [selectedProfile, setSelectedProfile] = useState(null);
-  const [packageCategories, setPackageCategories] = useState(mockPackageCategories);
-  const [userConfig, setUserConfig] = useState(mockUserConfig);
-  const [desktopEnvironments, setDesktopEnvironments] = useState(mockDesktopEnvironments);
-  const [buildProgress, setBuildProgress] = useState(0);
-  const [isBuilding, setIsBuilding] = useState(false);
-  const [isoConfigs, setISOConfigs] = useState(mockISOConfigs);
+  const [profiles, setProfiles] = useState([]);
+  const [packageCategories, setPackageCategories] = useState([]);
+  const [desktopEnvironments, setDesktopEnvironments] = useState([]);
+  const [userConfig, setUserConfig] = useState({
+    hostname: 'archbox',
+    username: 'user',
+    timezone: 'UTC',
+    locale: 'en_US.UTF-8',
+    keymap: 'us'
+  });
+  const [isoConfigs, setISOConfigs] = useState([]);
   const [packageSearch, setPackageSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isBuilding, setIsBuilding] = useState(false);
   const { toast } = useToast();
 
-  const getProfileIcon = (profileId) => {
-    const icons = {
-      custom: '🛠️',
-      minimal: '📦',
-      desktop: '🖥️',
-      developer: '👨‍💻',
-      gaming: '🎮',
-      server: '🖧'
-    };
-    return icons[profileId] || '📦';
+  // Load initial data
+  useEffect(() => {
+    loadInitialData();
+    // Set up polling for ISO configs
+    const interval = setInterval(loadISOConfigs, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const loadInitialData = async () => {
+    try {
+      setIsLoading(true);
+      const [profilesData, packagesData, desktopData, configsData] = await Promise.all([
+        archISOAPI.getProfiles(),
+        archISOAPI.getPackageCategories(),
+        archISOAPI.getDesktopEnvironments(),
+        archISOAPI.getISOConfigs()
+      ]);
+
+      setProfiles(profilesData);
+      setPackageCategories(packagesData);
+      setDesktopEnvironments(desktopData);
+      setISOConfigs(configsData);
+    } catch (error) {
+      toast({
+        title: "Error Loading Data",
+        description: "Failed to load initial data. Please refresh the page.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadISOConfigs = async () => {
+    try {
+      const configsData = await archISOAPI.getISOConfigs();
+      setISOConfigs(configsData);
+    } catch (error) {
+      console.error('Error refreshing ISO configs:', error);
+    }
   };
 
   const selectProfile = (profile) => {
@@ -124,38 +161,70 @@ const ArchISOBuilder = () => {
     setSelectedCategory('all');
   };
 
-  const startBuild = () => {
-    setIsBuilding(true);
-    setBuildProgress(0);
-    
-    // Simulate build progress
-    const interval = setInterval(() => {
-      setBuildProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsBuilding(false);
-          toast({
-            title: "ISO Build Complete!",
-            description: "Your custom Arch Linux ISO is ready for download.",
-          });
-          
-          // Add to ISO configs list
-          const newConfig = {
-            id: Date.now().toString(),
-            name: selectedProfile ? selectedProfile.name : 'Custom Configuration',
-            profile: selectedProfile?.id || 'custom',
-            createdAt: new Date().toISOString(),
-            status: 'completed',
-            size: `${(Math.random() * 2 + 1).toFixed(1)} GB`,
-            downloadUrl: `/downloads/custom-${Date.now()}.iso`
-          };
-          setISOConfigs(prev => [newConfig, ...prev]);
-          
-          return 100;
-        }
-        return prev + Math.random() * 15;
+  const startBuild = async () => {
+    if (!selectedProfile) {
+      toast({
+        title: "No Profile Selected",
+        description: "Please select a profile before building.",
+        variant: "destructive"
       });
-    }, 500);
+      return;
+    }
+
+    const selectedDE = desktopEnvironments.find(de => de.selected);
+    const configData = {
+      name: `${selectedProfile.name} - ${new Date().toLocaleDateString()}`,
+      profile_id: selectedProfile.id,
+      selected_packages: getSelectedPackages(),
+      desktop_environment: selectedDE?.id || 'none',
+      user_config: userConfig,
+      custom_settings: {}
+    };
+
+    try {
+      setIsBuilding(true);
+      const newConfig = await archISOAPI.createISOConfig(configData);
+      
+      toast({
+        title: "Build Started",
+        description: "Your ISO build has been queued and will start shortly.",
+      });
+
+      // Add to local state immediately
+      setISOConfigs(prev => [newConfig, ...prev]);
+      
+      // Switch to build tab to show progress
+      setCurrentTab('build');
+      
+    } catch (error) {
+      toast({
+        title: "Build Failed",
+        description: "Failed to start ISO build. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsBuilding(false);
+    }
+  };
+
+  const handleDownload = async (config) => {
+    if (!config.download_url) return;
+    
+    try {
+      const filename = config.download_url.split('/').pop();
+      window.open(`${process.env.REACT_APP_BACKEND_URL}/api/downloads/${filename}`, '_blank');
+      
+      toast({
+        title: "Download Started",
+        description: "Your ISO download has started.",
+      });
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "Failed to download ISO file.",
+        variant: "destructive"
+      });
+    }
   };
 
   const getStatusIcon = (status) => {
@@ -166,6 +235,18 @@ const ArchISOBuilder = () => {
       default: return <Clock className="h-4 w-4 text-gray-500" />;
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin text-purple-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Loading Arch ISO Builder</h2>
+          <p className="text-gray-400">Setting up your build environment...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -215,7 +296,7 @@ const ArchISOBuilder = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {mockProfiles.map((profile) => (
+                  {profiles.map((profile) => (
                     <Card 
                       key={profile.id}
                       className={`cursor-pointer transition-all duration-300 hover:scale-105 border-2 ${
@@ -305,13 +386,13 @@ const ArchISOBuilder = () => {
                   </div>
                   <div className="bg-slate-700 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-white">
-                      {packageCategories.flatMap(c => c.packages.filter(p => p.required)).length}
+                      {packageCategories.flatMap(c => c.packages?.filter(p => p.required) || []).length}
                     </div>
                     <div className="text-sm text-gray-400">Required Packages</div>
                   </div>
                   <div className="bg-slate-700 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-white">
-                      {packageCategories.flatMap(c => c.packages).length}
+                      {packageCategories.flatMap(c => c.packages || []).length}
                     </div>
                     <div className="text-sm text-gray-400">Total Available</div>
                   </div>
@@ -323,12 +404,12 @@ const ArchISOBuilder = () => {
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="text-lg font-semibold text-white">{category.name}</h3>
                         <Badge variant="secondary" className="bg-slate-600">
-                          {category.packages.filter(p => p.selected).length}/{category.packages.length} selected
+                          {category.packages?.filter(p => p.selected).length || 0}/{category.packages?.length || 0} selected
                         </Badge>
                       </div>
                       <p className="text-sm text-gray-400 mb-3">{category.description}</p>
                       <div className="space-y-2">
-                        {category.packages.map((pkg) => (
+                        {(category.packages || []).map((pkg) => (
                           <div key={pkg.name} className="flex items-center space-x-3 p-3 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors">
                             <Checkbox
                               checked={pkg.selected}
@@ -458,10 +539,23 @@ const ArchISOBuilder = () => {
           <TabsContent value="build" className="space-y-6">
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-white">Build Configuration</CardTitle>
-                <CardDescription>
-                  Review your configuration and build your custom Arch ISO
-                </CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-white">Build Configuration</CardTitle>
+                    <CardDescription>
+                      Review your configuration and build your custom Arch ISO
+                    </CardDescription>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={loadISOConfigs}
+                    className="border-slate-600 text-white hover:bg-slate-600"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Configuration Summary */}
@@ -480,25 +574,23 @@ const ArchISOBuilder = () => {
                   </div>
                 </div>
 
-                {/* Build Progress */}
-                {isBuilding && (
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-white">Building ISO...</span>
-                      <span className="text-gray-400">{Math.round(buildProgress)}%</span>
-                    </div>
-                    <Progress value={buildProgress} className="bg-slate-700" />
-                  </div>
-                )}
-
                 {/* Build Button */}
                 <Button 
                   onClick={startBuild}
                   disabled={isBuilding || !selectedProfile}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 text-lg disabled:opacity-50"
                 >
-                  <HardDrive className="h-5 w-5 mr-2" />
-                  {isBuilding ? 'Building ISO...' : 'Build Custom ISO'}
+                  {isBuilding ? (
+                    <>
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      Starting Build...
+                    </>
+                  ) : (
+                    <>
+                      <Play className="h-5 w-5 mr-2" />
+                      Build Custom ISO
+                    </>
+                  )}
                 </Button>
 
                 {!selectedProfile && (
@@ -507,7 +599,7 @@ const ArchISOBuilder = () => {
                   </p>
                 )}
 
-                {/* Previous Builds */}
+                {/* ISO Builds */}
                 <div className="mt-8">
                   <h4 className="text-white font-semibold mb-4">Your ISO Builds</h4>
                   <div className="space-y-3">
@@ -518,24 +610,36 @@ const ArchISOBuilder = () => {
                           <div>
                             <h5 className="text-white font-medium">{config.name}</h5>
                             <p className="text-sm text-gray-400">
-                              {new Date(config.createdAt).toLocaleDateString()} • {config.size || 'Building...'}
+                              {new Date(config.created_at).toLocaleDateString()} • {config.size || 'Building...'}
                             </p>
                           </div>
                         </div>
-                        {config.status === 'completed' && (
-                          <Button variant="outline" size="sm" className="border-slate-600 text-white hover:bg-slate-600">
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </Button>
-                        )}
-                        {config.status === 'building' && config.progress && (
-                          <div className="flex items-center space-x-2">
-                            <Progress value={config.progress} className="w-24 bg-slate-600" />
-                            <span className="text-sm text-gray-400">{config.progress}%</span>
-                          </div>
-                        )}
+                        <div className="flex items-center space-x-2">
+                          {config.status === 'building' && (
+                            <div className="flex items-center space-x-2">
+                              <Progress value={config.progress} className="w-24 bg-slate-600" />
+                              <span className="text-sm text-gray-400">{config.progress}%</span>
+                            </div>
+                          )}
+                          {config.status === 'completed' && (
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => handleDownload(config)}
+                              className="border-slate-600 text-white hover:bg-slate-600"
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              Download
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     ))}
+                    {isoConfigs.length === 0 && (
+                      <div className="text-center py-8">
+                        <p className="text-gray-400">No ISO builds yet. Create your first build above!</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </CardContent>
