@@ -9,13 +9,13 @@ from pathlib import Path
 from typing import List
 
 # Import our models and services
-from models import (
+from backend.models import (
     ISOConfigRequest, ISOConfigModel, ISOConfigResponse, 
     PackageCategoryModel, ProfileModel, DesktopEnvironmentModel,
     BuildStatus, BuildLogModel
 )
-from database import DatabaseManager
-from iso_builder import iso_builder
+from backend.database import DatabaseManager
+from backend.iso_builder import iso_builder
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
