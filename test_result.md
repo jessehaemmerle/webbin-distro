@@ -173,18 +173,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Health Check API"
-    - "Profile Management API"
-    - "Package Categories API"
-    - "Desktop Environments API"
-    - "ISO Configuration Creation API"
-    - "ISO Configuration Retrieval API"
-    - "Individual ISO Config API"
-    - "Build Progress Verification"
-    - "Error Handling"
-    - "Database Integration"
+    - "Frontend Testing"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
