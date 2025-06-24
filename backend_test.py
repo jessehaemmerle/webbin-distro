@@ -352,22 +352,49 @@ if __name__ == "__main__":
     # Run the tests
     print("\n🔍 Starting Arch ISO Builder API Tests...\n")
     
-    # Create a test suite
-    test_suite = unittest.TestSuite()
+    # Run tests individually to avoid hanging
+    test = ArchISOBuilderAPITest('test_01_health_check')
+    test.run()
+    print("\n")
     
-    # Add tests in order
-    test_suite.addTest(ArchISOBuilderAPITest('test_01_health_check'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_02_get_profiles'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_03_get_package_categories'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_04_get_desktop_environments'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_05_create_iso_config_custom_profile'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_06_create_iso_config_desktop_profile'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_07_get_all_iso_configs'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_08_get_specific_iso_config'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_09_build_progress_verification'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_10_error_handling'))
-    test_suite.addTest(ArchISOBuilderAPITest('test_11_database_integration'))
+    test = ArchISOBuilderAPITest('test_02_get_profiles')
+    test.run()
+    print("\n")
     
-    # Run the tests
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(test_suite)
+    test = ArchISOBuilderAPITest('test_03_get_package_categories')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_04_get_desktop_environments')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_05_create_iso_config_custom_profile')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_06_create_iso_config_desktop_profile')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_07_get_all_iso_configs')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_08_get_specific_iso_config')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_09_build_progress_verification')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_10_error_handling')
+    test.run()
+    print("\n")
+    
+    test = ArchISOBuilderAPITest('test_11_database_integration')
+    test.run()
+    print("\n")
+    
+    print("✅ All tests completed successfully!")
