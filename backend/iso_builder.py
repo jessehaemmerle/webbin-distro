@@ -8,8 +8,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from pathlib import Path
 
-from models import ISOConfigModel, BuildStatus, BuildLogModel
-from database import DatabaseManager
+from backend.models import ISOConfigModel, BuildStatus, BuildLogModel
+from backend.database import DatabaseManager
 
 logger = logging.getLogger(__name__)
 
