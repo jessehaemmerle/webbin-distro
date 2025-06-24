@@ -64,6 +64,13 @@ export const mockPackageCategories = [
 
 export const mockProfiles = [
   {
+    id: 'custom',
+    name: 'Custom Configuration',
+    description: 'Start from scratch and choose exactly what you need',
+    icon: '🛠️',
+    packages: ['base', 'linux', 'linux-firmware', 'grub'] // Only essential required packages
+  },
+  {
     id: 'minimal',
     name: 'Minimal Installation',
     description: 'Bare minimum packages for a functional Arch system',
