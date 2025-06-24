@@ -183,3 +183,5 @@ agent_communication:
     message: "Starting backend API testing for Arch ISO Builder"
   - agent: "testing"
     message: "All backend API tests have been completed successfully. The API endpoints are working as expected, though actual MongoDB persistence and build status changes couldn't be fully verified due to connection limitations in the test environment."
+  - agent: "testing"
+    message: "Starting comprehensive frontend testing for Arch ISO Builder application"
