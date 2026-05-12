@@ -3,18 +3,39 @@ set -euo pipefail
 
 MODE="${1:---dashboard}"
 HTML="/usr/share/aptura-flow/index.html"
-SOURCE_README="/usr/share/aptura-flow/README.md"
+APP_URI="file://${HTML}"
 
-if [[ -f "${HTML}" ]]; then
-  exec xdg-open "file://${HTML}"
+case "${MODE}" in
+  --settings)
+    APP_URI="${APP_URI}#settings"
+    ;;
+  --updates)
+    APP_URI="${APP_URI}#updates"
+    ;;
+  --welcome)
+    APP_URI="${APP_URI}#welcome"
+    ;;
+  *)
+    APP_URI="${APP_URI}#dashboard"
+    ;;
+esac
+
+if [[ ! -f "${HTML}" ]]; then
+  printf 'Aptura Flow system app is missing %s\n' "${HTML}" >&2
+  exit 1
 fi
 
-if command -v gnome-control-center >/dev/null 2>&1 && [[ "${MODE}" == "--settings" ]]; then
-  exec gnome-control-center
+if command -v gio >/dev/null 2>&1; then
+  exec gio open "${APP_URI}"
 fi
 
 if command -v xdg-open >/dev/null 2>&1; then
-  exec xdg-open "file://${SOURCE_README}"
+  exec xdg-open "${APP_URI}"
 fi
 
-printf 'Aptura Flow prototype is installed. Build frontend assets from desktop/shell.\n'
+if command -v sensible-browser >/dev/null 2>&1; then
+  exec sensible-browser "${APP_URI}"
+fi
+
+printf 'Aptura Flow is installed at %s but no desktop opener was found.\n' "${HTML}" >&2
+exit 1

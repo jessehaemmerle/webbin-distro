@@ -49,7 +49,7 @@ function App() {
     <main className="flow-root" data-theme={theme} style={{ "--accent": accent }}>
       <aside className="flow-sidebar" aria-label="Aptura Flow navigation">
         <div className="brand">
-          <img src="/aptura-mark.svg" alt="" />
+          <img src="./aptura-mark.svg" alt="" />
           <div>
             <strong>Aptura</strong>
             <span>Flow</span>

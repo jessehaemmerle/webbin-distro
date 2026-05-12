@@ -21,6 +21,14 @@ Depends:
  ufw,
  apparmor,
  calamares,
+ dosfstools,
+ efibootmgr,
+ grub-common,
+ grub2-common,
+ grub-efi-amd64-bin,
+ grub-pc-bin,
+ mtools,
+ os-prober,
  ${misc:Depends}
 Description: core metapackage for Aptura OS
  This package depends on the core packages that define the Aptura OS desktop

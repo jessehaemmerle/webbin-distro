@@ -35,6 +35,13 @@ body {
   backdrop-filter: blur(18px);
 }
 
+.mark {
+  width: 58px;
+  height: 58px;
+  margin: 0 0 18px;
+  filter: drop-shadow(0 10px 24px rgb(24 169 153 / 32%));
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--accent);

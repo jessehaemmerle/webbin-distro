@@ -1,3 +1,9 @@
 usr/bin/aptura-flow usr/bin/
 usr/share/applications/aptura-flow.desktop usr/share/applications/
+usr/share/icons/hicolor/scalable/apps/aptura-flow.svg usr/share/icons/hicolor/scalable/apps/
+usr/share/metainfo/io.aptura.flow.metainfo.xml usr/share/metainfo/
+usr/share/aptura-flow/index.html usr/share/aptura-flow/
+usr/share/aptura-flow/app.css usr/share/aptura-flow/
+usr/share/aptura-flow/app.js usr/share/aptura-flow/
+usr/share/aptura-flow/aptura-flow.svg usr/share/aptura-flow/
 usr/share/aptura-flow/README.md usr/share/aptura-flow/

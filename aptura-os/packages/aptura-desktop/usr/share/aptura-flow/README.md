@@ -1,12 +1,12 @@
-# Aptura Flow Runtime Placeholder
+# Aptura Flow Runtime
 
-This package installs the launcher and integration points for Aptura Flow.
+This package installs the Aptura Flow system app and desktop integration points.
 
-The React prototype lives in `desktop/shell`. A production build should copy the
-compiled Vite output into this directory as `index.html` and static assets.
+The React prototype lives in `desktop/shell`. This runtime is the packaged
+system-app surface used by the ISO until the prototype is promoted to a native
+WebView, Tauri, or GNOME Shell companion.
 
 TODO:
 
-- Build `desktop/shell` during package creation.
 - Wrap the frontend in Tauri, WebKitGTK, or a GNOME Shell extension companion.
 - Add D-Bus services for update status, power profile, quick settings, and search.

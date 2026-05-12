@@ -51,6 +51,11 @@ calamares
 calamares-settings-debian
 parted
 gparted
+dosfstools
+mtools
+grub-common
+grub2-common
 grub-efi-amd64-bin
 grub-pc-bin
+efibootmgr
 os-prober

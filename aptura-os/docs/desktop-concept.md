@@ -132,7 +132,7 @@ npm run dev
 Packaging path:
 
 1. Build static assets with `npm run build`.
-2. Copy `dist/` into `packages/aptura-desktop/usr/share/aptura-flow/`.
+2. Replace the packaged static runtime in `packages/aptura-desktop/usr/share/aptura-flow/` with the Vite `dist/` output.
 3. Replace the launcher with a WebKitGTK/Tauri wrapper.
 4. Add D-Bus services for update and settings state.
 

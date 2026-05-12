@@ -13,6 +13,6 @@ Depends:
  plymouth,
  ${misc:Depends}
 Description: branding assets for Aptura OS
- Installs Aptura OS wallpaper, Plymouth theme placeholder, login theme
- placeholder, and derivative metadata used by live-build hooks and desktop
+ Installs Aptura OS wallpaper, icons, Plymouth theme, login theme, GRUB menu
+ defaults, and derivative metadata used by live-build hooks and desktop
  integration.

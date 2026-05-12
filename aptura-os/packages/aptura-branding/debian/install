@@ -1,6 +1,9 @@
 etc/aptura/branding.conf etc/aptura/
+etc/default/grub.d/aptura.cfg etc/default/grub.d/
 usr/lib/os-release.d/aptura-os-release usr/lib/os-release.d/
 usr/share/backgrounds/aptura/aptura-default.svg usr/share/backgrounds/aptura/
+usr/share/icons/hicolor/scalable/apps/aptura.svg usr/share/icons/hicolor/scalable/apps/
+usr/share/pixmaps/aptura.svg usr/share/pixmaps/
 usr/share/plymouth/themes/aptura/aptura.plymouth usr/share/plymouth/themes/aptura/
 usr/share/plymouth/themes/aptura/aptura.script usr/share/plymouth/themes/aptura/
 usr/share/lightdm-webkit/themes/aptura/index.html usr/share/lightdm-webkit/themes/aptura/

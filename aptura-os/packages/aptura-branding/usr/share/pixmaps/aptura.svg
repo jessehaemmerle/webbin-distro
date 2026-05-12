@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Aptura OS">
+  <defs>
+    <linearGradient id="aptura-bg" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#18a999"/>
+      <stop offset="0.52" stop-color="#1b4d4b"/>
+      <stop offset="1" stop-color="#e66f51"/>
+    </linearGradient>
+    <linearGradient id="aptura-cut" x1="34" y1="24" x2="62" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f8f6ef"/>
+      <stop offset="1" stop-color="#dce8e4"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="80" height="80" rx="18" fill="#101418"/>
+  <path d="M48 10 86 48 48 86 10 48Z" fill="url(#aptura-bg)"/>
+  <path d="M48 22 70 48 48 74 26 48Z" fill="#101418" fill-opacity=".72"/>
+  <path d="M48 29 63 48 48 67 33 48Z" fill="url(#aptura-cut)"/>
+  <path d="M48 38 56 48 48 58 40 48Z" fill="#18a999"/>
+</svg>

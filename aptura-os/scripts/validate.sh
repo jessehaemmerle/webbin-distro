@@ -65,6 +65,8 @@ check_config() {
   require_file "${ROOT_DIR}/config/packages.list"
   require_file "${ROOT_DIR}/config/apt-sources.list"
   require_file "${ROOT_DIR}/config/branding.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/partition.conf"
   require_dir "${ROOT_DIR}/config/live-build"
 
   if ! grep -Eq '^[[:space:]]*deb[[:space:]]+' "${ROOT_DIR}/config/apt-sources.list"; then
@@ -78,6 +80,21 @@ check_config() {
   local packages_count
   packages_count="$(grep -Ev '^[[:space:]]*(#|$)' "${ROOT_DIR}/config/packages.list" | wc -l | awk '{print $1}')"
   [[ "${packages_count}" -gt 0 ]] || fail "config/packages.list is empty"
+
+  local boot_pkg
+  for boot_pkg in grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr dosfstools mtools; do
+    if ! grep -Eq "^[[:space:]]*${boot_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list missing bootloader support package: ${boot_pkg}"
+    fi
+  done
+
+  if ! grep -Eq '^[[:space:]]*efiBootloaderId:[[:space:]]*"debian"' "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"; then
+    fail "bootloader.conf must set efiBootloaderId: \"debian\" for Debian GRUB EFI"
+  fi
+
+  if grep -Eq '^[[:space:]]*defaultPartitionTableType:[[:space:]]*gpt' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
+    fail "partition.conf forces GPT for BIOS installs; let Calamares select by boot mode"
+  fi
 
   case " ${SUPPORTED_ARCHITECTURES} " in
     *" ${ARCH} "*) ;;
@@ -94,6 +111,12 @@ check_packages() {
     require_file "${ROOT_DIR}/packages/${pkg}/debian/rules"
     require_file "${ROOT_DIR}/packages/${pkg}/debian/install"
   done
+
+  require_file "${ROOT_DIR}/packages/aptura-branding/etc/default/grub.d/aptura.cfg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/aptura.svg"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-flow/index.html"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-flow/app.js"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.flow.metainfo.xml"
 }
 
 check_permissions() {

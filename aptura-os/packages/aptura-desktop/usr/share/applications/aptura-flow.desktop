@@ -1,9 +1,10 @@
 [Desktop Entry]
 Type=Application
 Name=Aptura Flow
-Comment=Open the Aptura Flow dashboard
+Comment=Open the Aptura Flow system dashboard
 Exec=aptura-flow --dashboard
-Icon=aptura
+Icon=aptura-flow
 Terminal=false
-Categories=System;Settings;
+Categories=System;Settings;Utility;
+Keywords=aptura;flow;settings;updates;dashboard;
 StartupNotify=true

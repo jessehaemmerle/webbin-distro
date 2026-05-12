@@ -33,7 +33,7 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura Flow desktop prototype using Vite and React.
+- Aptura Flow packaged as a local system app, plus a Vite/React prototype for iteration.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.
 - Documentation for architecture, build, package management, security, releases, and roadmap.
@@ -58,6 +58,11 @@ sudo apt install --no-install-recommends \
   xorriso \
   isolinux \
   syslinux-common \
+  dosfstools \
+  mtools \
+  efibootmgr \
+  grub-common \
+  grub2-common \
   grub-pc-bin \
   grub-efi-amd64-bin \
   qemu-system-x86 \
@@ -142,14 +147,14 @@ The live ISO includes Calamares configuration for:
 - Automatic or manual partitioning.
 - Optional encryption in the partitioning module.
 - User creation.
-- Bootloader installation.
+- Bootloader installation with Debian-compatible GRUB EFI path handling.
 - Summary and finish screens.
 
 Partitioning is destructive when the user selects whole-disk installation. Always test in a VM first.
 
 ## Aptura Flow
 
-Aptura Flow is the custom UX layer. The MVP uses GNOME Shell as the stable compositor/session base and adds a React-based shell prototype that can later be packaged as a native WebView/Tauri component, GNOME extension companion app, or system settings surface.
+Aptura Flow is the custom UX layer. The MVP uses GNOME Shell as the stable compositor/session base and installs Aptura Flow as a packaged system app under `/usr/share/aptura-flow`. The Vite/React shell remains available for faster UX iteration and can later replace the static runtime or move into a native WebView/Tauri component, GNOME extension companion app, or system settings surface.
 
 Run the prototype:
 
@@ -177,7 +182,7 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- Aptura Flow is a frontend prototype, not yet a privileged desktop shell.
+- Aptura Flow is packaged as an unprivileged system app, not yet a privileged desktop shell.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -187,7 +192,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Compile and package Aptura Flow as a local system app.
+- Promote the Aptura Flow prototype into the packaged runtime build.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Complete branding assets under an open license.

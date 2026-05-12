@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.aptura.flow</id>
+  <name>Aptura Flow</name>
+  <summary>System dashboard for Aptura OS</summary>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <launchable type="desktop-id">aptura-flow.desktop</launchable>
+  <developer_name>Aptura OS Team</developer_name>
+  <description>
+    <p>Aptura Flow provides the packaged system dashboard, launcher, update status, settings surface, and welcome surface for Aptura OS.</p>
+  </description>
+  <categories>
+    <category>System</category>
+    <category>Settings</category>
+  </categories>
+  <releases>
+    <release version="0.1.0" date="2026-05-12"/>
+  </releases>
+</component>

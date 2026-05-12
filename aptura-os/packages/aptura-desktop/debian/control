@@ -15,8 +15,8 @@ Depends:
  xdg-utils,
  ${misc:Depends}
 Recommends:
- nodejs,
+ firefox-esr | www-browser
 Description: Aptura Flow desktop integration
- Installs launchers and integration files for the Aptura Flow desktop prototype.
+ Installs the Aptura Flow system app, launchers, and integration files.
  The current MVP uses GNOME Shell as the compositor/session base and exposes
- Aptura Flow as a packageable shell companion surface.
+ Aptura Flow as a packaged shell companion surface.

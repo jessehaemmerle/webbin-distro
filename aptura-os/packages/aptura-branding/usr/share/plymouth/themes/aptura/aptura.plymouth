@@ -1,6 +1,6 @@
 [Plymouth Theme]
 Name=Aptura
-Description=Aptura OS boot theme placeholder
+Description=Aptura OS boot theme
 ModuleName=script
 
 [script]

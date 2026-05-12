@@ -10,9 +10,9 @@ Install dependencies:
 sudo apt update
 sudo apt install --no-install-recommends \
   live-build dpkg-dev devscripts debhelper equivs apt-utils reprepro \
-  squashfs-tools xorriso isolinux syslinux-common grub-pc-bin \
-  grub-efi-amd64-bin qemu-system-x86 qemu-utils git curl wget gnupg \
-  ca-certificates
+  squashfs-tools xorriso isolinux syslinux-common dosfstools mtools \
+  grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr \
+  qemu-system-x86 qemu-utils git curl wget gnupg ca-certificates
 ```
 
 ## Build Steps
@@ -102,7 +102,14 @@ Update `installer/calamares/modules/unpackfs.conf`.
 ### Bootloader fails in VM
 
 Verify whether the VM booted in BIOS or UEFI mode and whether the partition
-table matches that mode. Test both paths before release.
+table matches that mode. Aptura's automatic partitioning lets Calamares choose
+GPT for UEFI and msdos for BIOS so GRUB has a valid target in both modes. Test
+both paths before release.
+
+For UEFI installs on Debian-derived images, keep `efiBootloaderId: "debian"` in
+`installer/calamares/modules/bootloader.conf`. Debian's GRUB EFI binary expects
+its configuration below `/EFI/debian`; Aptura branding is applied to the GRUB
+menu and OS metadata instead.
 
 ### APT rejects repositories
 
