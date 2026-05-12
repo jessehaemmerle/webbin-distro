@@ -1,0 +1,10 @@
+# Debian 13 trixie sources used by Aptura OS.
+# Prefer codenames over "stable" aliases so future Debian releases do not
+# silently change the base distribution.
+
+deb http://deb.debian.org/debian trixie main contrib non-free-firmware
+deb http://deb.debian.org/debian trixie-updates main contrib non-free-firmware
+deb http://security.debian.org/debian-security trixie-security main contrib non-free-firmware
+
+# TODO: For production, ship a deb822 .sources file with explicit Signed-By.
+# TODO: Add the signed Aptura update repository once public infrastructure exists.

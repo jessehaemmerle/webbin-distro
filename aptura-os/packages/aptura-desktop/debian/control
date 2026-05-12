@@ -1,0 +1,22 @@
+Source: aptura-desktop
+Section: x11
+Priority: optional
+Maintainer: Aptura OS Team <maintainers@example.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: aptura-desktop
+Architecture: all
+Depends:
+ gnome-shell,
+ gnome-session,
+ gnome-control-center,
+ xdg-utils,
+ ${misc:Depends}
+Recommends:
+ nodejs,
+Description: Aptura Flow desktop integration
+ Installs launchers and integration files for the Aptura Flow desktop prototype.
+ The current MVP uses GNOME Shell as the compositor/session base and exposes
+ Aptura Flow as a packageable shell companion surface.

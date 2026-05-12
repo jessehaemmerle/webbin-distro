@@ -1,0 +1,15 @@
+QWidget {
+  font-family: Cantarell, Inter, sans-serif;
+}
+
+#sidebarAppName {
+  color: #f8f6ef;
+}
+
+#sidebarMenuApp {
+  background: #101418;
+}
+
+#sidebarMenuApp QListView::item:selected {
+  color: #18a999;
+}

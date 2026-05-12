@@ -1,0 +1,28 @@
+Source: aptura-meta
+Section: metapackages
+Priority: optional
+Maintainer: Aptura OS Team <maintainers@example.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: aptura-meta
+Architecture: all
+Depends:
+ aptura-branding,
+ aptura-desktop,
+ aptura-settings,
+ network-manager,
+ gnome-shell,
+ gnome-session,
+ gdm3,
+ firefox-esr,
+ sudo,
+ ufw,
+ apparmor,
+ calamares,
+ ${misc:Depends}
+Description: core metapackage for Aptura OS
+ This package depends on the core packages that define the Aptura OS desktop
+ experience. It intentionally contains little data and is used to keep
+ installation, live image generation, and upgrades consistent.

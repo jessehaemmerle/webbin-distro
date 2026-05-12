@@ -1,0 +1,25 @@
+componentName: aptura
+strings:
+  productName: Aptura OS
+  shortProductName: Aptura
+  version: 0.1
+  shortVersion: 0.1
+  versionedName: Aptura OS 0.1
+  shortVersionedName: Aptura 0.1
+  bootloaderEntryName: Aptura OS
+  productUrl: https://example.invalid/aptura
+  supportUrl: https://example.invalid/aptura/support
+  knownIssuesUrl: https://example.invalid/aptura/issues
+  releaseNotesUrl: https://example.invalid/aptura/releases
+
+images:
+  productLogo: logo.svg
+  productIcon: logo.svg
+  productWelcome: welcome.svg
+
+style:
+  sidebarBackground: "#101418"
+  sidebarText: "#f8f6ef"
+  sidebarTextSelect: "#18a999"
+
+slideshow: "show.qml"

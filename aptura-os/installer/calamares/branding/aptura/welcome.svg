@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Aptura OS installer welcome">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101418"/>
+      <stop offset="0.65" stop-color="#183234"/>
+      <stop offset="1" stop-color="#f0b35a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <path d="M0 610C180 560 320 650 490 610C690 565 810 455 1010 495C1100 512 1158 550 1200 532V800H0Z" fill="#0b1114" opacity="0.82"/>
+  <path d="M600 230L780 400L600 570L420 400Z" fill="none" stroke="#f8f6ef" stroke-width="10"/>
+  <path d="M600 310L690 400L600 490L510 400Z" fill="#18a999"/>
+  <text x="600" y="690" text-anchor="middle" fill="#f8f6ef" font-family="Cantarell, Inter, sans-serif" font-size="54">Install Aptura OS</text>
+</svg>

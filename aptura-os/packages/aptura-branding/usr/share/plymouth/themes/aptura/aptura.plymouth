@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Aptura
+Description=Aptura OS boot theme placeholder
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/aptura
+ScriptFile=/usr/share/plymouth/themes/aptura/aptura.script

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MODE="${1:---dashboard}"
+HTML="/usr/share/aptura-flow/index.html"
+SOURCE_README="/usr/share/aptura-flow/README.md"
+
+if [[ -f "${HTML}" ]]; then
+  exec xdg-open "file://${HTML}"
+fi
+
+if command -v gnome-control-center >/dev/null 2>&1 && [[ "${MODE}" == "--settings" ]]; then
+  exec gnome-control-center
+fi
+
+if command -v xdg-open >/dev/null 2>&1; then
+  exec xdg-open "file://${SOURCE_README}"
+fi
+
+printf 'Aptura Flow prototype is installed. Build frontend assets from desktop/shell.\n'

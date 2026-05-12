@@ -1,0 +1,56 @@
+# Aptura OS package list for live-build.
+# Lines beginning with # are ignored by scripts/build-iso.sh.
+
+# Aptura packages are injected through config/packages.chroot during build.
+# Do not list them here unless you switch to a signed Aptura APT repository.
+
+linux-image-amd64
+live-boot
+live-config
+systemd-sysv
+sudo
+locales
+keyboard-configuration
+console-setup
+tzdata
+
+network-manager
+wireless-tools
+wpasupplicant
+bluetooth
+bluez
+pipewire
+pipewire-pulse
+wireplumber
+alsa-utils
+
+gnome-shell
+gnome-session
+gnome-control-center
+gnome-terminal
+nautilus
+xdg-desktop-portal
+xdg-desktop-portal-gnome
+gdm3
+
+firefox-esr
+curl
+wget
+git
+vim-tiny
+less
+gnupg
+ca-certificates
+apt-transport-https
+unattended-upgrades
+ufw
+apparmor
+apparmor-utils
+
+calamares
+calamares-settings-debian
+parted
+gparted
+grub-efi-amd64-bin
+grub-pc-bin
+os-prober

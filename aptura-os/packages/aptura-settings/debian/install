@@ -1,0 +1,7 @@
+etc/default/aptura-settings etc/default/
+etc/apt/apt.conf.d/51aptura-security etc/apt/apt.conf.d/
+etc/apt/apt.conf.d/52aptura-updates etc/apt/apt.conf.d/
+etc/ufw/applications.d/aptura-desktop etc/ufw/applications.d/
+etc/dconf/profile/user etc/dconf/profile/
+etc/dconf/db/local.d/00-aptura-defaults etc/dconf/db/local.d/
+etc/polkit-1/rules.d/49-aptura-admin.rules etc/polkit-1/rules.d/

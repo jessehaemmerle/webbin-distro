@@ -1,0 +1,7 @@
+etc/aptura/branding.conf etc/aptura/
+usr/lib/os-release.d/aptura-os-release usr/lib/os-release.d/
+usr/share/backgrounds/aptura/aptura-default.svg usr/share/backgrounds/aptura/
+usr/share/plymouth/themes/aptura/aptura.plymouth usr/share/plymouth/themes/aptura/
+usr/share/plymouth/themes/aptura/aptura.script usr/share/plymouth/themes/aptura/
+usr/share/lightdm-webkit/themes/aptura/index.html usr/share/lightdm-webkit/themes/aptura/
+usr/share/lightdm-webkit/themes/aptura/style.css usr/share/lightdm-webkit/themes/aptura/

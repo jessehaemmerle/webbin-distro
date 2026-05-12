@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160" role="img" aria-label="Aptura OS default wallpaper">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101418"/>
+      <stop offset="0.45" stop-color="#183234"/>
+      <stop offset="1" stop-color="#f0b35a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="62%" cy="42%" r="44%">
+      <stop offset="0" stop-color="#f8f6ef" stop-opacity="0.42"/>
+      <stop offset="0.42" stop-color="#18a999" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#101418" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#sky)"/>
+  <rect width="3840" height="2160" fill="url(#glow)"/>
+  <path d="M0 1620C560 1490 890 1770 1370 1630C1810 1502 2120 1196 2590 1260C3010 1317 3330 1580 3840 1450V2160H0Z" fill="#0f1d1d" opacity="0.76"/>
+  <path d="M0 1812C520 1690 870 1930 1300 1790C1830 1618 2260 1610 2770 1740C3160 1840 3470 1800 3840 1690V2160H0Z" fill="#0b1114" opacity="0.9"/>
+  <g fill="none" stroke="#f8f6ef" stroke-opacity="0.34" stroke-width="8">
+    <path d="M1560 920L1920 560L2280 920L1920 1280Z"/>
+    <path d="M1728 920L1920 728L2112 920L1920 1112Z" stroke="#18a999" stroke-opacity="0.65"/>
+  </g>
+  <text x="1920" y="1450" text-anchor="middle" fill="#f8f6ef" fill-opacity="0.72" font-family="Inter, Cantarell, sans-serif" font-size="96">Aptura OS</text>
+</svg>

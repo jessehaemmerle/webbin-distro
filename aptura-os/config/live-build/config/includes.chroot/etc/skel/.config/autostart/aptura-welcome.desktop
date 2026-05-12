@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Welcome
+Comment=Start the Aptura Flow welcome experience
+Exec=aptura-flow --welcome
+OnlyShowIn=GNOME;
+X-GNOME-Autostart-enabled=true

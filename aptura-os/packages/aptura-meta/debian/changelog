@@ -1,0 +1,5 @@
+aptura-meta (0.1.0) trixie; urgency=medium
+
+  * Initial Aptura OS metapackage.
+
+ -- Aptura OS Team <maintainers@example.invalid>  Tue, 12 May 2026 12:00:00 +0000

@@ -1,0 +1,18 @@
+Source: aptura-settings
+Section: admin
+Priority: optional
+Maintainer: Aptura OS Team <maintainers@example.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: aptura-settings
+Architecture: all
+Depends:
+ dconf-cli,
+ ufw,
+ unattended-upgrades,
+ ${misc:Depends}
+Description: default settings for Aptura OS
+ Installs distribution defaults for APT, security posture, desktop appearance,
+ update behavior, and local policy documentation.

@@ -1,0 +1,17 @@
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+font-name='Cantarell 11'
+document-font-name='Cantarell 11'
+monospace-font-name='Adwaita Mono 11'
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/aptura/aptura-default.svg'
+picture-uri-dark='file:///usr/share/backgrounds/aptura/aptura-default.svg'
+picture-options='zoom'
+
+[org/gnome/desktop/privacy]
+remember-recent-files=false
+report-technical-problems=false
+
+[org/gnome/software]
+download-updates=false

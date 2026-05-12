@@ -1,0 +1,5 @@
+// Aptura OS policy placeholder.
+// Members of sudo remain the administrative trust boundary. Keep rules narrow.
+polkit.addAdminRule(function(action, subject) {
+  return ["unix-group:sudo"];
+});

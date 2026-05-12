@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Aptura OS logo">
+  <rect width="256" height="256" rx="48" fill="#101418"/>
+  <path d="M128 34L222 128L128 222L34 128Z" fill="none" stroke="#f8f6ef" stroke-width="12"/>
+  <path d="M128 78L178 128L128 178L78 128Z" fill="#18a999"/>
+</svg>

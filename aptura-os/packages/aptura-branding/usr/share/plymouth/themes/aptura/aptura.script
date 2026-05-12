@@ -1,0 +1,8 @@
+Window.SetBackgroundTopColor(0.06, 0.08, 0.09);
+Window.SetBackgroundBottomColor(0.08, 0.20, 0.20);
+
+message = "Aptura OS";
+text = Image.Text(message, 1, 1, 1);
+sprite = Sprite(text);
+sprite.SetX(Window.GetWidth() / 2 - text.GetWidth() / 2);
+sprite.SetY(Window.GetHeight() / 2 - text.GetHeight() / 2);
