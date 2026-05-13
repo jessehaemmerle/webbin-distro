@@ -11,6 +11,7 @@ sudo apt update
 sudo apt install --no-install-recommends \
   live-build dpkg-dev devscripts debhelper equivs apt-utils reprepro \
   squashfs-tools xorriso isolinux syslinux-common dosfstools mtools \
+  cryptsetup cryptsetup-initramfs \
   grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr \
   qemu-system-x86 qemu-utils git curl wget gnupg ca-certificates
 ```
@@ -110,6 +111,15 @@ For UEFI installs on Debian-derived images, keep `efiBootloaderId: "debian"` in
 `installer/calamares/modules/bootloader.conf`. Debian's GRUB EFI binary expects
 its configuration below `/EFI/debian`; Aptura branding is applied to the GRUB
 menu and OS metadata instead.
+
+Keep `bootloader.conf` on the current Calamares bootloader keys
+(`kernelSearchPath`, `kernelPattern`, `loaderEntries`) instead of the older
+`kernel`, `img`, `fallback`, and `timeout` keys.
+
+Encrypted installs require `grubcfg`, `luksbootkeyfile`, `initramfscfg`, and
+`initramfs` in the Calamares exec sequence. Keep `cryptsetup-initramfs` in the
+live package list and metapackage so the installed system can boot encrypted
+root filesystems after the live packages are removed.
 
 Do not enable XFS for the root filesystem unless the installer also creates a
 separate GRUB-readable `/boot` partition. With root and `/boot` on XFS, GRUB

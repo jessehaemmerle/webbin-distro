@@ -46,6 +46,8 @@ Depends:
  ufw,
  apparmor,
  calamares,
+ cryptsetup,
+ cryptsetup-initramfs,
  dosfstools,
  efibootmgr,
  grub-common,

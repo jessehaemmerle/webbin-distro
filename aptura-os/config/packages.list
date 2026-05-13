@@ -108,6 +108,8 @@ parted
 gparted
 dosfstools
 mtools
+cryptsetup
+cryptsetup-initramfs
 grub-common
 grub2-common
 grub-efi-amd64-bin

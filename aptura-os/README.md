@@ -73,6 +73,8 @@ sudo apt install --no-install-recommends \
   dosfstools \
   mtools \
   efibootmgr \
+  cryptsetup \
+  cryptsetup-initramfs \
   grub-common \
   grub2-common \
   grub-pc-bin \

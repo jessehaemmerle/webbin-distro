@@ -36,6 +36,12 @@ require_dir() {
   [[ -d "$1" ]] || fail "Missing directory: ${1#${ROOT_DIR}/}"
 }
 
+first_matching_line() {
+  local pattern="$1"
+  local file="$2"
+  grep -nE "${pattern}" "${file}" | head -n 1 | cut -d: -f1 || true
+}
+
 check_platform() {
   if [[ "$(uname -s)" != "Linux" ]]; then
     warn "Full ISO builds require Linux. This validation can run elsewhere, but live-build will not."
@@ -68,6 +74,11 @@ check_config() {
   require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"
   require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/fstab.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/grubcfg.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/initramfs.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/luksbootkeyfile.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/packages.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/services-systemd.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/partition.conf"
   require_dir "${ROOT_DIR}/config/live-build"
@@ -103,7 +114,7 @@ check_config() {
   [[ "${packages_count}" -gt 0 ]] || fail "config/packages.list is empty"
 
   local boot_pkg
-  for boot_pkg in grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr dosfstools mtools; do
+  for boot_pkg in grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr dosfstools mtools cryptsetup cryptsetup-initramfs; do
     if ! grep -Eq "^[[:space:]]*${boot_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
       fail "config/packages.list missing bootloader support package: ${boot_pkg}"
     fi
@@ -145,6 +156,49 @@ check_config() {
     fail "bootloader.conf must set efiBootloaderId: \"debian\" for Debian GRUB EFI"
   fi
 
+  if grep -Eq '^[[:space:]]*(kernel|img|fallback|timeout):' "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"; then
+    fail "bootloader.conf contains obsolete systemd-boot keys; use current Calamares keys"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*kernelSearchPath:[[:space:]]*"/usr/lib/modules"' "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"; then
+    fail "bootloader.conf must set kernelSearchPath for current Calamares bootloader support"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*crypttabOptions:[[:space:]]*luks,keyscript=/bin/cat[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/fstab.conf"; then
+    fail "fstab.conf must set Debian-compatible crypttabOptions for encrypted installs"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*backend:[[:space:]]*apt[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/packages.conf"; then
+    fail "packages.conf must use the apt backend"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*-[[:space:]]*live-boot[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/packages.conf"; then
+    fail "packages.conf must remove live-boot from the installed target"
+  fi
+
+  local settings_conf="${ROOT_DIR}/installer/calamares/settings.conf"
+  local grubcfg_line bootloader_line packages_line luks_line initramfscfg_line initramfs_line
+  grubcfg_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*grubcfg[[:space:]]*$' "${settings_conf}")"
+  bootloader_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*bootloader[[:space:]]*$' "${settings_conf}")"
+  packages_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*packages[[:space:]]*$' "${settings_conf}")"
+  luks_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*luksbootkeyfile[[:space:]]*$' "${settings_conf}")"
+  initramfscfg_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*initramfscfg[[:space:]]*$' "${settings_conf}")"
+  initramfs_line="$(first_matching_line '^[[:space:]]*-[[:space:]]*initramfs[[:space:]]*$' "${settings_conf}")"
+
+  if [[ -z "${grubcfg_line}" || -z "${bootloader_line}" || -z "${packages_line}" || -z "${luks_line}" || -z "${initramfscfg_line}" || -z "${initramfs_line}" ]]; then
+    fail "settings.conf missing required bootloader/LUKS exec modules"
+  else
+    if (( grubcfg_line >= bootloader_line )); then
+      fail "settings.conf must run grubcfg before bootloader"
+    fi
+    if (( packages_line <= bootloader_line || packages_line >= luks_line )); then
+      fail "settings.conf must remove live packages after bootloader and before LUKS/initramfs jobs"
+    fi
+    if (( luks_line >= initramfscfg_line || initramfscfg_line >= initramfs_line )); then
+      fail "settings.conf must run luksbootkeyfile, initramfscfg, then initramfs in order"
+    fi
+  fi
+
   if grep -Eq '^[[:space:]]*defaultPartitionTableType:[[:space:]]*gpt' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
     fail "partition.conf forces GPT for BIOS installs; let Calamares select by boot mode"
   fi
@@ -178,6 +232,13 @@ check_packages() {
   done
 
   local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
+  local boot_dep
+  for boot_dep in cryptsetup cryptsetup-initramfs grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr; do
+    if ! grep -Eq "^[[:space:]]*${boot_dep},?[[:space:]]*$" "${meta_control}"; then
+      fail "aptura-meta missing bootloader/encryption dependency: ${boot_dep}"
+    fi
+  done
+
   local conflicting_grub_pkg
   for conflicting_grub_pkg in grub-pc grub-efi-amd64; do
     if grep -Eq "^[[:space:]]*${conflicting_grub_pkg},?[[:space:]]*$" "${meta_control}"; then

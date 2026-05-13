@@ -158,6 +158,12 @@ main() {
     check_control_depends "${meta_control}" "${plasma_dep}"
   done
 
+  local boot_dep
+  for boot_dep in cryptsetup cryptsetup-initramfs grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr; do
+    check_live_package_list_contains "${boot_dep}"
+    check_control_depends "${meta_control}" "${boot_dep}"
+  done
+
   local removed_desktop_dep
   for removed_desktop_dep in spectacle cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-app-library cosmic-icons cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
     check_live_package_list_not_contains "${removed_desktop_dep}"
