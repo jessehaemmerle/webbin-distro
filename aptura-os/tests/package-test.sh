@@ -54,11 +54,40 @@ check_package() {
   fi
 }
 
+check_aptura_desktop_feature() {
+  local feature="$1"
+  local install="${ROOT_DIR}/packages/aptura-desktop/debian/install"
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/bin/${feature}" ]]; then
+    ok "${feature} script exists"
+  else
+    fail "Missing aptura-desktop/usr/bin/${feature}"
+  fi
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/${feature}.desktop" ]]; then
+    ok "${feature}.desktop exists"
+  else
+    fail "Missing aptura-desktop/usr/share/applications/${feature}.desktop"
+  fi
+
+  if grep -Eq "usr/bin/${feature}[[:space:]]+usr/bin/" "${install}"; then
+    ok "${feature} is installed"
+  else
+    fail "aptura-desktop/debian/install does not install ${feature}"
+  fi
+}
+
 main() {
   check_package aptura-meta
   check_package aptura-branding
   check_package aptura-desktop
   check_package aptura-settings
+
+  check_aptura_desktop_feature aptura-safe-update
+  check_aptura_desktop_feature aptura-rescue-center
+  check_aptura_desktop_feature aptura-privacy-check
+  check_aptura_desktop_feature aptura-mode
+  check_aptura_desktop_feature aptura-support-bundle
 
   if [[ "${errors}" -gt 0 ]]; then
     printf '[FAIL] Package test finished with %d error(s)\n' "${errors}" >&2

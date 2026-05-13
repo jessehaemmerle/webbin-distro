@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Privacy Check
+Comment=Review firewall, services, MAC privacy, and listening sockets
+Exec=aptura-privacy-check
+Icon=preferences-system
+Terminal=true
+Categories=System;Settings;
+Keywords=aptura;privacy;firewall;network;security;

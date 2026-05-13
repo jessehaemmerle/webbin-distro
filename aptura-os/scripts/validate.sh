@@ -95,9 +95,16 @@ check_config() {
   [[ "${packages_count}" -gt 0 ]] || fail "config/packages.list is empty"
 
   local boot_pkg
-  for boot_pkg in grub-common grub2-common grub-pc grub-pc-bin grub-efi-amd64 grub-efi-amd64-bin efibootmgr dosfstools mtools; do
+  for boot_pkg in grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr dosfstools mtools; do
     if ! grep -Eq "^[[:space:]]*${boot_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
       fail "config/packages.list missing bootloader support package: ${boot_pkg}"
+    fi
+  done
+
+  local conflicting_grub_pkg
+  for conflicting_grub_pkg in grub-pc grub-efi-amd64; do
+    if grep -Eq "^[[:space:]]*${conflicting_grub_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list contains mutually exclusive GRUB package: ${conflicting_grub_pkg}"
     fi
   done
 
@@ -151,6 +158,14 @@ check_packages() {
     require_file "${ROOT_DIR}/packages/${pkg}/debian/install"
   done
 
+  local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
+  local conflicting_grub_pkg
+  for conflicting_grub_pkg in grub-pc grub-efi-amd64; do
+    if grep -Eq "^[[:space:]]*${conflicting_grub_pkg},?[[:space:]]*$" "${meta_control}"; then
+      fail "aptura-meta depends on mutually exclusive GRUB package: ${conflicting_grub_pkg}"
+    fi
+  done
+
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/default/grub.d/aptura.cfg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/aptura.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/distributor-logo.svg"
@@ -175,6 +190,16 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-welcome.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-safe-update"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-safe-update.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-rescue-center"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-rescue-center.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-privacy-check"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-privacy-check.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-mode"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-mode.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-support-bundle"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-support-bundle.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
   require_file "${ROOT_DIR}/packages/aptura-settings/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
 }

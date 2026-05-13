@@ -67,6 +67,11 @@ main() {
   require_executable scripts/create-local-repo.sh
   require_executable scripts/sign-repo.sh
   require_executable scripts/test-vm.sh
+  require_executable packages/aptura-desktop/usr/bin/aptura-safe-update
+  require_executable packages/aptura-desktop/usr/bin/aptura-rescue-center
+  require_executable packages/aptura-desktop/usr/bin/aptura-privacy-check
+  require_executable packages/aptura-desktop/usr/bin/aptura-mode
+  require_executable packages/aptura-desktop/usr/bin/aptura-support-bundle
 
   if [[ "${errors}" -gt 0 ]]; then
     printf '[FAIL] Smoke test finished with %d error(s)\n' "${errors}" >&2

@@ -35,6 +35,11 @@ Aptura OS targets technically curious desktop users, developers, and distributio
 - Calamares installer configuration with Aptura branding.
 - Aptura COSMIC visual identity: custom Aptura logo assets, retro-COSMIC wallpaper, COSMIC accent palettes, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
 - Aptura System Check for local update, firmware, power, security, and disk status.
+- Aptura Safe Update for best-effort Timeshift snapshots before package upgrades.
+- Aptura Rescue Center for boot, EFI, GRUB, disk, and installer recovery context.
+- Aptura Privacy Check for firewall, exposed services, MAC privacy, and sockets.
+- Aptura Modes for quick balanced, performance, battery, studio, and focus profiles.
+- Aptura Support Bundle for redacted diagnostics archives that are easier to share.
 - Useful desktop differentiators installed by default: COSMIC session, COSMIC Greeter, COSMIC Files, COSMIC Terminal, COSMIC Edit, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.

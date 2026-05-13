@@ -16,6 +16,8 @@ message="Welcome to Aptura OS.
 
 This COSMIC edition includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
 
+New Aptura tools: Safe Update, Rescue Center, Privacy Check, Modes, and Support Bundle.
+
 Run the System Check now to review update, firmware, security, hardware, and storage status."
 
 run_system_check() {

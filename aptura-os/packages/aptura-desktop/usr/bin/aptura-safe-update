@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+as_root() {
+  if [[ "${EUID}" -eq 0 ]]; then
+    "$@"
+  elif have sudo; then
+    sudo "$@"
+  else
+    printf 'This command needs root privileges. Install sudo or run as root.\n' >&2
+    return 1
+  fi
+}
+
+snapshot_name() {
+  printf 'aptura-safe-update-%s' "$(date '+%Y%m%d-%H%M%S')"
+}
+
+create_snapshot() {
+  if ! have timeshift; then
+    printf '[safe-update] Timeshift not installed; continuing without snapshot.\n'
+    return 0
+  fi
+
+  printf '[safe-update] Creating pre-update Timeshift snapshot...\n'
+  as_root timeshift --create --comments "$(snapshot_name)" --tags D >/dev/null 2>&1 ||
+    printf '[safe-update] Snapshot unavailable; continuing with package update.\n'
+}
+
+main() {
+  case "${1:-}" in
+    -h|--help)
+      printf 'Usage: aptura-safe-update\n'
+      printf 'Creates a best-effort Timeshift snapshot, then updates APT packages.\n'
+      return 0
+      ;;
+  esac
+
+  have apt || { printf 'apt is not available.\n' >&2; return 1; }
+
+  create_snapshot
+  printf '[safe-update] Refreshing package metadata...\n'
+  as_root apt update
+  printf '[safe-update] Applying package upgrades...\n'
+  as_root apt full-upgrade
+
+  if have needrestart; then
+    printf '[safe-update] Checking restart recommendations...\n'
+    as_root needrestart -b || true
+  fi
+
+  printf '[safe-update] Done.\n'
+}
+
+main "$@"

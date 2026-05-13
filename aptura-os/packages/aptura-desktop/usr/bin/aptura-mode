@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+usage() {
+  printf 'Usage: aptura-mode [balanced|performance|battery|studio|focus]\n'
+  printf 'Switches local workstation profile using available system tools.\n'
+}
+
+choose_mode() {
+  printf 'Available Aptura modes:\n'
+  printf '  balanced     Everyday desktop defaults\n'
+  printf '  performance  Maximum performance when on AC power\n'
+  printf '  battery      Power-saving defaults for travel\n'
+  printf '  studio       Balanced power with creator-workload reminder\n'
+  printf '  focus        Power-saving profile with focus reminder\n'
+  printf '\nMode: '
+  read -r REPLY
+  printf '%s' "${REPLY}"
+}
+
+set_power() {
+  local profile="$1"
+  if have powerprofilesctl; then
+    powerprofilesctl set "${profile}" 2>/dev/null || true
+  fi
+}
+
+main() {
+  local mode="${1:-}"
+
+  case "${mode}" in
+    -h|--help)
+      usage
+      return 0
+      ;;
+    '')
+      if [[ -t 0 ]]; then
+        mode="$(choose_mode)"
+      else
+        usage
+        return 0
+      fi
+      ;;
+  esac
+
+  case "${mode}" in
+    balanced)
+      set_power balanced
+      printf 'Aptura mode: balanced\n'
+      ;;
+    performance)
+      set_power performance
+      printf 'Aptura mode: performance\n'
+      ;;
+    battery)
+      set_power power-saver
+      printf 'Aptura mode: battery\n'
+      ;;
+    studio)
+      set_power balanced
+      printf 'Aptura mode: studio\n'
+      printf 'Tip: keep AC power connected for sustained media workloads.\n'
+      ;;
+    focus)
+      set_power power-saver
+      printf 'Aptura mode: focus\n'
+      printf 'Tip: use COSMIC notification settings for deeper do-not-disturb control.\n'
+      ;;
+    *)
+      usage >&2
+      return 1
+      ;;
+  esac
+}
+
+main "$@"

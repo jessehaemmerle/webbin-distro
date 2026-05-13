@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -u
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+line() {
+  printf '%-30s %s\n' "$1" "$2"
+}
+
+service_state() {
+  local unit="$1"
+  if have systemctl && systemctl is-active --quiet "${unit}" 2>/dev/null; then
+    printf 'active'
+  elif have systemctl && systemctl is-enabled --quiet "${unit}" 2>/dev/null; then
+    printf 'enabled, inactive'
+  else
+    printf 'off'
+  fi
+}
+
+package_state() {
+  local package="$1"
+  if have dpkg-query && dpkg-query -W -f='${Status}' "${package}" 2>/dev/null | grep -q 'install ok installed'; then
+    printf 'installed'
+  else
+    printf 'not installed'
+  fi
+}
+
+mac_privacy_state() {
+  if grep -Rhs '^wifi.scan-rand-mac-address=yes' /etc/NetworkManager/conf.d 2>/dev/null | grep -q .; then
+    printf 'enabled'
+  else
+    printf 'not detected'
+  fi
+}
+
+main() {
+  case "${1:-}" in
+    -h|--help)
+      printf 'Usage: aptura-privacy-check\n'
+      printf 'Shows local privacy and network exposure posture.\n'
+      return 0
+      ;;
+  esac
+
+  printf 'Aptura Privacy Check\n'
+  printf '====================\n'
+  line "Firewall" "$(have ufw && ufw status 2>/dev/null | awk 'NR == 1 { print $2 }' || printf unavailable)"
+  line "SSH service" "$(service_state ssh.service)"
+  line "Avahi/mDNS" "$(service_state avahi-daemon.service)"
+  line "Bluetooth" "$(service_state bluetooth.service)"
+  line "CUPS browsing" "$(service_state cups-browsed.service)"
+  line "NetworkManager MAC privacy" "$(mac_privacy_state)"
+  line "AppArmor" "$(service_state apparmor.service)"
+  line "Unattended upgrades" "$(package_state unattended-upgrades)"
+
+  printf '\nListening sockets\n'
+  printf '%s\n' '-----------------'
+  if have ss; then
+    ss -tulpen 2>/dev/null | sed -n '1,20p'
+  else
+    printf 'ss not available\n'
+  fi
+}
+
+main "$@"
