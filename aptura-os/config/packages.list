@@ -61,10 +61,20 @@ cosmic-files
 cosmic-term
 cosmic-edit
 cosmic-player
-cosmic-store
+# cosmic-store requires appstream-data-pop, which is not available in the
+# configured external COSMIC repository. Disable until the dependency can
+# be provided by the build sources.
+# cosmic-store
 cosmic-wallpapers
 cosmic-workspaces
 xdg-desktop-portal-cosmic
+
+# Temporary software center replacement
+gnome-software
+gnome-software-plugin-flatpak
+appstream
+packagekit
+
 greetd
 xwayland
 file-roller
