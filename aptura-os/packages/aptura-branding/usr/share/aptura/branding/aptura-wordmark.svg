@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="180" viewBox="0 0 620 180" role="img" aria-label="Aptura OS wordmark">
+  <rect x="10" y="10" width="600" height="160" fill="#c8c6bc" stroke="#05070a" stroke-width="5"/>
+  <path d="M15 15H605V165" fill="none" stroke="#f4f0df" stroke-width="4"/>
+  <path d="M610 15V170H15" fill="none" stroke="#686a72" stroke-width="4"/>
+  <rect x="30" y="30" width="120" height="120" fill="#101318" stroke="#05070a" stroke-width="4"/>
+  <path d="M90 46L134 134H111L102 116H78L69 134H47Z" fill="#f4f0df" stroke="#05070a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M90 68L100 92H80Z" fill="#008080" stroke="#05070a" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="76" y="96" width="30" height="9" fill="#ffff00" stroke="#05070a" stroke-width="3"/>
+  <text x="180" y="88" fill="#05070a" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">APTURA OS</text>
+  <rect x="184" y="106" width="274" height="14" fill="#000080"/>
+  <text x="180" y="146" fill="#101318" font-family="Courier New, monospace" font-size="24">Classic XFCE workstation</text>
+</svg>

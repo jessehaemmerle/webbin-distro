@@ -1,7 +1,7 @@
 Source: aptura-settings
 Section: admin
 Priority: optional
-Maintainer: Aptura OS Team <maintainers@example.invalid>
+Maintainer: Aptura OS Team <maintainers@aptura.local>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.0
 Rules-Requires-Root: no

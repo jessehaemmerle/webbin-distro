@@ -72,7 +72,7 @@ Then run:
 Production repository entries should use:
 
 ```text
-deb [signed-by=/usr/share/keyrings/aptura-archive-keyring.gpg] https://repo.example.invalid/aptura trixie main
+deb [signed-by=/usr/share/keyrings/aptura-archive-keyring.gpg] https://repo.aptura.local/aptura trixie main
 ```
 
 Do not use `trusted=yes` in production.

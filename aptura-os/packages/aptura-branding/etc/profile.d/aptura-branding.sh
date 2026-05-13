@@ -1,0 +1,3 @@
+export APTURA_BRAND_NAME="Aptura OS"
+export APTURA_BRAND_EDITION="Classic XFCE"
+export APTURA_BRAND_ACCENT="#000080"

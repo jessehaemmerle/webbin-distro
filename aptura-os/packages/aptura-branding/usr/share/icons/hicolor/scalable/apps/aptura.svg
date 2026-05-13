@@ -1,15 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Aptura OS">
-  <rect x="8" y="8" width="76" height="76" fill="#c8c6bc" stroke="#05070a" stroke-width="4"/>
-  <path d="M12 12H80V80" fill="none" stroke="#f4f0df" stroke-width="4"/>
-  <path d="M84 12V84H12" fill="none" stroke="#686a72" stroke-width="4"/>
-  <rect x="18" y="18" width="60" height="14" fill="#000080" stroke="#000000" stroke-width="3"/>
-  <path d="M22 22H74" stroke="#ffffff" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Aptura OS logo">
+  <rect x="8" y="8" width="112" height="112" fill="#c8c6bc" stroke="#05070a" stroke-width="4"/>
+  <path d="M12 12H116V116" fill="none" stroke="#f4f0df" stroke-width="4"/>
+  <path d="M120 12V120H12" fill="none" stroke="#686a72" stroke-width="4"/>
+  <rect x="18" y="18" width="92" height="18" fill="#000080" stroke="#05070a" stroke-width="3"/>
+  <path d="M23 23H105" stroke="#ffffff" stroke-width="2"/>
   <g fill="#c8c6bc" stroke="#05070a" stroke-width="2">
-    <rect x="58" y="21" width="7" height="7"/>
-    <rect x="68" y="21" width="7" height="7"/>
+    <rect x="82" y="22" width="9" height="9"/>
+    <rect x="95" y="22" width="9" height="9"/>
   </g>
-  <rect x="22" y="40" width="52" height="32" fill="#008080" stroke="#000000" stroke-width="3"/>
-  <path d="M48 42L66 56L48 72L30 56Z" fill="none" stroke="#ffffff" stroke-width="5"/>
-  <path d="M48 50L56 56L48 64L40 56Z" fill="#ffff00"/>
-  <path d="M25 75H70" stroke="#000080" stroke-width="4"/>
+  <rect x="18" y="40" width="92" height="70" fill="#101318" stroke="#05070a" stroke-width="3"/>
+  <path d="M64 46L98 75L64 106L30 75Z" fill="none" stroke="#008080" stroke-width="5"/>
+  <path d="M64 44L103 104H82L75 89H53L46 104H25Z" fill="#f4f0df" stroke="#05070a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M64 62L73 80H55Z" fill="#008080" stroke="#05070a" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="51" y="80" width="27" height="8" fill="#ffff00" stroke="#05070a" stroke-width="3"/>
+  <path d="M28 114H102" stroke="#000080" stroke-width="5"/>
 </svg>

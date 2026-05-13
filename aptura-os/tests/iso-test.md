@@ -17,7 +17,7 @@ you need.
 - [ ] Aptura Classic wallpaper is visible.
 - [ ] Aptura Classic GTK theme applies to GTK apps with square frames and bevel-style controls.
 - [ ] Aptura Classic XFWM4 window borders are visible, including raised title buttons.
-- [ ] Bottom XFCE panel uses the Start-style application menu and task list.
+- [ ] Bottom XFCE panel uses the Aptura-branded application menu and task list.
 - [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.

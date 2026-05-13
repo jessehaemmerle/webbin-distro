@@ -1,11 +1,11 @@
-# Aptura Debian Packages
+# Aptura Native Packages
 
-This directory contains native Debian package skeletons for Aptura OS.
+This directory contains Aptura OS native packages in Debian `.deb` format.
 
 Packages:
 
 - `aptura-meta`: pulls in the distribution's core package set.
-- `aptura-branding`: installs the Aptura Classic visual identity, wallpaper, GTK theme, XFWM4 borders, icon theme, login theme placeholders, Plymouth theme, and derivative metadata.
+- `aptura-branding`: installs the Aptura visual identity, distributor logos, wallpaper, GTK theme, XFWM4 borders, icon theme, login theme, Plymouth theme, shell branding, and derivative metadata.
 - `aptura-desktop`: installs Aptura Classic XFCE integration, Welcome, System Check, and useful desktop packages.
 - `aptura-settings`: installs system defaults for APT, security, NetworkManager privacy, XFCE, update behavior, and policy documentation.
 

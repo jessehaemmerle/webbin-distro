@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-based desktop with practical workstation defaults, transparent package management, and a classic XFCE experience that feels like it could have shipped beside Windows 3.1 or Windows 95.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive classic XFCE experience.
 
 ## Features
 
@@ -33,7 +33,7 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura Classic visual identity inspired by Windows 3.1 and Windows 95: custom XFWM4 window borders, gray workbench panels, navy titlebars, teal desktop, beveled controls, hard shadows, pixel-like icons, LightDM styling, and XFCE defaults.
+- Aptura Classic visual identity: custom Aptura logo assets, XFWM4 window borders, gray workbench panels, navy titlebars, teal desktop, beveled controls, hard shadows, pixel-like icons, LightDM styling, Plymouth branding, Calamares branding, and XFCE defaults.
 - Aptura System Check for local update, firmware, power, security, and disk status.
 - Useful desktop differentiators installed by default: XFCE utilities, Thunar, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, image viewing, task management, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
@@ -151,13 +151,13 @@ Partitioning is destructive when the user selects whole-disk installation. Alway
 ## Aptura Classic XFCE Desktop
 
 Aptura uses XFCE as the session base because its panel, window manager, and
-theme stack are a good fit for a believable 80s/90s workstation. The look is
-inspired by Windows 3.1 and Windows 95: custom XFWM4 borders, square titlebars,
-gray raised controls, inset text fields, a teal desktop, simple pixel-like
-icons, and a bottom taskbar with a Start-style menu. The goal is not a costume;
-it is a coherent classic desktop with useful first-boot tools such as firmware
-visibility, power profiles, archive tools, privacy defaults, and Aptura System
-Check.
+theme stack are a good fit for a believable classic workstation. The look uses
+custom Aptura logo assets, XFWM4 borders, square titlebars, gray raised
+controls, inset text fields, a teal desktop, simple pixel-like icons, and a
+bottom taskbar with an Aptura-branded application menu. The goal is not a
+costume; it is a coherent classic desktop with useful first-boot tools such as
+firmware visibility, power profiles, archive tools, privacy defaults, and
+Aptura System Check.
 
 ## Project Structure
 
@@ -190,4 +190,4 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 - Verify Aptura Classic XFCE defaults, System Check, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
-- Complete branding assets under an open license.
+- Add more wallpaper, icon, and accessibility variants under an open license.

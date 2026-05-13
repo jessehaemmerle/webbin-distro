@@ -11,21 +11,24 @@
   <path d="M188 128H1012V612" fill="none" stroke="#ffffff" stroke-width="6"/>
   <path d="M1020 128V620H188" fill="none" stroke="#808080" stroke-width="6"/>
   <rect x="204" y="148" width="792" height="68" fill="#000080" stroke="#000000" stroke-width="6"/>
-  <text x="244" y="195" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">APTURA SETUP</text>
+  <text x="244" y="195" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">APTURA INSTALLER</text>
   <g fill="#c0c0c0" stroke="#000000" stroke-width="4">
     <rect x="858" y="165" width="28" height="28"/>
     <rect x="900" y="165" width="28" height="28"/>
     <rect x="942" y="165" width="28" height="28"/>
   </g>
-  <rect x="260" y="290" width="250" height="180" fill="#ffffff" stroke="#000000" stroke-width="5"/>
-  <path d="M320 425L385 326L450 425L385 490Z" fill="none" stroke="#000080" stroke-width="14"/>
-  <path d="M354 425L385 380L416 425L385 456Z" fill="#ffff00" stroke="#000000" stroke-width="5"/>
+  <rect x="260" y="270" width="250" height="210" fill="#101318" stroke="#000000" stroke-width="5"/>
+  <path d="M385 308L468 443H425L407 405H363L345 443H304Z" fill="#f4f0df" stroke="#000000" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M385 350L405 386H365Z" fill="#008080" stroke="#000000" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="358" y="390" width="56" height="18" fill="#ffff00" stroke="#000000" stroke-width="5"/>
+  <path d="M314 462H458" stroke="#000080" stroke-width="12"/>
   <text x="570" y="340" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">Install Aptura OS</text>
   <text x="570" y="400" fill="#000000" font-family="Courier New, monospace" font-size="28">Classic XFCE workstation</text>
+  <text x="570" y="435" fill="#000000" font-family="Courier New, monospace" font-size="22">Aptura identity, tools, and defaults</text>
   <rect x="570" y="455" width="280" height="58" fill="#c0c0c0" stroke="#000000" stroke-width="5"/>
   <path d="M580 465H840V503" fill="none" stroke="#ffffff" stroke-width="4"/>
   <path d="M850 465V513H580" fill="none" stroke="#808080" stroke-width="4"/>
   <text x="710" y="493" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="25">Continue</text>
   <rect y="710" width="1200" height="90" fill="#c0c0c0" stroke="#000000" stroke-width="6"/>
-  <text x="600" y="765" text-anchor="middle" fill="#000000" font-family="Courier New, monospace" font-size="24">Aptura Classic: window borders, icons, colors, and XFCE defaults</text>
+  <text x="600" y="765" text-anchor="middle" fill="#000000" font-family="Courier New, monospace" font-size="24">Aptura Classic: logo, boot, login, installer, icons, colors, and XFCE defaults</text>
 </svg>

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+title="About Aptura OS"
+message="Aptura OS 0.1 Classic XFCE
+
+A Debian-compatible desktop distribution with Aptura branding, defaults, tooling, and a classic workstation experience.
+
+Edition: Classic XFCE
+Base: Debian trixie
+Kernel channel: trixie-backports"
+
+if command -v zenity >/dev/null 2>&1; then
+  zenity --info \
+    --title="${title}" \
+    --window-icon=distributor-logo-aptura \
+    --width=440 \
+    --text="${message}"
+else
+  printf '%s\n\n%s\n' "${title}" "${message}"
+fi

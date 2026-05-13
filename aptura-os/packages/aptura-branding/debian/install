@@ -1,9 +1,13 @@
 etc/aptura/branding.conf etc/aptura/
 etc/default/grub.d/aptura.cfg etc/default/grub.d/
+etc/machine-info etc/
+etc/motd.d/00-aptura etc/motd.d/
+etc/profile.d/aptura-branding.sh etc/profile.d/
 usr/lib/os-release.d/aptura-os-release usr/lib/os-release.d/
 usr/share/backgrounds/aptura/aptura-default.svg usr/share/backgrounds/aptura/
-usr/share/icons/hicolor/scalable/apps/aptura.svg usr/share/icons/hicolor/scalable/apps/
-usr/share/pixmaps/aptura.svg usr/share/pixmaps/
+usr/share/aptura/branding/*.svg usr/share/aptura/branding/
+usr/share/icons/hicolor/scalable/apps/*.svg usr/share/icons/hicolor/scalable/apps/
+usr/share/pixmaps/*.svg usr/share/pixmaps/
 usr/share/themes/Aptura-Classic/index.theme usr/share/themes/Aptura-Classic/
 usr/share/themes/Aptura-Classic/gtk-3.0/gtk.css usr/share/themes/Aptura-Classic/gtk-3.0/
 usr/share/themes/Aptura-Classic/gtk-3.0/gtk-dark.css usr/share/themes/Aptura-Classic/gtk-3.0/

@@ -1,12 +1,12 @@
 # Aptura Desktop
 
-Aptura's desktop is a branded, tuned XFCE experience with a Windows 3.1 and
-Windows 95 inspired visual identity.
+Aptura's desktop is a branded, tuned XFCE experience with a classic workstation
+visual identity.
 
 - XFCE provides the session, panel, desktop icons, window manager, and classic desktop workflow.
 - Aptura Classic branding is applied through wallpaper, LightDM styling, icon assets, GTK theme files, XFWM4 borders, and xfconf defaults.
 - GTK apps should use square frames, chunky titlebars, bevel controls, and hard shadows where theming is honored.
-- XFWM4 window borders should carry the Windows 3.1/95 feeling directly.
+- XFWM4 window borders should carry the Aptura Classic feeling directly.
 - Aptura-specific tools should solve concrete system workflows, starting with Aptura System Check.
 - Extra XFCE plugins or native apps should be added only after they are useful, testable, and maintainable.
 

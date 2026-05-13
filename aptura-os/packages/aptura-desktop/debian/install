@@ -1,6 +1,8 @@
 etc/skel/.config/autostart/aptura-welcome.desktop etc/skel/.config/autostart/
+usr/bin/aptura-about usr/bin/
 usr/bin/aptura-welcome usr/bin/
 usr/bin/aptura-system-check usr/bin/
+usr/share/applications/aptura-about.desktop usr/share/applications/
 usr/share/applications/aptura-welcome.desktop usr/share/applications/
 usr/share/applications/aptura-system-check.desktop usr/share/applications/
 usr/share/metainfo/io.aptura.system-check.metainfo.xml usr/share/metainfo/

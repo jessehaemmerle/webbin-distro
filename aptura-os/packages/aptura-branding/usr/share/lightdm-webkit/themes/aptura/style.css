@@ -67,10 +67,18 @@ body {
 }
 
 h1 {
-  margin: 0 28px 28px;
+  margin: 0 28px 6px;
   color: var(--ink);
   font-size: 34px;
   letter-spacing: 0;
+}
+
+.edition {
+  margin: 0 28px 24px;
+  color: #000080;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 #login-form {

@@ -7,10 +7,10 @@ strings:
   versionedName: Aptura OS 0.1
   shortVersionedName: Aptura 0.1
   bootloaderEntryName: Aptura OS
-  productUrl: https://example.invalid/aptura
-  supportUrl: https://example.invalid/aptura/support
-  knownIssuesUrl: https://example.invalid/aptura/issues
-  releaseNotesUrl: https://example.invalid/aptura/releases
+  productUrl: https://aptura.local
+  supportUrl: https://aptura.local/support
+  knownIssuesUrl: https://aptura.local/issues
+  releaseNotesUrl: https://aptura.local/releases
 
 images:
   productLogo: logo.svg
@@ -18,8 +18,8 @@ images:
   productWelcome: welcome.svg
 
 style:
-  sidebarBackground: "#c0c0c0"
-  sidebarText: "#000000"
-  sidebarTextSelect: "#000080"
+  sidebarBackground: "#000080"
+  sidebarText: "#ffffff"
+  sidebarTextSelect: "#ffff00"
 
 slideshow: "show.qml"

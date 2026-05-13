@@ -1,7 +1,7 @@
 Source: aptura-desktop
 Section: x11
 Priority: optional
-Maintainer: Aptura OS Team <maintainers@example.invalid>
+Maintainer: Aptura OS Team <maintainers@aptura.local>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
@@ -72,5 +72,5 @@ Recommends:
 Description: Aptura Classic XFCE desktop integration
  Installs Aptura's XFCE integration, desktop launchers, and utility hooks.
  The default desktop uses XFCE and LightDM with Aptura Classic window borders,
- a Windows 3.1/95 inspired color system, practical workstation tools, firmware
+ an Aptura Classic color system, practical workstation tools, firmware
  visibility, power controls, and a local system health check.

@@ -4,7 +4,8 @@
 
 Aptura uses XFCE as the desktop foundation and gives it a deliberate classic
 workstation identity. The design should feel like a coherent system from the
-Windows 3.1 and Windows 95 era, not a modern desktop with a retro wallpaper.
+first boot screen through the desktop, not a modern desktop with a retro
+wallpaper.
 
 Principles:
 
@@ -55,7 +56,7 @@ XFWM4 owns the period feel:
 ### Desktop Shell
 
 - Bottom XFCE panel acts like a taskbar.
-- Application menu button is labeled `Start`.
+- Application menu button is labeled `Aptura` and uses the distributor logo.
 - Task list shows window labels.
 - System tray, audio, and clock stay on the right.
 - Desktop icons remain visible for filesystem, home, removable media, and trash.
