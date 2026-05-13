@@ -36,7 +36,7 @@ Core desktop packages:
 - `konsole`
 - `kate`
 - `ark`
-- `spectacle`
+- `kde-spectacle`
 - `plasma-discover`
 - `xdg-desktop-portal-kde`
 

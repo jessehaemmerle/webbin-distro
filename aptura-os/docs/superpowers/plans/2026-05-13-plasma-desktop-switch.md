@@ -69,7 +69,7 @@ Call them from `main` for both `packages/aptura-desktop/debian/control` and `pac
 local desktop_control="${ROOT_DIR}/packages/aptura-desktop/debian/control"
 local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
 local plasma_dep
-for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
   check_control_depends "${desktop_control}" "${plasma_dep}"
   check_control_depends "${meta_control}" "${plasma_dep}"
 done
@@ -120,7 +120,7 @@ Replace the COSMIC package loop with:
 
 ```bash
 local plasma_pkg
-for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
   if ! grep -Eq "^[[:space:]]*${plasma_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
     fail "config/packages.list missing Plasma package: ${plasma_pkg}"
   fi
@@ -172,7 +172,7 @@ dolphin
 konsole
 kate
 ark
-spectacle
+kde-spectacle
 plasma-discover
 xdg-desktop-portal-kde
 ```
@@ -192,7 +192,7 @@ In `packages/aptura-desktop/debian/control`, replace COSMIC and `greetd` depende
  konsole,
  kate,
  ark,
- spectacle,
+ kde-spectacle,
  plasma-discover,
  xdg-desktop-portal-kde,
  xwayland,
@@ -214,7 +214,7 @@ In `packages/aptura-meta/debian/control`, replace COSMIC and `greetd` dependenci
  konsole,
  kate,
  ark,
- spectacle,
+ kde-spectacle,
  plasma-discover,
  xdg-desktop-portal-kde,
  xwayland,
