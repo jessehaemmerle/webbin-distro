@@ -1,6 +1,6 @@
 # Aptura OS
 
-Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned KDE Plasma desktop.
+Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-owned Wayland desktop called Aptura Shell.
 
 This repository is an MVP foundation, not a finished public distribution. It is structured so you can grow it into a real derivative with signed package repositories, release engineering, QA, security review, and visual identity work.
 
@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive retro-Plasma experience.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive Aptura Shell experience.
 
 ## Features
 
@@ -33,7 +33,7 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura Plasma visual identity: custom Aptura logo assets, context-grid and retro-Plasma wallpapers, Aptura color assets, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
+- Aptura Shell visual identity: custom Aptura logo assets, context-grid and retro-shell wallpapers, Aptura color assets, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
 - Aptura System Check for local update, firmware, power, security, and disk status.
 - Aptura Journey for local-only system events and user-visible system memory.
 - Aptura Context for live/installed, VM, laptop, battery, network, boot, and storage cues.
@@ -45,7 +45,7 @@ Aptura OS targets technically curious desktop users, developers, and distributio
 - Aptura Privacy Check for firewall, exposed services, MAC privacy, and sockets.
 - Aptura Modes for quick balanced, performance, battery, studio, and focus profiles.
 - Aptura Support Bundle for redacted diagnostics archives that are easier to share.
-- Useful desktop differentiators installed by default: Plasma session, SDDM, Dolphin, Konsole, Kate, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
+- Useful desktop differentiators installed by default: Aptura Shell session, labwc, waybar, wofi, SDDM, Dolphin, Konsole, Kate, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.
 - Documentation for architecture, build, package management, security, releases, and roadmap.
@@ -160,20 +160,18 @@ The live ISO includes Calamares configuration for:
 
 Partitioning is destructive when the user selects whole-disk installation. Always test in a VM first.
 
-## Aptura Plasma Desktop
+## Aptura Shell Desktop
 
-Aptura uses KDE Plasma as the session base because it provides a modern
-Wayland desktop, tiling-friendly workflows, applets, launcher, app library,
-settings, and core applications while allowing distributions to ship their own
-brand colors and defaults. Aptura layers its own logo set, retro-Plasma and
-context-grid wallpapers, accent palettes, Plymouth theme, Calamares artwork,
-first-run Welcome flow, and local contextual tooling on top.
+Aptura Shell is the distro-owned default session. It uses `labwc` as a modern
+Wayland stacking compositor and layers Aptura defaults around it: `waybar` for
+the panel, `wofi` for the launcher, `swaybg` for the wallpaper, `mako` for
+notifications, and Aptura scripts for session startup, mode switching, power
+actions, and screenshots.
 
-The Plasma edition uses Debian `trixie` KDE packages directly, including SDDM,
-Plasma Workspace, Dolphin, Konsole, Kate, Discover, Spectacle, and the KDE
-desktop portal. This keeps the default desktop stack inside the Debian archive
-and removes the temporary external desktop package source used by the previous
-edition.
+KDE Plasma stays installed from Debian `trixie` as a fallback session and as a
+source of mature desktop applications such as Dolphin, Konsole, Kate, Discover,
+Spectacle, and System Settings. This keeps the custom Aptura session small and
+maintainable while preserving familiar tools.
 
 ## Project Structure
 
@@ -193,8 +191,8 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- KDE Plasma now comes from Debian `trixie`; production still needs signed Aptura repository infrastructure for Aptura-owned packages.
-- Aptura Plasma branding, GTK fallback theme, icon theme, and wallpaper still need visual QA on a real booted ISO.
+- Aptura Shell uses Debian `trixie` labwc/wlroots ecosystem packages; production still needs signed Aptura repository infrastructure for Aptura-owned packages.
+- Aptura Shell branding, GTK fallback theme, icon theme, panel, launcher, and wallpaper still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -204,7 +202,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Verify Aptura Plasma defaults, contextual UX tools, firmware tooling, and power profiles in a live session.
+- Verify Aptura Shell defaults, contextual UX tools, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Add more wallpaper, icon, and accessibility variants under an open license.

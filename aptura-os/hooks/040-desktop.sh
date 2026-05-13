@@ -32,6 +32,9 @@ configure_sddm() {
   ln -sf "${service_path}" /etc/systemd/system/display-manager.service
 
   cat > /etc/sddm.conf.d/10-aptura.conf <<'EOF'
+[General]
+Session=aptura
+
 [Theme]
 Current=breeze
 EOF
@@ -40,7 +43,7 @@ EOF
   enable_service display-manager.service
 }
 
-log "Configuring Aptura Plasma session and installer launcher"
+log "Configuring Aptura Shell session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
@@ -70,14 +73,14 @@ Categories=System;
 StartupNotify=true
 EOF
 
-if [[ -f /usr/share/wayland-sessions/plasma.desktop || -f /usr/share/xsessions/plasma.desktop ]]; then
+if [[ -f /usr/share/wayland-sessions/aptura.desktop ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
   cat > /var/lib/AccountsService/users/aptura <<'EOF'
 [User]
-Session=plasma
+Session=aptura
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
 fi
 
-log "Plasma desktop configuration complete"
+log "Aptura Shell desktop configuration complete"

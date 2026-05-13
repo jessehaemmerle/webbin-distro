@@ -1,4 +1,9 @@
 etc/skel/.config/autostart/aptura-welcome.desktop etc/skel/.config/autostart/
+usr/bin/aptura-session usr/bin/
+usr/bin/aptura-panel usr/bin/
+usr/bin/aptura-launcher usr/bin/
+usr/bin/aptura-control usr/bin/
+usr/bin/aptura-screenshot usr/bin/
 usr/bin/aptura-about usr/bin/
 usr/bin/aptura-mode usr/bin/
 usr/bin/aptura-privacy-check usr/bin/
@@ -25,5 +30,15 @@ usr/share/applications/aptura-context.desktop usr/share/applications/
 usr/share/applications/aptura-shift.desktop usr/share/applications/
 usr/share/applications/aptura-aftercare.desktop usr/share/applications/
 usr/share/applications/aptura-live-bridge.desktop usr/share/applications/
+usr/share/wayland-sessions/aptura.desktop usr/share/wayland-sessions/
+usr/share/aptura-shell/README.md usr/share/aptura-shell/
+usr/share/aptura-shell/xdg/labwc/environment usr/share/aptura-shell/xdg/labwc/
+usr/share/aptura-shell/xdg/labwc/autostart usr/share/aptura-shell/xdg/labwc/
+usr/share/aptura-shell/xdg/labwc/menu.xml usr/share/aptura-shell/xdg/labwc/
+usr/share/aptura-shell/xdg/labwc/rc.xml usr/share/aptura-shell/xdg/labwc/
+usr/share/aptura-shell/waybar/config.jsonc usr/share/aptura-shell/waybar/
+usr/share/aptura-shell/waybar/style.css usr/share/aptura-shell/waybar/
+usr/share/aptura-shell/wofi/config usr/share/aptura-shell/wofi/
+usr/share/aptura-shell/wofi/style.css usr/share/aptura-shell/wofi/
 usr/share/metainfo/io.aptura.system-check.metainfo.xml usr/share/metainfo/
 usr/share/aptura-desktop/README.md usr/share/aptura-desktop/

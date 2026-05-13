@@ -2,7 +2,7 @@
 
 Canonical Aptura wallpaper assets live in `packages/aptura-branding`.
 
-The default direction is Aptura Plasma: a retro-space scene with neon horizon
+The default direction is Aptura Shell: a retro-space scene with neon horizon
 grid, the Aptura mark, high-contrast silhouettes, teal/magenta accents, and a
 clear link to the Aptura desktop palette.
 

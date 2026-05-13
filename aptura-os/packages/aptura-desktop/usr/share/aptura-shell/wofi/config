@@ -1,0 +1,9 @@
+allow_images=true
+insensitive=true
+matching=fuzzy
+show=drun
+width=560
+height=440
+location=center
+prompt=Aptura
+term=foot

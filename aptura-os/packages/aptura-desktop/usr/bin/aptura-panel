@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+config="/usr/share/aptura-shell/waybar/config.jsonc"
+style="/usr/share/aptura-shell/waybar/style.css"
+
+if ! command -v waybar >/dev/null 2>&1; then
+  printf 'Aptura panel needs waybar, but waybar is not installed.\n' >&2
+  exit 127
+fi
+
+exec waybar --config "${config}" --style "${style}"

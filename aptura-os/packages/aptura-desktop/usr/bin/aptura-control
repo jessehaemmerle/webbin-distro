@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+notify() {
+  if have notify-send; then
+    notify-send -a "Aptura Shell" "$@"
+  fi
+}
+
+pick() {
+  if have wofi; then
+    wofi --dmenu \
+      --insensitive \
+      --prompt "${1:-Aptura}" \
+      --conf /usr/share/aptura-shell/wofi/config \
+      --style /usr/share/aptura-shell/wofi/style.css
+    return
+  fi
+
+  sed -n '1p'
+}
+
+confirm() {
+  local message="$1"
+  if have zenity; then
+    zenity --question --title="Aptura Shell" --text="${message}"
+    return
+  fi
+
+  printf '%s [y/N] ' "${message}" >&2
+  read -r answer
+  [[ "${answer}" == "y" || "${answer}" == "Y" ]]
+}
+
+open_terminal() {
+  if have foot; then
+    exec foot
+  fi
+
+  if have konsole; then
+    exec konsole
+  fi
+
+  exec x-terminal-emulator
+}
+
+run_in_terminal() {
+  local title="$1"
+  shift
+
+  if have foot; then
+    exec foot "$@"
+  fi
+
+  if have konsole; then
+    exec konsole -p "tabtitle=${title}" -e "$@"
+  fi
+
+  exec x-terminal-emulator -T "${title}" -e "$@"
+}
+
+system_check() {
+  run_in_terminal "Aptura System Check" sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
+}
+
+lock_session() {
+  if have swaylock; then
+    exec swaylock -f -c 12142b
+  fi
+
+  if [[ -n "${XDG_SESSION_ID:-}" ]]; then
+    loginctl lock-session "${XDG_SESSION_ID}" 2>/dev/null || true
+  fi
+}
+
+logout_session() {
+  if [[ -n "${LABWC_PID:-}" ]]; then
+    kill -TERM "${LABWC_PID}"
+    return
+  fi
+
+  if [[ -n "${XDG_SESSION_ID:-}" ]]; then
+    loginctl terminate-session "${XDG_SESSION_ID}"
+    return
+  fi
+
+  printf 'Unable to find the current Aptura Shell session.\n' >&2
+}
+
+mode_menu() {
+  local choice
+  choice="$(printf '%s\n' balanced performance battery studio focus | pick "Mode")"
+  [[ -n "${choice}" ]] || exit 0
+
+  aptura-mode "${choice}"
+  notify "Aptura mode" "Switched to ${choice}."
+}
+
+power_menu() {
+  local choice
+  choice="$(printf '%s\n' "Lock" "Log out" "Reboot" "Power off" | pick "Power")"
+
+  case "${choice}" in
+    Lock)
+      lock_session
+      ;;
+    "Log out")
+      confirm "Log out of Aptura Shell?" && logout_session
+      ;;
+    Reboot)
+      confirm "Reboot this system?" && systemctl reboot
+      ;;
+    "Power off")
+      confirm "Power off this system?" && systemctl poweroff
+      ;;
+  esac
+}
+
+quick_menu() {
+  local choice
+  choice="$(printf '%s\n' "Launcher" "Terminal" "Files" "System Check" "Modes" "Settings" "Power" | pick "Aptura")"
+
+  case "${choice}" in
+    Launcher) exec aptura-launcher ;;
+    Terminal) open_terminal ;;
+    Files) exec dolphin ;;
+    "System Check") system_check ;;
+    Modes) mode_menu ;;
+    Settings) exec systemsettings ;;
+    Power) power_menu ;;
+  esac
+}
+
+case "${1:-menu}" in
+  menu) quick_menu ;;
+  lock) lock_session ;;
+  modes) mode_menu ;;
+  power) power_menu ;;
+  system-check) system_check ;;
+  terminal) open_terminal ;;
+  *)
+    printf 'Usage: aptura-control [menu|lock|modes|power|system-check|terminal]\n' >&2
+    exit 2
+    ;;
+esac

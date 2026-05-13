@@ -14,7 +14,7 @@ mkdir -p "${marker_dir}"
 title="Aptura Welcome"
 message="Welcome to Aptura OS.
 
-This Plasma edition includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
+This Shell edition includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
 
 Contextual Aptura tools: Journey, Context, Shift, Aftercare, and Live Bridge.
 

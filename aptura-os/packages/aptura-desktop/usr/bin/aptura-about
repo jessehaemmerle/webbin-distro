@@ -2,11 +2,11 @@
 set -euo pipefail
 
 title="About Aptura OS"
-message="Aptura OS 0.1.4 Adeline Plasma
+message="Aptura OS 0.1.4 Adeline Shell
 
-A Debian-compatible desktop distribution with KDE Plasma, Aptura branding, practical defaults, and workstation tooling.
+A Debian-compatible desktop distribution with Aptura Shell, Wayland defaults, practical tooling, and a Plasma fallback session.
 
-Edition: Adeline Plasma
+Edition: Adeline Shell
 Base: Debian trixie
 Kernel channel: trixie-backports"
 

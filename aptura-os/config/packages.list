@@ -36,12 +36,25 @@ smartmontools
 nvme-cli
 needrestart
 
-# KDE Plasma desktop.
-# Use Debian trixie packages directly so the default desktop stack no longer
-# depends on a temporary external desktop archive.
+# Aptura Shell desktop.
+# Aptura Shell is the distro-owned default Wayland session. KDE Plasma remains
+# installed as a fallback desktop and application base.
+labwc
+waybar
+wofi
+swaybg
+mako-notifier
+foot
+grim
+slurp
+swaylock
+wl-clipboard
+libnotify-bin
+xdg-desktop-portal-wlr
 kde-plasma-desktop
 plasma-workspace
 sddm
+polkit-kde-agent-1
 systemsettings
 dolphin
 konsole

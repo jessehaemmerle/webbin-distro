@@ -3,7 +3,7 @@
 The package `aptura-branding` ships SDDM palette assets and Aptura
 identity metadata.
 
-The visual direction follows Aptura Plasma: a dark retro-space base, teal and
+The visual direction follows Aptura Shell: a dark retro-space base, teal and
 magenta accents, the Aptura mark, and the same wallpaper language used in the
 live desktop and installer.
 

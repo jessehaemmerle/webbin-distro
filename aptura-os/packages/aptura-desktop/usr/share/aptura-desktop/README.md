@@ -1,7 +1,7 @@
 # Aptura Desktop Integration
 
-`aptura-desktop` keeps the default experience close to KDE Plasma while adding
-Aptura branding and practical tools.
+`aptura-desktop` installs Aptura Shell, the default Wayland desktop session,
+while keeping KDE Plasma available as a fallback and application base.
 
 Included integration points:
 
@@ -28,8 +28,9 @@ Included integration points:
 - Aptura Support Bundle for redacted diagnostics archives that are easier to
   share.
 - Aptura Welcome for a one-time first-run handoff into System Check.
-- Plasma session, SDDM, context-grid wallpaper, icon, GTK fallback theme,
-  and appearance defaults from `aptura-branding` and `aptura-settings`.
+- Aptura Shell session, SDDM, context-grid wallpaper, icon, GTK fallback theme,
+  panel, launcher, and appearance defaults from `aptura-branding` and
+  `aptura-settings`.
 - Firmware, power profile, disk, backup, snapshot, diagnostics, printing,
   scanning, and software management packages.
 - Installer launcher integration for the live session.

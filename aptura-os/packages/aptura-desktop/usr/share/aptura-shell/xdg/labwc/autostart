@@ -1,0 +1,30 @@
+#!/bin/sh
+
+export XDG_CURRENT_DESKTOP=Aptura
+export XDG_SESSION_DESKTOP=aptura
+export DESKTOP_SESSION=aptura
+
+for agent in \
+  /usr/libexec/polkit-kde-authentication-agent-1 \
+  /usr/lib/*/libexec/polkit-kde-authentication-agent-1; do
+  if [ -x "${agent}" ]; then
+    "${agent}" &
+    break
+  fi
+done
+
+mako &
+swaybg -i /usr/share/backgrounds/aptura/aptura-context-grid.svg -m fill &
+aptura-panel &
+
+if command -v nm-applet >/dev/null 2>&1; then
+  nm-applet --indicator &
+fi
+
+if command -v blueman-applet >/dev/null 2>&1; then
+  blueman-applet &
+fi
+
+if command -v xdg-user-dirs-update >/dev/null 2>&1; then
+  xdg-user-dirs-update &
+fi

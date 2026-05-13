@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v wofi >/dev/null 2>&1; then
+  printf 'Aptura launcher needs wofi, but wofi is not installed.\n' >&2
+  exit 127
+fi
+
+exec wofi \
+  --show drun \
+  --allow-images \
+  --insensitive \
+  --prompt "Aptura" \
+  --conf /usr/share/aptura-shell/wofi/config \
+  --style /usr/share/aptura-shell/wofi/style.css

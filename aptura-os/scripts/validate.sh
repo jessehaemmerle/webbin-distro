@@ -131,10 +131,17 @@ check_config() {
     fail "scripts/build-iso.sh must include BIOS and UEFI ISO bootloaders"
   fi
 
+  local shell_pkg
+  for shell_pkg in labwc waybar wofi swaybg mako-notifier foot grim slurp swaylock wl-clipboard libnotify-bin xdg-desktop-portal-wlr polkit-kde-agent-1; do
+    if ! grep -Eq "^[[:space:]]*${shell_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list missing Aptura Shell package: ${shell_pkg}"
+    fi
+  done
+
   local plasma_pkg
   for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
     if ! grep -Eq "^[[:space:]]*${plasma_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
-      fail "config/packages.list missing Plasma package: ${plasma_pkg}"
+      fail "config/packages.list missing Plasma fallback package: ${plasma_pkg}"
     fi
   done
 
@@ -207,8 +214,16 @@ check_config() {
     fail "displaymanager.conf must select sddm"
   fi
 
-  if ! grep -Eq '^[[:space:]]*desktopFile:[[:space:]]*"plasma"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
-    fail "displaymanager.conf must set Plasma as the default desktop file"
+  if ! grep -Eq '^[[:space:]]*desktopFile:[[:space:]]*"aptura"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must set Aptura Shell as the default desktop file"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*executable:[[:space:]]*"aptura-session"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must launch aptura-session"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*Session=aptura[[:space:]]*$' "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"; then
+    fail "live SDDM config must autologin to the Aptura Shell session"
   fi
 
   if grep -Eq '^[[:space:]]*-[[:space:]]*xfs[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
@@ -232,6 +247,13 @@ check_packages() {
   done
 
   local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
+  local shell_dep
+  for shell_dep in labwc waybar wofi swaybg mako-notifier foot grim slurp swaylock wl-clipboard libnotify-bin xdg-desktop-portal-wlr polkit-kde-agent-1; do
+    if ! grep -Eq "^[[:space:]]*${shell_dep},?[[:space:]]*$" "${meta_control}"; then
+      fail "aptura-meta missing Aptura Shell dependency: ${shell_dep}"
+    fi
+  done
+
   local boot_dep
   for boot_dep in cryptsetup cryptsetup-initramfs grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr; do
     if ! grep -Eq "^[[:space:]]*${boot_dep},?[[:space:]]*$" "${meta_control}"; then
@@ -257,12 +279,25 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-welcome.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/motd.d/00-aptura"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/profile.d/aptura-branding.sh"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/index.theme"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-3.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-3.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-4.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-4.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-3.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-3.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-4.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-4.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-session"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-panel"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-launcher"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-control"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-screenshot"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/wayland-sessions/aptura.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/xdg/labwc/rc.xml"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/xdg/labwc/autostart"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/xdg/labwc/menu.xml"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/waybar/config.jsonc"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/waybar/style.css"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/wofi/config"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/wofi/style.css"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-about"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-about.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-welcome"
@@ -289,11 +324,11 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-aftercare.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-live-bridge"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-live-bridge.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-journey.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-context.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-shift.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-aftercare.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-live-bridge.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-journey.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-context.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-shift.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-aftercare.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-live-bridge.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-journey.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-context.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-shift.svg"

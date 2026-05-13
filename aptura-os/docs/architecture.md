@@ -3,16 +3,16 @@
 ## Overview
 
 Aptura OS is a Debian Stable derivative built around APT, Debian packages,
-live-build images, Calamares installation, and an Aptura-tuned Plasma desktop.
+live-build images, Calamares installation, and Aptura Shell.
 
 The project follows a layered model:
 
 1. Upstream Debian Stable provides kernel, base system, APT, systemd, and security updates.
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
-3. Aptura uses Debian `trixie` KDE Plasma packages directly for the default desktop.
+3. Aptura uses Debian `trixie` labwc/wlroots packages for its default shell and KDE Plasma as a fallback/application base.
 4. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 5. Calamares installs the live system to disk.
-6. Aptura's Plasma defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
+6. Aptura Shell defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -35,7 +35,7 @@ Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
 - `aptura-branding`: wallpapers, logo assets, GTK fallback theme, icon theme, Aptura color assets, Plymouth, GRUB, and derivative identity metadata.
-- `aptura-desktop`: Aptura Plasma integration, Welcome, System Check launcher, and desktop package set.
+- `aptura-desktop`: Aptura Shell integration, Welcome, System Check launcher, and desktop package set.
 - `aptura-settings`: security, update, privacy, NetworkManager, journald, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
@@ -62,12 +62,15 @@ infrastructure and can be used by installed systems after signing is complete.
 
 ## Desktop Components
 
-Aptura does not ship a full desktop environment from scratch. The MVP uses:
+Aptura ships its own default desktop session built from maintained Debian
+components. The MVP uses:
 
-- KDE Plasma session, KWin compositor, Plasma panel/widgets, application
-  launcher, System Settings, core KDE apps, and xdg-desktop-portal-kde.
+- Aptura Shell session with labwc as the Wayland compositor/window manager,
+  waybar as the panel, wofi as the launcher, swaybg as wallpaper support, mako
+  as the notification daemon, and xdg-desktop-portal-wlr.
+- KDE Plasma as a fallback session and mature application/settings base.
 - SDDM as the login/display manager.
-- Aptura Plasma branding through wallpaper, logo assets, icon theme, GTK
+- Aptura Shell branding through wallpaper, logo assets, icon theme, GTK
   fallback theme, Plymouth, Calamares artwork, and Aptura color assets.
 - Aptura System Check as a local status tool for updates, firmware, power,
   security, and storage.
@@ -75,8 +78,8 @@ Aptura does not ship a full desktop environment from scratch. The MVP uses:
   firmware updates, power profiles, archive, backup, disk, audio, Bluetooth,
   and hardware switching tools.
 
-This keeps the system realistic while still giving Aptura OS a distinct visual
-language and a useful first-boot workstation baseline.
+This keeps the system realistic while still giving Aptura OS its own default
+shell, a distinct visual language, and a useful first-boot workstation baseline.
 
 ## Installer
 
@@ -115,7 +118,7 @@ MVP update sources:
 - Debian `trixie`
 - Debian `trixie-updates`
 - Debian `trixie-security`
-- Debian `trixie` KDE Plasma packages
+- Debian `trixie` labwc/wlroots and KDE application packages
 - Local Aptura packages during ISO build
 
 Production update model:

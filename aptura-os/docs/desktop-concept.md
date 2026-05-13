@@ -1,19 +1,22 @@
-# Aptura Plasma Desktop Concept
+# Aptura Shell Desktop Concept
 
 ## UX Philosophy
 
-Aptura uses KDE Plasma as the desktop foundation and gives it a deliberate
-retro workstation identity. The design should feel like a coherent distribution
-from the first boot screen through the installed desktop, not a generic Plasma
-session with one swapped wallpaper.
+Aptura Shell is the distro-owned default desktop session. It should feel like a
+coherent operating system from the first boot screen through the installed
+desktop, not a generic labwc setup with one swapped wallpaper.
 
 Principles:
 
-- Use KDE Plasma for a modern Wayland session, flexible panels/widgets,
-  application launcher, System Settings, and mature first-party applications.
+- Use labwc for a modern Wayland stacking compositor with familiar window
+  behavior, low overhead, and simple configuration.
+- Keep the primary workflow obvious: top panel, app launcher, window task list,
+  tray, clock, network/audio/battery status, mode switcher, and power menu.
 - Make the whole shell feel Aptura-native: wallpaper, logo, greeter, installer,
   icons, accent palettes, boot splash, and first-run tools should share one
   visual language.
+- Keep KDE Plasma installed as a fallback session and as a mature application
+  base, not as the default user shell.
 - Prefer useful local tools over mock surfaces.
 - Keep privacy defaults conservative.
 - Keep the retro direction crisp: hard silhouettes, grid perspective, neon
@@ -23,19 +26,27 @@ Principles:
 
 The MVP uses:
 
-- Plasma session with KWin, panel/widgets, launcher, System Settings,
-  notifications, screenshot tooling, workspaces, and portal integration.
+- Aptura Shell session file in `/usr/share/wayland-sessions/aptura.desktop`.
+- `aptura-session` to export session identity and start labwc.
+- labwc for window management and compositor duties.
+- waybar for the panel and task list.
+- wofi for launcher and quick menus.
+- swaybg for the default wallpaper.
+- mako for notifications.
+- grim, slurp, wl-clipboard, and `aptura-screenshot` for screenshots.
 - SDDM as the display manager.
-- Aptura color assets and GTK skeleton settings for applications that honor them.
-- `Aptura-COSMIC` GTK fallback theme for GTK applications that honor it.
-- `Aptura-COSMIC` icon theme with hicolor and Adwaita fallback.
+- xdg-desktop-portal-wlr for wlroots portal integration.
+- Aptura color assets and GTK skeleton settings for applications that honor
+  them.
+- `Aptura-Shell` GTK fallback theme for GTK applications that honor it.
+- `Aptura-Shell` icon theme with hicolor and Adwaita fallback.
 - Aptura System Check and the contextual Aptura tools for local status,
   Journey history, session context, workstation shifts, aftercare, and live
   install readiness.
 
 ## Visual Direction
 
-### Aptura Retro-Plasma Palette
+### Aptura Shell Palette
 
 - Deep space: `#12142b`
 - Electric teal: `#00d9c0`
@@ -47,13 +58,13 @@ The MVP uses:
 
 ### Shell
 
-- Plasma panels/widgets should use Aptura accent colors where upstream
-  configuration allows distribution defaults.
-- Launcher, app library, settings, and greeter should carry the Aptura mark.
+- The top panel should expose the main controls without feeling busy.
+- The launcher should be fast, keyboard-friendly, and visually tied to the
+  Aptura palette.
 - The contextual default wallpaper is `aptura-context-grid.svg`; the retro
   wallpaper remains available as a classic fallback.
 - Plymouth, GRUB, Calamares, Welcome, About, and System Check should present
-  the same Aptura Plasma naming.
+  the same Aptura Shell naming.
 
 ### Icons
 
@@ -72,8 +83,8 @@ should expand it over time with simple pixel-like icons for core actions:
 The default desktop should include practical packages that make the system feel
 complete:
 
-- Dolphin, Konsole, Kate, System Settings, Plasma application launcher, and
-  Discover when packaged.
+- Dolphin, Konsole, Kate, System Settings, Discover, and Spectacle as mature
+  applications available from the Aptura Shell launcher.
 - Synaptic for package management.
 - fwupd for firmware updates.
 - power-profiles-daemon for battery/performance modes.
@@ -82,7 +93,7 @@ complete:
 
 ## Future Extensions
 
-Only add Aptura-specific Plasma widgets or services when they provide a clear
+Only add Aptura-specific shell widgets or services when they provide a clear
 workflow improvement:
 
 - A local-only Journey surface that shows what the system has done recently.
