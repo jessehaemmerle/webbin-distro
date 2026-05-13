@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+
+PACKAGE=aptura-settings
+XFCE_DEFAULTS="
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
+/etc/xdg/xfce4/terminal/terminalrc
+"
+
+add_aptura_diversions() {
+	for path in ${XFCE_DEFAULTS}; do
+		diverter="$(dpkg-divert --listpackage "${path}" 2>/dev/null || true)"
+
+		if [ "${diverter}" = "${PACKAGE}" ]; then
+			continue
+		fi
+
+		if [ -n "${diverter}" ]; then
+			echo "${PACKAGE}: ${path} is already diverted by ${diverter}" >&2
+			exit 1
+		fi
+
+		dpkg-divert --package "${PACKAGE}" --quiet --add --rename \
+			--divert "${path}.distrib" "${path}"
+	done
+}
+
+case "$1" in
+	install|upgrade)
+		add_aptura_diversions
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

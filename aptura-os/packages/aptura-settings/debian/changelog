@@ -1,3 +1,9 @@
+aptura-settings (0.1.1) trixie; urgency=medium
+
+  * Divert XFCE default configuration files before installing Aptura defaults.
+
+ -- Aptura OS Team <maintainers@example.invalid>  Wed, 13 May 2026 04:15:00 +0000
+
 aptura-settings (0.1.0) trixie; urgency=medium
 
   * Initial Aptura OS settings package.
