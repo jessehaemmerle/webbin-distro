@@ -71,7 +71,10 @@ check_config() {
   require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.chroot"
   require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.binary"
   require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
+  require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd"
   require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"
+  require_file "${ROOT_DIR}/installer/calamares/modules/services-systemd.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/partition.conf"
   require_dir "${ROOT_DIR}/config/live-build"
 
@@ -92,11 +95,15 @@ check_config() {
   [[ "${packages_count}" -gt 0 ]] || fail "config/packages.list is empty"
 
   local boot_pkg
-  for boot_pkg in grub-common grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr dosfstools mtools; do
+  for boot_pkg in grub-common grub2-common grub-pc grub-pc-bin grub-efi-amd64 grub-efi-amd64-bin efibootmgr dosfstools mtools; do
     if ! grep -Eq "^[[:space:]]*${boot_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
       fail "config/packages.list missing bootloader support package: ${boot_pkg}"
     fi
   done
+
+  if ! grep -Eq -- '--bootloaders[[:space:]]+"syslinux,grub-efi"' "${ROOT_DIR}/scripts/build-iso.sh"; then
+    fail "scripts/build-iso.sh must include BIOS and UEFI ISO bootloaders"
+  fi
 
   local cosmic_pkg
   for cosmic_pkg in cosmic-session cosmic-greeter cosmic-comp cosmic-panel cosmic-app-library cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
@@ -118,6 +125,14 @@ check_config() {
 
   if grep -Eq '^[[:space:]]*defaultPartitionTableType:[[:space:]]*gpt' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
     fail "partition.conf forces GPT for BIOS installs; let Calamares select by boot mode"
+  fi
+
+  if grep -Eq '^[[:space:]]*-[[:space:]]*greetd[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must select cosmic-greeter, not raw greetd.service"
+  fi
+
+  if grep -Eq '^[[:space:]]*-[[:space:]]*xfs[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
+    fail "partition.conf must not offer XFS root until a separate GRUB-safe /boot layout exists"
   fi
 
   case " ${SUPPORTED_ARCHITECTURES} " in

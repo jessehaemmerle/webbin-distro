@@ -66,10 +66,17 @@ copy_keyrings() {
   cp -- "${keyring_dir}"/* "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/share/keyrings/"
 }
 
+set_live_config_permissions() {
+  local component="${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd"
+  [[ -f "${component}" ]] || return 0
+  chmod 0755 "${component}"
+}
+
 prepare_live_build_tree() {
   rm -rf -- "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}"
   mkdir -p "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}"
   cp -a "${ROOT_DIR}/config/live-build/config" "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/"
+  set_live_config_permissions
   write_package_list
   copy_hooks
   copy_local_packages
@@ -87,6 +94,7 @@ configure_live_build() {
       --architectures "${ARCH}" \
       --archive-areas "${APT_COMPONENTS}" \
       --binary-images iso-hybrid \
+      --bootloaders "syslinux,grub-efi" \
       --bootappend-live "boot=live components quiet splash username=aptura hostname=aptura-live" \
       --debian-installer live \
       --iso-application "${DISTRO_NAME} Live" \

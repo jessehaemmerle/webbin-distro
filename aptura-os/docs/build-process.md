@@ -111,6 +111,10 @@ For UEFI installs on Debian-derived images, keep `efiBootloaderId: "debian"` in
 its configuration below `/EFI/debian`; Aptura branding is applied to the GRUB
 menu and OS metadata instead.
 
+Do not enable XFS for the root filesystem unless the installer also creates a
+separate GRUB-readable `/boot` partition. With root and `/boot` on XFS, GRUB
+installation can fail on current Debian/Calamares combinations.
+
 ### APT rejects repositories
 
 Check:

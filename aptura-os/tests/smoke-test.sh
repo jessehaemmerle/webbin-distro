@@ -44,6 +44,7 @@ main() {
   require_file clean.sh
 
   require_dir config
+  require_file config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd
   require_dir hooks
   require_dir desktop/wallpapers
   require_dir desktop/greeter-theme

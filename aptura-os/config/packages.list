@@ -129,7 +129,9 @@ dosfstools
 mtools
 grub-common
 grub2-common
+grub-pc
 grub-efi-amd64-bin
+grub-efi-amd64
 grub-pc-bin
 efibootmgr
 os-prober
