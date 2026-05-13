@@ -1,12 +1,12 @@
-PRETTY_NAME="Aptura OS 0.1.4 Adeline COSMIC"
+PRETTY_NAME="Aptura OS 0.1.4 Adeline Plasma"
 NAME="Aptura OS"
 VERSION_ID="0.1.4"
-VERSION="0.1.4 (Adeline COSMIC)"
+VERSION="0.1.4 (Adeline Plasma)"
 VERSION_CODENAME=adeline
 ID=aptura
 ID_LIKE=debian
-VARIANT="COSMIC"
-VARIANT_ID=cosmic
+VARIANT="Plasma"
+VARIANT_ID=plasma
 LOGO=distributor-logo-aptura
 ANSI_COLOR="1;36"
 HOME_URL="https://aptura.local"

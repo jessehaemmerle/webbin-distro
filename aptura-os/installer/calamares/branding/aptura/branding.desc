@@ -4,8 +4,8 @@ strings:
   shortProductName: Aptura
   version: 0.1.4
   shortVersion: 0.1.4
-  versionedName: Aptura OS 0.1.4 Adeline COSMIC
-  shortVersionedName: Aptura COSMIC
+  versionedName: Aptura OS 0.1.4 Adeline Plasma
+  shortVersionedName: Aptura Plasma
   bootloaderEntryName: Aptura OS
   productUrl: https://aptura.local
   supportUrl: https://aptura.local/support

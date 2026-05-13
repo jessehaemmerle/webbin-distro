@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Aptura COSMIC
-Comment=Retro COSMIC icons for Aptura OS
+Name=Aptura Plasma
+Comment=Aptura icons for the Plasma edition
 Inherits=hicolor,Adwaita
 Directories=scalable/apps,scalable/places,scalable/devices
 

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Shift
+Comment=Switch into a workstation ritual for code, study, create, game, travel, or focus
+Exec=aptura-shift
+Icon=aptura-shift
+Terminal=true
+Categories=System;Settings;
+Keywords=aptura;shift;mode;profile;focus;travel;game;code;

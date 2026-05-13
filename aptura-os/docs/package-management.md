@@ -8,9 +8,8 @@ Repository layers:
 
 1. Debian Stable base repositories.
 2. Debian security repository.
-3. Pinned external COSMIC repository for the current COSMIC edition build.
-4. Aptura local repository during development.
-5. Aptura signed public repository for production.
+3. Aptura local repository during development.
+4. Aptura signed public repository for production.
 
 ## Package Lists
 
@@ -78,21 +77,16 @@ deb [signed-by=/usr/share/keyrings/aptura-archive-keyring.gpg] https://repo.aptu
 
 Do not use `trusted=yes` in production.
 
-## COSMIC Repository
+## Plasma Packages
 
-Debian 13 does not currently carry the full System76 COSMIC desktop stack in
-the default archive. The COSMIC edition therefore includes a temporary OBS
-Debian 13 archive:
+The Plasma edition uses KDE packages from Debian `trixie` directly. The default
+package list and metapackages include Plasma Workspace, SDDM, Dolphin, Konsole,
+Kate, Discover, Spectacle, and `xdg-desktop-portal-kde`.
 
-```text
-deb [signed-by=/usr/share/keyrings/aptura-cosmic-desktop-obs.asc] http://download.opensuse.org/repositories/home:/nomispaz:/debian:/cosmic-desktop/Debian_13/ /
-```
-
-The signing key is stored in `config/keyrings/` and live-build also receives
-the same key via `config/live-build/config/archives/*.key.{chroot,binary}`.
-The repository is pinned so COSMIC-related packages can come from it while
-generic packages continue to prefer Debian. Replace this with an Aptura-owned
-mirror or native packages before a public release.
+The previous external OBS repository and its APT pinning files are no
+longer part of the default build. New external repositories should only be
+added with signed metadata, explicit pinning, release-note documentation, and a
+clear maintenance owner.
 
 ## Versioning
 

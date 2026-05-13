@@ -13,11 +13,11 @@ you need.
 ## Live Session
 
 - [ ] Live session reaches graphical login or autologin desktop.
-- [ ] COSMIC session starts.
-- [ ] Aptura retro-COSMIC wallpaper is visible.
-- [ ] COSMIC panel, launcher, app library, settings, and core apps open.
-- [ ] Aptura accent colors and logo assets are visible where COSMIC exposes distribution branding.
-- [ ] COSMIC Terminal, Files, and Edit are available or documented as pending package inputs.
+- [ ] Plasma session starts.
+- [ ] Aptura retro-Plasma wallpaper is visible.
+- [ ] Plasma panel, launcher, app library, settings, and core apps open.
+- [ ] Aptura accent colors and logo assets are visible where Plasma exposes distribution branding.
+- [ ] Konsole, Dolphin, and Kate are available.
 - [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.
@@ -40,7 +40,7 @@ you need.
 ## Installer
 
 - [ ] Calamares starts from desktop launcher.
-- [ ] Welcome page displays Aptura COSMIC workstation branding.
+- [ ] Welcome page displays Aptura Plasma workstation branding.
 - [ ] Locale selection works.
 - [ ] Keyboard selection works.
 - [ ] Timezone selection works.

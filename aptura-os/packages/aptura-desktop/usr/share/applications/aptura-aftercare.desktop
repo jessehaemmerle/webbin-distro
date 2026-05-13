@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Aftercare
+Comment=Check what needs attention after updates or installation
+Exec=aptura-aftercare
+Icon=aptura-aftercare
+Terminal=true
+Categories=System;Utility;
+Keywords=aptura;aftercare;update;reboot;snapshot;service;

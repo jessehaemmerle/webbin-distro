@@ -10,19 +10,17 @@ Package: aptura-desktop
 Architecture: all
 Depends:
  bash,
- cosmic-session,
- cosmic-greeter,
- cosmic-greeter-daemon,
- cosmic-comp,
- cosmic-panel,
- cosmic-app-library,
- cosmic-icons,
- cosmic-settings,
- cosmic-files,
- cosmic-term,
- cosmic-edit,
- xdg-desktop-portal-cosmic,
- greetd,
+ kde-plasma-desktop,
+ plasma-workspace,
+ sddm,
+ systemsettings,
+ dolphin,
+ konsole,
+ kate,
+ ark,
+ spectacle,
+ plasma-discover,
+ xdg-desktop-portal-kde,
  xwayland,
  xdg-utils,
  ${misc:Depends}
@@ -61,8 +59,8 @@ Recommends:
  usbutils,
  xdg-user-dirs-gtk,
  zenity
-Description: Aptura COSMIC desktop integration
- Installs Aptura's COSMIC integration, desktop launchers, and utility hooks.
- The default desktop uses System76 COSMIC with Aptura retro-COSMIC branding,
- practical workstation tools, firmware visibility, power controls, and a local
- system health check.
+Description: Aptura Plasma desktop integration
+ Installs Aptura's KDE Plasma integration, desktop launchers, and utility hooks.
+ The default desktop uses KDE Plasma with Aptura contextual branding,
+ practical workstation tools, firmware visibility, power controls,
+ local journey/context tooling, and a local system health check.

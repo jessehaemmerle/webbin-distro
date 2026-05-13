@@ -12,13 +12,13 @@ enable_service() {
   fi
 }
 
-configure_cosmic_greeter() {
+configure_sddm() {
   local service_path=""
   local candidate
 
-  [[ -x /usr/bin/cosmic-greeter-start ]] || return 0
+  command -v sddm >/dev/null 2>&1 || return 0
 
-  for candidate in /lib/systemd/system/cosmic-greeter.service /usr/lib/systemd/system/cosmic-greeter.service; do
+  for candidate in /lib/systemd/system/sddm.service /usr/lib/systemd/system/sddm.service; do
     if [[ -f "${candidate}" ]]; then
       service_path="${candidate}"
       break
@@ -27,27 +27,20 @@ configure_cosmic_greeter() {
 
   [[ -n "${service_path}" ]] || return 0
 
-  install -d -m 0755 /etc/X11 /etc/greetd /etc/systemd/system
-  printf 'cosmic-greeter\n' > /etc/X11/default-display-manager
+  install -d -m 0755 /etc/X11 /etc/sddm.conf.d /etc/systemd/system
+  printf '/usr/bin/sddm\n' > /etc/X11/default-display-manager
   ln -sf "${service_path}" /etc/systemd/system/display-manager.service
 
-  cat > /etc/greetd/cosmic-greeter.toml <<'EOF'
-[terminal]
-vt = "1"
-
-[general]
-service = "cosmic-greeter"
-
-[default_session]
-command = "cosmic-greeter-start"
-user = "cosmic-greeter"
+  cat > /etc/sddm.conf.d/10-aptura.conf <<'EOF'
+[Theme]
+Current=breeze
 EOF
 
-  enable_service cosmic-greeter-daemon.service
+  enable_service sddm.service
   enable_service display-manager.service
 }
 
-log "Configuring Aptura COSMIC session and installer launcher"
+log "Configuring Aptura Plasma session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
@@ -58,7 +51,7 @@ enable_service cups.service
 enable_service cups-browsed.service
 enable_service ipp-usb.service
 
-configure_cosmic_greeter
+configure_sddm
 
 if command -v systemctl >/dev/null 2>&1; then
   systemctl set-default graphical.target >/dev/null 2>&1 || true
@@ -77,14 +70,14 @@ Categories=System;
 StartupNotify=true
 EOF
 
-if [[ -f /usr/share/wayland-sessions/cosmic.desktop || -f /usr/share/xsessions/cosmic.desktop ]]; then
+if [[ -f /usr/share/wayland-sessions/plasma.desktop || -f /usr/share/xsessions/plasma.desktop ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
   cat > /var/lib/AccountsService/users/aptura <<'EOF'
 [User]
-Session=cosmic
+Session=plasma
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
 fi
 
-log "COSMIC desktop configuration complete"
+log "Plasma desktop configuration complete"

@@ -65,18 +65,26 @@ check_config() {
   require_file "${ROOT_DIR}/config/packages.list"
   require_file "${ROOT_DIR}/config/apt-sources.list"
   require_file "${ROOT_DIR}/config/branding.conf"
-  require_file "${ROOT_DIR}/config/keyrings/aptura-cosmic-desktop-obs.asc"
-  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.chroot"
-  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.binary"
-  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.chroot"
-  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.binary"
-  require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
-  require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd"
+  require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"
   require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/services-systemd.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/partition.conf"
   require_dir "${ROOT_DIR}/config/live-build"
+
+  local removed_cosmic_file
+  for removed_cosmic_file in \
+    "${ROOT_DIR}/config/keyrings/aptura-cosmic-desktop-obs.asc" \
+    "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.chroot" \
+    "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.binary" \
+    "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.chroot" \
+    "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.binary" \
+    "${ROOT_DIR}/config/live-build/config/includes.chroot/etc/apt/preferences.d/60aptura-cosmic-desktop-obs" \
+    "${ROOT_DIR}/packages/aptura-settings/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"; do
+    if [[ -e "${removed_cosmic_file}" ]]; then
+      fail "COSMIC OBS file should be removed: ${removed_cosmic_file#${ROOT_DIR}/}"
+    fi
+  done
 
   if ! grep -Eq '^[[:space:]]*deb[[:space:]]+' "${ROOT_DIR}/config/apt-sources.list"; then
     fail "config/apt-sources.list does not contain any deb entries"
@@ -86,8 +94,8 @@ check_config() {
     fail "config/apt-sources.list contains insecure repository options"
   fi
 
-  if ! grep -Eq 'signed-by=/usr/share/keyrings/aptura-cosmic-desktop-obs\.asc' "${ROOT_DIR}/config/apt-sources.list"; then
-    fail "config/apt-sources.list must pin the COSMIC OBS repository to the packaged keyring"
+  if grep -Eq 'aptura-cosmic-desktop-obs|cosmic-desktop|download\.opensuse\.org/repositories/home:/nomispaz:/debian:/cosmic-desktop' "${ROOT_DIR}/config/apt-sources.list"; then
+    fail "config/apt-sources.list still contains the COSMIC OBS repository"
   fi
 
   local packages_count
@@ -112,10 +120,17 @@ check_config() {
     fail "scripts/build-iso.sh must include BIOS and UEFI ISO bootloaders"
   fi
 
-  local cosmic_pkg
-  for cosmic_pkg in cosmic-session cosmic-greeter cosmic-comp cosmic-panel cosmic-app-library cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
-    if ! grep -Eq "^[[:space:]]*${cosmic_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
-      fail "config/packages.list missing COSMIC package: ${cosmic_pkg}"
+  local plasma_pkg
+  for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+    if ! grep -Eq "^[[:space:]]*${plasma_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list missing Plasma package: ${plasma_pkg}"
+    fi
+  done
+
+  local removed_cosmic_pkg
+  for removed_cosmic_pkg in cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-applets cosmic-app-library cosmic-icons cosmic-launcher cosmic-bg cosmic-idle cosmic-notifications cosmic-osd cosmic-randr cosmic-screenshot cosmic-settings cosmic-settings-daemon cosmic-files cosmic-term cosmic-edit cosmic-player cosmic-wallpapers cosmic-workspaces xdg-desktop-portal-cosmic greetd; do
+    if grep -Eq "^[[:space:]]*${removed_cosmic_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list still contains COSMIC package: ${removed_cosmic_pkg}"
     fi
   done
 
@@ -134,8 +149,12 @@ check_config() {
     fail "partition.conf forces GPT for BIOS installs; let Calamares select by boot mode"
   fi
 
-  if grep -Eq '^[[:space:]]*-[[:space:]]*greetd[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
-    fail "displaymanager.conf must select cosmic-greeter, not raw greetd.service"
+  if ! grep -Eq '^[[:space:]]*-[[:space:]]*sddm[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must select sddm"
+  fi
+
+  if ! grep -Eq '^[[:space:]]*desktopFile:[[:space:]]*"plasma"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must set Plasma as the default desktop file"
   fi
 
   if grep -Eq '^[[:space:]]*-[[:space:]]*xfs[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
@@ -172,8 +191,7 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-logo.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-wordmark.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-retro-cosmic.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_dark"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_light"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-context-grid.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/distributor-logo-aptura.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-welcome.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/motd.d/00-aptura"
@@ -200,8 +218,29 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-mode.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-support-bundle"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-support-bundle.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-journey"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-journey.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-context"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-context.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-shift"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-shift.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-aftercare"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-aftercare.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-live-bridge"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-live-bridge.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-journey.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-context.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-shift.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-aftercare.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/aptura-live-bridge.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-journey.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-context.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-shift.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-aftercare.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-live-bridge.svg"
+  require_file "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-3.0/settings.ini"
+  require_file "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-4.0/settings.ini"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
-  require_file "${ROOT_DIR}/packages/aptura-settings/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
 }
 
 check_permissions() {

@@ -7,7 +7,7 @@ sprite = Sprite(text);
 sprite.SetX(Window.GetWidth() / 2 - text.GetWidth() / 2);
 sprite.SetY(Window.GetHeight() / 2 - text.GetHeight());
 
-submessage = "COSMIC WORKSTATION";
+submessage = "PLASMA WORKSTATION";
 subtext = Image.Text(submessage, 1.00, 1.00, 0.00);
 subsprite = Sprite(subtext);
 subsprite.SetX(Window.GetWidth() / 2 - subtext.GetWidth() / 2);

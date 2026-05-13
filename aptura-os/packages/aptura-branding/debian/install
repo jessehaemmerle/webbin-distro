@@ -5,10 +5,7 @@ etc/motd.d/00-aptura etc/motd.d/
 etc/profile.d/aptura-branding.sh etc/profile.d/
 usr/lib/os-release.d/aptura-os-release usr/lib/os-release.d/
 usr/share/backgrounds/aptura/*.svg usr/share/backgrounds/aptura/
-usr/share/backgrounds/aptura/aptura-retro-cosmic.svg usr/share/backgrounds/cosmic/
 usr/share/aptura/branding/*.svg usr/share/aptura/branding/
-usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_dark usr/share/cosmic/com.system76.CosmicSettings/v1/
-usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_light usr/share/cosmic/com.system76.CosmicSettings/v1/
 usr/share/icons/hicolor/scalable/apps/*.svg usr/share/icons/hicolor/scalable/apps/
 usr/share/pixmaps/*.svg usr/share/pixmaps/
 usr/share/themes/Aptura-COSMIC/index.theme usr/share/themes/Aptura-COSMIC/

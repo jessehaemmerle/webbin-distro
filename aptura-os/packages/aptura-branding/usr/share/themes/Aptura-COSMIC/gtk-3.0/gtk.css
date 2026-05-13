@@ -1,12 +1,14 @@
 @define-color aptura_teal #00d9c0;
-@define-color aptura_title #11142b;
-@define-color aptura_title_inactive #686a72;
-@define-color aptura_face #c8c6bc;
-@define-color aptura_light #ffffff;
-@define-color aptura_mid #808080;
+@define-color aptura_magenta #ff4fd8;
+@define-color aptura_violet #7a4dff;
+@define-color aptura_title #12142b;
+@define-color aptura_title_inactive #35384d;
+@define-color aptura_face #d7d2c3;
+@define-color aptura_light #f4f0df;
+@define-color aptura_mid #7b7c82;
 @define-color aptura_dark #000000;
 @define-color aptura_text #000000;
-@define-color aptura_window #ffffff;
+@define-color aptura_window #fffaf0;
 @define-color aptura_warning #ffe45c;
 
 * {
@@ -48,16 +50,16 @@ headerbar,
   min-height: 28px;
   padding: 3px 6px;
   color: @aptura_light;
-  background: linear-gradient(90deg, @aptura_title, #7a4dff);
+  background: linear-gradient(90deg, @aptura_title, @aptura_violet);
   border: 0;
   border-bottom: 2px solid @aptura_dark;
-  box-shadow: inset 1px 1px 0 @aptura_teal;
+  box-shadow: inset 1px 1px 0 @aptura_teal, inset 0 -2px 0 @aptura_magenta;
 }
 
 headerbar:backdrop,
 .titlebar:backdrop {
   color: #dcdcdc;
-  background: linear-gradient(90deg, @aptura_title_inactive, #b0b0b0);
+  background: linear-gradient(90deg, @aptura_title_inactive, @aptura_mid);
 }
 
 headerbar label,
@@ -86,7 +88,7 @@ spinbutton button {
 
 button:hover,
 combobox button:hover {
-  background-color: #d4d0c8;
+  background-color: #e4decc;
 }
 
 button:active,
@@ -103,11 +105,12 @@ combobox button:active {
 button.suggested-action {
   color: @aptura_dark;
   background-color: @aptura_teal;
+  box-shadow: inset -1px -1px 0 @aptura_violet;
 }
 
 button.destructive-action {
   color: @aptura_light;
-  background-color: #800000;
+  background-color: #b01838;
 }
 
 entry,
@@ -137,6 +140,7 @@ selection,
 *:selected {
   color: @aptura_light;
   background-color: @aptura_title;
+  text-shadow: 1px 1px 0 @aptura_dark;
 }
 
 notebook > header,
@@ -167,7 +171,7 @@ menuitem:hover,
 modelbutton:hover,
 row:hover {
   color: @aptura_light;
-  background-color: @aptura_title;
+  background-color: @aptura_violet;
 }
 
 switch,
@@ -184,6 +188,7 @@ switch:checked,
 scale highlight,
 progressbar progress {
   background-color: @aptura_teal;
+  box-shadow: inset 0 0 0 1px @aptura_magenta;
 }
 
 switch slider,

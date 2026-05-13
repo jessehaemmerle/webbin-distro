@@ -68,7 +68,7 @@ main() {
     focus)
       set_power power-saver
       printf 'Aptura mode: focus\n'
-      printf 'Tip: use COSMIC notification settings for deeper do-not-disturb control.\n'
+      printf 'Tip: use Plasma System Settings for deeper do-not-disturb control.\n'
       ;;
     *)
       usage >&2

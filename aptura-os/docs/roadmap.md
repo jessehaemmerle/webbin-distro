@@ -7,7 +7,7 @@
 - Aptura metapackages.
 - Local APT repository generation.
 - Calamares configuration.
-- Aptura COSMIC defaults and System Check.
+- Aptura Plasma defaults and System Check.
 - Security and release documentation.
 - Manual VM test checklist.
 
@@ -16,7 +16,7 @@
 - Build a booting ISO in a clean Debian VM.
 - Fix live-build and Calamares path issues.
 - Verify Calamares install in QEMU.
-- Verify COSMIC session, greeter, accent palettes, icon theme, wallpaper, and Aptura branding.
+- Verify Plasma session, greeter, accent palettes, icon theme, wallpaper, and Aptura branding.
 - Verify System Check output in live and installed sessions.
 - Confirm firmware, Flatpak, power profile, backup, and disk tools install cleanly.
 - Add repository signing key workflow.
@@ -46,7 +46,7 @@
 
 ## Long-Term Features
 
-- Native COSMIC integration only where it improves a concrete workflow.
+- Native Plasma integration only where it improves a concrete workflow.
 - Aptura Settings Center with narrow D-Bus backends.
 - Local-only assistant surface.
 - Edition-specific metapackages.

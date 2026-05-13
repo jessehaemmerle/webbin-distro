@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Context
+Comment=Detect the current session, hardware, power, and network context
+Exec=aptura-context
+Icon=aptura-context
+Terminal=true
+Categories=System;Utility;
+Keywords=aptura;context;live;hardware;network;power;

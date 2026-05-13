@@ -10,7 +10,7 @@ MAJOR.MINOR.PATCH
 
 Examples:
 
-- `0.1.4` Adeline COSMIC MVP
+- `0.1.4` Adeline Plasma MVP
 - `0.2.0` Alpha
 - `1.0.0` Stable
 

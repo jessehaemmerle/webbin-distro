@@ -76,7 +76,8 @@ export APTURA_BRAND_EDITION="COSMIC"
 export APTURA_BRAND_ACCENT="#00d9c0"
 EOF
 
-if command -v update-alternatives >/dev/null 2>&1 && [[ -f /usr/share/backgrounds/aptura/aptura-retro-cosmic.svg ]]; then
+if command -v update-alternatives >/dev/null 2>&1 && [[ -f /usr/share/backgrounds/aptura/aptura-context-grid.svg ]]; then
+  update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/backgrounds/aptura/aptura-context-grid.svg 95 || true
   update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/backgrounds/aptura/aptura-retro-cosmic.svg 90 || true
 fi
 
