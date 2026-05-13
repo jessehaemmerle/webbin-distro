@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-based desktop with practical workstation defaults, transparent package management, and a GNOME experience that feels intentionally curated instead of rebuilt from scratch.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-based desktop with practical workstation defaults, transparent package management, and a retro-inspired GNOME experience that feels intentionally curated instead of rebuilt from scratch.
 
 ## Features
 
@@ -33,7 +33,7 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura GNOME branding through wallpaper, login logo, dark mode, accent color, dock favorites, and GNOME defaults.
+- Aptura Retro visual identity inspired by late 80s and early 90s workstations: square window frames, bevel controls, hard shadows, dithered wallpaper, teal/magenta/amber accents, login styling, and GNOME defaults.
 - Aptura System Check for local update, firmware, power, security, and disk status.
 - Useful desktop differentiators installed by default: GNOME Software, Flatpak support, firmware updates, power profiles, disk utilities, backups, document viewing, archive handling, key management, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
@@ -151,10 +151,12 @@ Partitioning is destructive when the user selects whole-disk installation. Alway
 ## Aptura GNOME Desktop
 
 Aptura uses GNOME Shell as the stable compositor and session base, then layers
-Aptura identity and practical workstation defaults on top. The goal is not to
-ship a novelty shell; it is to make the default desktop more useful on first
-boot with visible update status, firmware tooling, power profiles, backup and
-disk utilities, privacy defaults, and a local System Check launcher.
+Aptura Retro identity and practical workstation defaults on top. The look is
+inspired by late 80s and early 90s workstations: square frames, beveled controls,
+chunky titlebars, hard shadows, and a dithered workbench wallpaper. The goal is
+not to ship a novelty shell; it is to make the default desktop more useful on
+first boot with visible update status, firmware tooling, power profiles, backup
+and disk utilities, privacy defaults, and a local System Check launcher.
 
 ## Project Structure
 
@@ -174,7 +176,7 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- GNOME branding and defaults are packaged, but still need visual QA on a real booted ISO.
+- Retro GNOME branding and GTK theme defaults are packaged, but still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -184,7 +186,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Verify Aptura GNOME defaults, System Check, firmware tooling, and power profiles in a live session.
+- Verify Aptura Retro GNOME defaults, System Check, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Complete branding assets under an open license.

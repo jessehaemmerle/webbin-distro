@@ -5,7 +5,7 @@ This directory contains native Debian package skeletons for Aptura OS.
 Packages:
 
 - `aptura-meta`: pulls in the distribution's core package set.
-- `aptura-branding`: installs visual identity, wallpaper, login theme placeholders, Plymouth theme, and derivative metadata.
+- `aptura-branding`: installs the Aptura Retro visual identity, wallpaper, GTK theme, login theme placeholders, Plymouth theme, and derivative metadata.
 - `aptura-desktop`: installs Aptura GNOME integration, System Check, and useful desktop packages.
 - `aptura-settings`: installs system defaults for APT, security, dconf, update behavior, and policy documentation.
 

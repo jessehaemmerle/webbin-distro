@@ -18,8 +18,8 @@ images:
   productWelcome: welcome.svg
 
 style:
-  sidebarBackground: "#101418"
-  sidebarText: "#f8f6ef"
-  sidebarTextSelect: "#18a999"
+  sidebarBackground: "#30343b"
+  sidebarText: "#f7f2df"
+  sidebarTextSelect: "#00a6a6"
 
 slideshow: "show.qml"

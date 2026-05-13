@@ -11,7 +11,7 @@ The project follows a layered model:
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
 3. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 4. Calamares installs the live system to disk.
-5. Aptura's GNOME defaults provide branding, privacy posture, useful workstation tools, and local status visibility.
+5. Aptura's GNOME defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -33,7 +33,7 @@ installer tuning, and image tooling validation.
 Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
-- `aptura-branding`: wallpaper, Plymouth, login theme, and derivative identity metadata.
+- `aptura-branding`: retro wallpaper, GTK theme, Plymouth, login theme, and derivative identity metadata.
 - `aptura-desktop`: Aptura GNOME integration, System Check launcher, and desktop package set.
 - `aptura-settings`: security, update, privacy, dconf, and policy defaults.
 
@@ -66,8 +66,8 @@ Aptura does not ship a full desktop environment from scratch. The MVP uses:
 - GNOME Shell and Mutter for compositor/session behavior.
 - GDM for login.
 - GNOME Control Center for mature settings coverage.
-- Aptura branding through wallpaper, GDM logo/banner, dark mode, accent color,
-  dock favorites, and GNOME defaults.
+- Aptura Retro branding through wallpaper, GTK theme, GDM logo/banner, dark
+  mode, accent color, dock favorites, and GNOME defaults.
 - Aptura System Check as a local status tool for updates, firmware, power,
   security, and storage.
 - GNOME Software, Flatpak support, firmware updates, power profiles, backup,

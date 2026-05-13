@@ -1,15 +1,73 @@
 QWidget {
   font-family: Cantarell, Inter, sans-serif;
+  color: #101318;
+  background: #c8c6bc;
 }
 
 #sidebarAppName {
-  color: #f8f6ef;
+  color: #f7f2df;
+  font-weight: 700;
 }
 
 #sidebarMenuApp {
-  background: #101418;
+  background: #30343b;
+  border-right: 3px solid #05070a;
 }
 
 #sidebarMenuApp QListView::item:selected {
-  color: #18a999;
+  color: #f7f2df;
+  background: #00a6a6;
+}
+
+QPushButton {
+  background: #c8c6bc;
+  border-top: 2px solid #f4f0df;
+  border-left: 2px solid #f4f0df;
+  border-right: 2px solid #686a72;
+  border-bottom: 2px solid #686a72;
+  padding: 6px 14px;
+}
+
+QPushButton:pressed {
+  background: #b6b2a8;
+  border-top: 2px solid #686a72;
+  border-left: 2px solid #686a72;
+  border-right: 2px solid #f4f0df;
+  border-bottom: 2px solid #f4f0df;
+}
+
+QLineEdit,
+QComboBox,
+QTextEdit,
+QPlainTextEdit {
+  background: #f4f0df;
+  color: #101318;
+  border-top: 2px solid #686a72;
+  border-left: 2px solid #686a72;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  padding: 4px;
+}
+
+QProgressBar {
+  border: 2px solid #05070a;
+  background: #7b7c82;
+  text-align: center;
+}
+
+QProgressBar::chunk {
+  background: #f2b84b;
+}
+
+QTabBar::tab {
+  background: #aaa79e;
+  color: #101318;
+  border-top: 2px solid #f4f0df;
+  border-left: 2px solid #f4f0df;
+  border-right: 2px solid #686a72;
+  padding: 6px 12px;
+}
+
+QTabBar::tab:selected {
+  background: #c8c6bc;
 }

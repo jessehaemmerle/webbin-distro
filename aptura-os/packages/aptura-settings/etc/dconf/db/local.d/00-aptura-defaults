@@ -1,5 +1,8 @@
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
+gtk-theme='Aptura-Retro'
+icon-theme='Adwaita'
+cursor-theme='Adwaita'
 font-name='Cantarell 11'
 document-font-name='Cantarell 11'
 monospace-font-name='Adwaita Mono 11'
@@ -13,7 +16,8 @@ favorite-apps=['firefox-esr.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.T
 disable-user-extensions=false
 
 [org/gnome/desktop/wm/preferences]
-button-layout='appmenu:minimize,maximize,close'
+theme='Aptura-Retro'
+button-layout='menu:minimize,maximize,close'
 
 [org/gnome/mutter]
 dynamic-workspaces=true

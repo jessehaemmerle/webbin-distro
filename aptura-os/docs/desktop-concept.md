@@ -3,7 +3,8 @@
 ## UX Philosophy
 
 Aptura uses GNOME as the desktop foundation and adds practical distribution
-defaults instead of maintaining a custom shell surface.
+defaults plus a retro workstation visual language instead of maintaining a
+custom shell surface.
 
 Principles:
 
@@ -12,8 +13,10 @@ Principles:
 - Make useful system state visible without telemetry or cloud accounts.
 - Prefer real installed tools over mock dashboards.
 - Keep privacy defaults conservative.
-- Use Aptura branding consistently across boot, login, wallpaper, icons, and
-  GNOME defaults.
+- Use Aptura Retro branding consistently across boot, login, wallpaper, icons,
+  GTK theme files, and GNOME defaults.
+- Evoke late 80s and early 90s workstations with square frames, bevel controls,
+  hard shadows, dithered surfaces, and restrained teal/magenta/amber accents.
 - Make first boot feel ready for work: updates, firmware, power, storage,
   backups, and installer access should be discoverable.
 
@@ -25,6 +28,7 @@ The MVP uses:
 - GDM for login.
 - GNOME Control Center for broad settings coverage.
 - dconf defaults for Aptura appearance, privacy, favorites, and workflow.
+- `Aptura-Retro` GTK theme files for GTK 3 and GTK 4 surfaces.
 - Aptura System Check for local status reporting.
 
 This avoids the maintenance cost of a custom desktop shell while still giving
@@ -32,12 +36,14 @@ Aptura OS a recognizable identity and useful default behavior.
 
 ## Core Defaults
 
-### Aptura Branding
+### Aptura Retro Branding
 
-- Aptura wallpaper for light and dark backgrounds.
+- Dithered workbench wallpaper with layered retro application windows.
 - Aptura logo on the GNOME login screen.
 - Dark color scheme by default.
 - Teal accent color where supported by the GNOME version.
+- Magenta and amber secondary accents for focus and attention states.
+- Square GTK controls, visible titlebars, bevel borders, and hard shadows.
 - Aptura icon reused for distro utilities.
 
 ### Useful Launcher Baseline
@@ -83,10 +89,14 @@ complete:
 
 Visual style:
 
-- Calm, high-contrast GNOME defaults.
-- Aptura teal as the primary accent.
-- Dark mode by default, with light mode available.
-- 8px or smaller radii where custom UI is introduced.
+- Late 80s and early 90s workstation inspiration without fake nostalgia text.
+- Square window frames and titlebars.
+- Raised buttons and inset entries using 1px/2px bevels.
+- Hard black shadows instead of soft blur.
+- Dither/checker textures in wallpaper and login surfaces.
+- Aptura teal as the primary accent, with magenta and amber as secondary accents.
+- Dark desktop base with light workbench panels.
+- 0px radii where custom UI is introduced.
 - No decorative dashboard layer unless it solves a real system workflow.
 
 Typography:
@@ -98,7 +108,7 @@ Typography:
 Interaction:
 
 - Standard GNOME keyboard, workspace, and search behavior.
-- Minimize and maximize buttons enabled for broader desktop expectations.
+- Minimize, maximize, and menu buttons enabled for a more classic window model.
 - Edge tiling and dynamic workspaces enabled.
 - File chooser sorts directories first.
 

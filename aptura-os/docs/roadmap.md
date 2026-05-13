@@ -7,7 +7,7 @@
 - Aptura metapackages.
 - Local APT repository generation.
 - Calamares configuration.
-- Aptura GNOME defaults and System Check.
+- Aptura Retro GNOME defaults and System Check.
 - Security and release documentation.
 - Manual VM test checklist.
 
@@ -16,12 +16,12 @@
 - Build a booting ISO in a clean Debian VM.
 - Fix live-build and Calamares path issues.
 - Verify Calamares install in QEMU.
-- Verify Aptura GNOME branding, dconf defaults, and GDM login branding.
+- Verify Aptura Retro GTK theme, wallpaper, dconf defaults, and GDM login branding.
 - Verify System Check output in live and installed sessions.
 - Confirm firmware, Flatpak, power profile, backup, and disk tools install cleanly.
 - Add repository signing key workflow.
 - Add lintian and shellcheck CI.
-- Add first real branding pass.
+- Add accessibility review for the retro palette, bevel contrast, and focus rings.
 
 ## Beta
 

@@ -25,7 +25,10 @@ install -d -m 0755 /etc/aptura
 cat > /etc/aptura/branding.conf <<'EOF'
 DISTRO_NAME="Aptura OS"
 DESKTOP_NAME="Aptura GNOME"
-ACCENT_COLOR="#18a999"
+THEME_NAME="Aptura-Retro"
+ACCENT_COLOR="#00a6a6"
+SECONDARY_ACCENT_COLOR="#d44fb0"
+WARNING_COLOR="#f2b84b"
 DEFAULT_MODE="dark"
 EOF
 
