@@ -1,6 +1,6 @@
 # Aptura OS
 
-Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned XFCE desktop.
+Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned System76 COSMIC desktop.
 
 This repository is an MVP foundation, not a finished public distribution. It is structured so you can grow it into a real derivative with signed package repositories, release engineering, QA, security review, and visual identity work.
 
@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive classic XFCE experience.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive retro-COSMIC experience.
 
 ## Features
 
@@ -33,9 +33,9 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura Classic visual identity: custom Aptura logo assets, XFWM4 window borders, gray workbench panels, navy titlebars, teal desktop, beveled controls, hard shadows, pixel-like icons, LightDM styling, Plymouth branding, Calamares branding, and XFCE defaults.
+- Aptura COSMIC visual identity: custom Aptura logo assets, retro-COSMIC wallpaper, COSMIC accent palettes, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
 - Aptura System Check for local update, firmware, power, security, and disk status.
-- Useful desktop differentiators installed by default: XFCE utilities, Thunar, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, image viewing, task management, Bluetooth, audio controls, and hardware switching support.
+- Useful desktop differentiators installed by default: COSMIC session, COSMIC Greeter, COSMIC Files, COSMIC Terminal, COSMIC Edit, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.
 - Documentation for architecture, build, package management, security, releases, and roadmap.
@@ -96,8 +96,8 @@ The build performs these steps:
 The expected output is:
 
 ```text
-dist/aptura-os-0.1.0-trixie-amd64.iso
-dist/aptura-os-0.1.0-trixie-amd64.iso.sha256
+dist/aptura-os-0.1.4-adeline-amd64.iso
+dist/aptura-os-0.1.4-adeline-amd64.iso.sha256
 ```
 
 ## Test In A VM
@@ -111,7 +111,7 @@ After building:
 Or pass a custom ISO path:
 
 ```bash
-./scripts/test-vm.sh dist/aptura-os-0.1.0-trixie-amd64.iso
+./scripts/test-vm.sh dist/aptura-os-0.1.4-adeline-amd64.iso
 ```
 
 The helper uses QEMU/KVM if available and falls back to QEMU's configured acceleration chain.
@@ -148,16 +148,19 @@ The live ISO includes Calamares configuration for:
 
 Partitioning is destructive when the user selects whole-disk installation. Always test in a VM first.
 
-## Aptura Classic XFCE Desktop
+## Aptura COSMIC Desktop
 
-Aptura uses XFCE as the session base because its panel, window manager, and
-theme stack are a good fit for a believable classic workstation. The look uses
-custom Aptura logo assets, XFWM4 borders, square titlebars, gray raised
-controls, inset text fields, a teal desktop, simple pixel-like icons, and a
-bottom taskbar with an Aptura-branded application menu. The goal is not a
-costume; it is a coherent classic desktop with useful first-boot tools such as
-firmware visibility, power profiles, archive tools, privacy defaults, and
-Aptura System Check.
+Aptura uses System76 COSMIC as the session base because it provides a modern
+Wayland desktop, tiling-friendly workflows, applets, launcher, app library,
+settings, and core applications while allowing distributions to ship their own
+brand colors and defaults. Aptura layers its own logo set, retro-COSMIC
+wallpaper, accent palettes, Plymouth theme, Calamares artwork, first-run
+Welcome flow, and local System Check tooling on top.
+
+Debian `trixie` does not currently provide a complete stable COSMIC desktop set
+in the default archive. Aptura therefore expects COSMIC packages to come from a
+signed Aptura package repository or from local `.deb` packages injected during
+the image build.
 
 ## Project Structure
 
@@ -177,7 +180,8 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- Aptura Classic XFCE branding, GTK theme, icon theme, and XFWM4 borders are packaged, but still need visual QA on a real booted ISO.
+- COSMIC packages must be supplied through an Aptura repository or local package injection before the ISO can resolve the desktop stack.
+- Aptura COSMIC branding, GTK fallback theme, icon theme, and wallpaper still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -187,7 +191,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Verify Aptura Classic XFCE defaults, System Check, firmware tooling, and power profiles in a live session.
+- Verify Aptura COSMIC defaults, System Check, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Add more wallpaper, icon, and accessibility variants under an open license.

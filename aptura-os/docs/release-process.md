@@ -10,24 +10,25 @@ MAJOR.MINOR.PATCH
 
 Examples:
 
-- `0.1.0` MVP
+- `0.1.4` Adeline COSMIC MVP
 - `0.2.0` Alpha
 - `1.0.0` Stable
 
-Debian base suite remains explicit in filenames and release notes.
+The Aptura codename remains explicit in filenames. Debian base suite remains
+explicit in release notes.
 
 ## ISO Naming
 
 Pattern:
 
 ```text
-aptura-os-<version>-<base-suite>-<arch>.iso
+aptura-os-<version>-<codename>-<arch>.iso
 ```
 
 Example:
 
 ```text
-aptura-os-0.1.0-trixie-amd64.iso
+aptura-os-0.1.4-adeline-amd64.iso
 ```
 
 ## Release Artifacts
@@ -47,13 +48,13 @@ Each release should publish:
 Generate:
 
 ```bash
-sha256sum aptura-os-0.1.0-trixie-amd64.iso > aptura-os-0.1.0-trixie-amd64.iso.sha256
+sha256sum aptura-os-0.1.4-adeline-amd64.iso > aptura-os-0.1.4-adeline-amd64.iso.sha256
 ```
 
 Sign:
 
 ```bash
-gpg --detach-sign --armor aptura-os-0.1.0-trixie-amd64.iso.sha256
+gpg --detach-sign --armor aptura-os-0.1.4-adeline-amd64.iso.sha256
 ```
 
 ## Release Notes

@@ -2,7 +2,7 @@
 set -e
 
 PACKAGE=aptura-settings
-XFCE_DEFAULTS="
+LEGACY_DESKTOP_DEFAULTS="
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
@@ -11,27 +11,26 @@ XFCE_DEFAULTS="
 /etc/xdg/xfce4/terminal/terminalrc
 "
 
-add_aptura_diversions() {
-	for path in ${XFCE_DEFAULTS}; do
+remove_legacy_desktop_diversions() {
+	for path in ${LEGACY_DESKTOP_DEFAULTS}; do
 		diverter="$(dpkg-divert --listpackage "${path}" 2>/dev/null || true)"
 
-		if [ "${diverter}" = "${PACKAGE}" ]; then
+		if [ "${diverter}" != "${PACKAGE}" ]; then
 			continue
 		fi
 
-		if [ -n "${diverter}" ]; then
-			echo "${PACKAGE}: ${path} is already diverted by ${diverter}" >&2
-			exit 1
+		if [ -e "${path}" ] || [ -L "${path}" ]; then
+			rm -f "${path}"
 		fi
 
-		dpkg-divert --package "${PACKAGE}" --quiet --add --rename \
+		dpkg-divert --package "${PACKAGE}" --quiet --remove --rename \
 			--divert "${path}.distrib" "${path}"
 	done
 }
 
 case "$1" in
 	install|upgrade)
-		add_aptura_diversions
+		remove_legacy_desktop_diversions
 		;;
 esac
 

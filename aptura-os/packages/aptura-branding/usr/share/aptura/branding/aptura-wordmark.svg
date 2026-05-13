@@ -7,6 +7,6 @@
   <path d="M90 68L100 92H80Z" fill="#008080" stroke="#05070a" stroke-width="3" stroke-linejoin="round"/>
   <rect x="76" y="96" width="30" height="9" fill="#ffff00" stroke="#05070a" stroke-width="3"/>
   <text x="180" y="88" fill="#05070a" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">APTURA OS</text>
-  <rect x="184" y="106" width="274" height="14" fill="#000080"/>
-  <text x="180" y="146" fill="#101318" font-family="Courier New, monospace" font-size="24">Classic XFCE workstation</text>
+  <rect x="184" y="106" width="274" height="14" fill="#00d9c0"/>
+  <text x="180" y="146" fill="#101318" font-family="Courier New, monospace" font-size="24">COSMIC workstation</text>
 </svg>

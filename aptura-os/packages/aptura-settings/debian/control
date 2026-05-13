@@ -9,10 +9,9 @@ Rules-Requires-Root: no
 Package: aptura-settings
 Architecture: all
 Depends:
- xfconf,
  ufw,
  unattended-upgrades,
  ${misc:Depends}
 Description: default settings for Aptura OS
- Installs distribution defaults for APT, security posture, XFCE appearance,
+ Installs distribution defaults for APT, security posture, COSMIC appearance,
  update behavior, and local policy documentation.

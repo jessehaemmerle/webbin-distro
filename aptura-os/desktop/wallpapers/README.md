@@ -2,9 +2,9 @@
 
 Canonical Aptura wallpaper assets live in `packages/aptura-branding`.
 
-The default direction is Aptura Classic: teal dithered desktop backgrounds,
-visible window-frame motifs, the Aptura mark, hard shadows, gray panels, navy
-titlebars, and yellow focus accents.
+The default direction is Aptura COSMIC: a retro-space scene with neon horizon
+grid, the Aptura mark, high-contrast silhouettes, teal/magenta accents, and a
+clear link to the COSMIC shell palette.
 
 Policy:
 

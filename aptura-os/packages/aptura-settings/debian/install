@@ -5,10 +5,4 @@ etc/apt/preferences.d/50aptura-backports-kernel etc/apt/preferences.d/
 etc/NetworkManager/conf.d/50aptura-privacy.conf etc/NetworkManager/conf.d/
 etc/systemd/journald.conf.d/50aptura-limits.conf etc/systemd/journald.conf.d/
 etc/ufw/applications.d/aptura-desktop etc/ufw/applications.d/
-etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml etc/xdg/xfce4/xfconf/xfce-perchannel-xml/
-etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml etc/xdg/xfce4/xfconf/xfce-perchannel-xml/
-etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml etc/xdg/xfce4/xfconf/xfce-perchannel-xml/
-etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml etc/xdg/xfce4/xfconf/xfce-perchannel-xml/
-etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml etc/xdg/xfce4/xfconf/xfce-perchannel-xml/
-etc/xdg/xfce4/terminal/terminalrc etc/xdg/xfce4/terminal/
 etc/polkit-1/rules.d/49-aptura-admin.rules etc/polkit-1/rules.d/

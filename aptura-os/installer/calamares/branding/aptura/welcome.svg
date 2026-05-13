@@ -1,34 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Aptura OS classic installer welcome">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Aptura OS COSMIC installer welcome">
   <defs>
-    <pattern id="dither" width="16" height="16" patternUnits="userSpaceOnUse">
-      <rect width="16" height="16" fill="#008080"/>
-      <rect width="8" height="8" fill="#007070"/>
-      <rect x="8" y="8" width="8" height="8" fill="#007070"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#11142b"/>
+      <stop offset="0.48" stop-color="#28164d"/>
+      <stop offset="1" stop-color="#0d1026"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe45c"/>
+      <stop offset="1" stop-color="#ff4fd8"/>
+    </linearGradient>
+    <pattern id="stars" width="90" height="90" patternUnits="userSpaceOnUse">
+      <rect width="90" height="90" fill="none"/>
+      <rect x="14" y="22" width="4" height="4" fill="#f7f3d7"/>
+      <rect x="68" y="14" width="3" height="3" fill="#00d9c0"/>
+      <rect x="42" y="70" width="4" height="4" fill="#ffb14a"/>
     </pattern>
+    <clipPath id="sunClip">
+      <circle cx="600" cy="295" r="118"/>
+    </clipPath>
   </defs>
-  <rect width="1200" height="800" fill="url(#dither)"/>
-  <rect x="180" y="120" width="840" height="500" fill="#c0c0c0" stroke="#000000" stroke-width="8"/>
-  <path d="M188 128H1012V612" fill="none" stroke="#ffffff" stroke-width="6"/>
-  <path d="M1020 128V620H188" fill="none" stroke="#808080" stroke-width="6"/>
-  <rect x="204" y="148" width="792" height="68" fill="#000080" stroke="#000000" stroke-width="6"/>
-  <text x="244" y="195" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">APTURA INSTALLER</text>
-  <g fill="#c0c0c0" stroke="#000000" stroke-width="4">
-    <rect x="858" y="165" width="28" height="28"/>
-    <rect x="900" y="165" width="28" height="28"/>
-    <rect x="942" y="165" width="28" height="28"/>
+
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <rect width="1200" height="800" fill="url(#stars)" opacity="0.55"/>
+
+  <g clip-path="url(#sunClip)">
+    <circle cx="600" cy="295" r="118" fill="url(#sun)"/>
+    <g stroke="#28164d" stroke-width="12">
+      <path d="M470 254H730"/>
+      <path d="M462 293H738"/>
+      <path d="M478 332H722"/>
+      <path d="M520 371H680"/>
+    </g>
   </g>
-  <rect x="260" y="270" width="250" height="210" fill="#101318" stroke="#000000" stroke-width="5"/>
-  <path d="M385 308L468 443H425L407 405H363L345 443H304Z" fill="#f4f0df" stroke="#000000" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M385 350L405 386H365Z" fill="#008080" stroke="#000000" stroke-width="5" stroke-linejoin="round"/>
-  <rect x="358" y="390" width="56" height="18" fill="#ffff00" stroke="#000000" stroke-width="5"/>
-  <path d="M314 462H458" stroke="#000080" stroke-width="12"/>
-  <text x="570" y="340" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">Install Aptura OS</text>
-  <text x="570" y="400" fill="#000000" font-family="Courier New, monospace" font-size="28">Classic XFCE workstation</text>
-  <text x="570" y="435" fill="#000000" font-family="Courier New, monospace" font-size="22">Aptura identity, tools, and defaults</text>
-  <rect x="570" y="455" width="280" height="58" fill="#c0c0c0" stroke="#000000" stroke-width="5"/>
-  <path d="M580 465H840V503" fill="none" stroke="#ffffff" stroke-width="4"/>
-  <path d="M850 465V513H580" fill="none" stroke="#808080" stroke-width="4"/>
-  <text x="710" y="493" text-anchor="middle" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="25">Continue</text>
-  <rect y="710" width="1200" height="90" fill="#c0c0c0" stroke="#000000" stroke-width="6"/>
-  <text x="600" y="765" text-anchor="middle" fill="#000000" font-family="Courier New, monospace" font-size="24">Aptura Classic: logo, boot, login, installer, icons, colors, and XFCE defaults</text>
+
+  <path d="M0 490L170 380L300 470L430 350L560 476L700 372L840 488L1000 344L1200 490V800H0Z" fill="#090b18"/>
+  <path d="M0 525L130 452L260 530L384 438L520 542L660 442L790 526L934 430L1200 535V800H0Z" fill="#12142b"/>
+
+  <g stroke="#00d9c0" stroke-width="2" opacity="0.8">
+    <path d="M0 612H1200"/>
+    <path d="M0 656H1200"/>
+    <path d="M0 705H1200"/>
+    <path d="M0 760H1200"/>
+    <path d="M600 545L120 800"/>
+    <path d="M600 545L300 800"/>
+    <path d="M600 545L480 800"/>
+    <path d="M600 545L720 800"/>
+    <path d="M600 545L900 800"/>
+    <path d="M600 545L1080 800"/>
+  </g>
+
+  <rect x="130" y="110" width="940" height="430" rx="0" fill="#c0c0c0" stroke="#05070a" stroke-width="8"/>
+  <path d="M140 120H1060V530" fill="none" stroke="#f4f0df" stroke-width="6"/>
+  <path d="M1070 120V540H140" fill="none" stroke="#686a72" stroke-width="6"/>
+  <rect x="156" y="142" width="888" height="66" fill="#141742" stroke="#05070a" stroke-width="6"/>
+  <text x="202" y="185" fill="#f4f0df" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">APTURA COSMIC INSTALLER</text>
+  <g fill="#c0c0c0" stroke="#05070a" stroke-width="4">
+    <rect x="902" y="160" width="28" height="28"/>
+    <rect x="944" y="160" width="28" height="28"/>
+    <rect x="986" y="160" width="28" height="28"/>
+  </g>
+
+  <rect x="226" y="260" width="236" height="200" fill="#101318" stroke="#05070a" stroke-width="5"/>
+  <path d="M344 296L422 428H383L366 390H323L306 428H266Z" fill="#f4f0df" stroke="#05070a" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M344 338L363 374H326Z" fill="#00d9c0" stroke="#05070a" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="318" y="378" width="54" height="18" fill="#ffe45c" stroke="#05070a" stroke-width="5"/>
+  <path d="M274 448H414" stroke="#ff4fd8" stroke-width="12"/>
+
+  <text x="520" y="315" fill="#05070a" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Install Aptura OS</text>
+  <text x="520" y="375" fill="#101318" font-family="Courier New, monospace" font-size="28">COSMIC workstation</text>
+  <text x="520" y="414" fill="#101318" font-family="Courier New, monospace" font-size="21">System76 COSMIC, Aptura identity, local tools</text>
+  <rect x="520" y="442" width="300" height="58" fill="#00d9c0" stroke="#05070a" stroke-width="5"/>
+  <path d="M530 452H810V490" fill="none" stroke="#f4f0df" stroke-width="4"/>
+  <path d="M820 452V500H530" fill="none" stroke="#0d4f68" stroke-width="4"/>
+  <text x="670" y="480" text-anchor="middle" fill="#05070a" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">Continue</text>
+
+  <rect y="710" width="1200" height="90" fill="#101318" stroke="#00d9c0" stroke-width="5"/>
+  <text x="600" y="765" text-anchor="middle" fill="#f4f0df" font-family="Courier New, monospace" font-size="23">Aptura COSMIC: logo, boot, greeter, installer, icons, colors, and wallpaper</text>
 </svg>

@@ -2,11 +2,13 @@ aptura-branding (0.1.1) trixie; urgency=medium
 
   * Add complete Aptura logo, distributor, shell, MOTD, and system identity
     branding assets.
+  * Add COSMIC accent palettes and retro-COSMIC wallpaper assets.
+  * Rename GTK and icon fallback themes for the Aptura COSMIC edition.
 
  -- Aptura OS Team <maintainers@aptura.local>  Wed, 13 May 2026 06:00:00 +0000
 
 aptura-branding (0.1.0) trixie; urgency=medium
 
-  * Initial Aptura Classic XFCE branding package.
+  * Initial Aptura branding package.
 
  -- Aptura OS Team <maintainers@aptura.local>  Tue, 12 May 2026 12:00:00 +0000

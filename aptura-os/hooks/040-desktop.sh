@@ -12,17 +12,27 @@ enable_service() {
   fi
 }
 
-log "Configuring Aptura Classic XFCE session and installer launcher"
+log "Configuring Aptura COSMIC session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
-enable_service lightdm.service
 enable_service power-profiles-daemon.service
 enable_service switcheroo-control.service
 enable_service fwupd-refresh.timer
 enable_service cups.service
 enable_service cups-browsed.service
 enable_service ipp-usb.service
+
+if [[ -f /usr/lib/systemd/system/cosmic-greeter.service || -f /lib/systemd/system/cosmic-greeter.service ]]; then
+  enable_service cosmic-greeter.service
+  enable_service cosmic-greeter-daemon.service
+else
+  enable_service greetd.service
+fi
+
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl set-default graphical.target >/dev/null 2>&1 || true
+fi
 
 install -d -m 0755 /usr/share/applications
 cat > /usr/share/applications/calamares.desktop <<'EOF'
@@ -37,34 +47,27 @@ Categories=System;
 StartupNotify=true
 EOF
 
-install -d -m 0755 /etc/lightdm/lightdm.conf.d
-cat > /etc/lightdm/lightdm.conf.d/50-aptura-session.conf <<'EOF'
-[Seat:*]
-user-session=xfce
-greeter-session=lightdm-gtk-greeter
+install -d -m 0755 /etc/greetd
+cat > /etc/greetd/cosmic-greeter.toml <<'EOF'
+[terminal]
+vt = "1"
+
+[general]
+service = "cosmic-greeter"
+
+[default_session]
+command = "cosmic-greeter-start"
+user = "cosmic-greeter"
 EOF
 
-install -d -m 0755 /etc/lightdm/lightdm-gtk-greeter.conf.d
-cat > /etc/lightdm/lightdm-gtk-greeter.conf.d/50-aptura-classic.conf <<'EOF'
-[greeter]
-theme-name=Aptura-Classic
-icon-theme-name=Aptura-Classic
-font-name=Sans 10
-background=/usr/share/backgrounds/aptura/aptura-default.svg
-default-user-image=/usr/share/pixmaps/aptura.svg
-user-background=false
-xft-antialias=false
-indicators=~host;~spacer;~clock;~spacer;~language;~session;~a11y;~power
-EOF
-
-if [[ -f /usr/share/xsessions/xfce.desktop ]]; then
+if [[ -f /usr/share/wayland-sessions/cosmic.desktop || -f /usr/share/xsessions/cosmic.desktop ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
   cat > /var/lib/AccountsService/users/aptura <<'EOF'
 [User]
-Session=xfce
+Session=cosmic
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
 fi
 
-log "Desktop configuration complete"
+log "COSMIC desktop configuration complete"

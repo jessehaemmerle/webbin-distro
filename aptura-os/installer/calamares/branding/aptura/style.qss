@@ -5,18 +5,18 @@ QWidget {
 }
 
 #sidebarAppName {
-  color: #ffffff;
+  color: #f4f0df;
   font-weight: 700;
 }
 
 #sidebarMenuApp {
-  background: #000080;
+  background: #11142b;
   border-right: 3px solid #05070a;
 }
 
 #sidebarMenuApp QListView::item:selected {
   color: #05070a;
-  background: #ffff00;
+  background: #00d9c0;
 }
 
 QPushButton {
@@ -56,7 +56,7 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-  background: #008080;
+  background: #00d9c0;
 }
 
 QTabBar::tab {
@@ -70,5 +70,5 @@ QTabBar::tab {
 
 QTabBar::tab:selected {
   background: #c8c6bc;
-  color: #000080;
+  color: #11142b;
 }

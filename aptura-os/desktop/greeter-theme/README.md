@@ -1,13 +1,14 @@
 # Aptura Greeter Theme
 
-The package `aptura-branding` ships LightDM GTK greeter defaults and an Aptura
-LightDM WebKit theme.
+The package `aptura-branding` ships COSMIC Greeter palette assets and Aptura
+identity metadata.
 
-The visual direction follows Aptura Classic: square panels, chunky titlebars,
-beveled input wells, hard shadows, and a teal desktop background.
+The visual direction follows Aptura COSMIC: a dark retro-space base, teal and
+magenta accents, the Aptura mark, and the same wallpaper language used in the
+live desktop and installer.
 
 TODO:
 
-- Validate LightDM GTK greeter rendering in the live ISO.
+- Validate COSMIC Greeter rendering in the live ISO.
 - Add accessibility checks for contrast, keyboard navigation, and screen reader behavior.
 - Keep the greeter aligned with the Aptura logo, wallpaper, and system colors.

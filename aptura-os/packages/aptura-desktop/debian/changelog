@@ -1,5 +1,6 @@
 aptura-desktop (0.1.2) trixie; urgency=medium
 
+  * Replace the legacy desktop dependencies with System76 COSMIC integration.
   * Add an About Aptura OS launcher and use the dedicated Welcome icon.
 
  -- Aptura OS Team <maintainers@aptura.local>  Wed, 13 May 2026 06:05:00 +0000
@@ -12,6 +13,6 @@ aptura-desktop (0.1.1) trixie; urgency=medium
 
 aptura-desktop (0.1.0) trixie; urgency=medium
 
-  * Initial Aptura Classic XFCE desktop integration package.
+  * Initial Aptura desktop integration package.
 
  -- Aptura OS Team <maintainers@aptura.local>  Tue, 12 May 2026 12:00:00 +0000

@@ -1,0 +1,218 @@
+@define-color aptura_teal #00d9c0;
+@define-color aptura_title #11142b;
+@define-color aptura_title_inactive #686a72;
+@define-color aptura_face #c8c6bc;
+@define-color aptura_light #ffffff;
+@define-color aptura_mid #808080;
+@define-color aptura_dark #000000;
+@define-color aptura_text #000000;
+@define-color aptura_window #ffffff;
+@define-color aptura_warning #ffe45c;
+
+* {
+  border-radius: 0;
+  outline-color: @aptura_dark;
+  outline-style: solid;
+  outline-width: 1px;
+  -gtk-outline-radius: 0;
+  -gtk-icon-style: regular;
+}
+
+window,
+dialog,
+messagedialog,
+popover,
+menu {
+  color: @aptura_text;
+  background-color: @aptura_face;
+  border-top: 2px solid @aptura_light;
+  border-left: 2px solid @aptura_light;
+  border-right: 2px solid @aptura_dark;
+  border-bottom: 2px solid @aptura_dark;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+}
+
+.csd decoration,
+window.csd decoration,
+window.ssd decoration {
+  margin: 8px;
+  border-top: 2px solid @aptura_light;
+  border-left: 2px solid @aptura_light;
+  border-right: 2px solid @aptura_dark;
+  border-bottom: 2px solid @aptura_dark;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.75);
+}
+
+headerbar,
+.titlebar {
+  min-height: 28px;
+  padding: 3px 6px;
+  color: @aptura_light;
+  background: linear-gradient(90deg, @aptura_title, #7a4dff);
+  border: 0;
+  border-bottom: 2px solid @aptura_dark;
+  box-shadow: inset 1px 1px 0 @aptura_teal;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+  color: #dcdcdc;
+  background: linear-gradient(90deg, @aptura_title_inactive, #b0b0b0);
+}
+
+headerbar label,
+.titlebar label {
+  color: @aptura_light;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 @aptura_dark;
+}
+
+button,
+button.titlebutton,
+combobox button,
+spinbutton button {
+  min-height: 22px;
+  min-width: 22px;
+  color: @aptura_text;
+  background-color: @aptura_face;
+  background-image: none;
+  border-top: 2px solid @aptura_light;
+  border-left: 2px solid @aptura_light;
+  border-right: 2px solid @aptura_dark;
+  border-bottom: 2px solid @aptura_dark;
+  box-shadow: inset -1px -1px 0 @aptura_mid;
+  text-shadow: none;
+}
+
+button:hover,
+combobox button:hover {
+  background-color: #d4d0c8;
+}
+
+button:active,
+button:checked,
+combobox button:active {
+  background-color: @aptura_face;
+  border-top-color: @aptura_dark;
+  border-left-color: @aptura_dark;
+  border-right-color: @aptura_light;
+  border-bottom-color: @aptura_light;
+  box-shadow: inset 1px 1px 0 @aptura_mid;
+}
+
+button.suggested-action {
+  color: @aptura_dark;
+  background-color: @aptura_teal;
+}
+
+button.destructive-action {
+  color: @aptura_light;
+  background-color: #800000;
+}
+
+entry,
+searchentry,
+spinbutton,
+textview,
+viewport,
+scrolledwindow,
+list,
+treeview {
+  color: @aptura_text;
+  background-color: @aptura_window;
+  border-top: 2px solid @aptura_dark;
+  border-left: 2px solid @aptura_dark;
+  border-right: 2px solid @aptura_light;
+  border-bottom: 2px solid @aptura_light;
+  box-shadow: inset 1px 1px 0 @aptura_mid;
+}
+
+entry:focus,
+searchentry:focus,
+textview:focus {
+  box-shadow: inset 1px 1px 0 @aptura_mid, 0 0 0 1px @aptura_title;
+}
+
+selection,
+*:selected {
+  color: @aptura_light;
+  background-color: @aptura_title;
+}
+
+notebook > header,
+menubar,
+toolbar,
+actionbar {
+  color: @aptura_text;
+  background-color: @aptura_face;
+  border-bottom: 2px solid @aptura_mid;
+  box-shadow: inset 1px 1px 0 @aptura_light;
+}
+
+notebook tab {
+  padding: 5px 10px;
+  color: @aptura_text;
+  background-color: @aptura_face;
+  border-top: 2px solid @aptura_light;
+  border-left: 2px solid @aptura_light;
+  border-right: 2px solid @aptura_dark;
+}
+
+notebook tab:checked {
+  background-color: @aptura_face;
+  border-bottom: 2px solid @aptura_face;
+}
+
+menuitem:hover,
+modelbutton:hover,
+row:hover {
+  color: @aptura_light;
+  background-color: @aptura_title;
+}
+
+switch,
+scale trough,
+progressbar trough {
+  background-color: @aptura_mid;
+  border-top: 2px solid @aptura_dark;
+  border-left: 2px solid @aptura_dark;
+  border-right: 2px solid @aptura_light;
+  border-bottom: 2px solid @aptura_light;
+}
+
+switch:checked,
+scale highlight,
+progressbar progress {
+  background-color: @aptura_teal;
+}
+
+switch slider,
+scale slider {
+  background-color: @aptura_face;
+  border-top: 2px solid @aptura_light;
+  border-left: 2px solid @aptura_light;
+  border-right: 2px solid @aptura_dark;
+  border-bottom: 2px solid @aptura_dark;
+}
+
+sidebar,
+.sidebar,
+placessidebar {
+  color: @aptura_text;
+  background-color: @aptura_face;
+  border-right: 2px solid @aptura_mid;
+}
+
+sidebar row:selected,
+.sidebar row:selected,
+placessidebar row:selected {
+  color: @aptura_light;
+  background-color: @aptura_title;
+}
+
+tooltip {
+  color: @aptura_text;
+  background-color: @aptura_warning;
+  border: 2px solid @aptura_dark;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.75);
+}

@@ -8,15 +8,15 @@ log() {
 log "Applying Aptura OS branding"
 
 cat > /etc/os-release <<'EOF'
-PRETTY_NAME="Aptura OS 0.1 Classic XFCE"
+PRETTY_NAME="Aptura OS 0.1.4 Adeline COSMIC"
 NAME="Aptura OS"
-VERSION_ID="0.1"
-VERSION="0.1 (Classic XFCE)"
-VERSION_CODENAME=trixie
+VERSION_ID="0.1.4"
+VERSION="0.1.4 (Adeline COSMIC)"
+VERSION_CODENAME=adeline
 ID=aptura
 ID_LIKE=debian
-VARIANT="Classic XFCE"
-VARIANT_ID=classic-xfce
+VARIANT="COSMIC"
+VARIANT_ID=cosmic
 LOGO=distributor-logo-aptura
 ANSI_COLOR="1;36"
 HOME_URL="https://aptura.local"
@@ -27,17 +27,17 @@ EOF
 
 cat > /etc/lsb-release <<'EOF'
 DISTRIB_ID=Aptura
-DISTRIB_RELEASE=0.1
-DISTRIB_CODENAME=trixie
-DISTRIB_DESCRIPTION="Aptura OS 0.1 Classic XFCE"
+DISTRIB_RELEASE=0.1.4
+DISTRIB_CODENAME=adeline
+DISTRIB_DESCRIPTION="Aptura OS 0.1.4 Adeline COSMIC"
 EOF
 
 cat > /etc/issue <<'EOF'
-Aptura OS 0.1 Classic XFCE \n \l
+Aptura OS 0.1.4 Adeline COSMIC \n \l
 EOF
 
 cat > /etc/issue.net <<'EOF'
-Aptura OS 0.1 Classic XFCE
+Aptura OS 0.1.4 Adeline COSMIC
 EOF
 
 cat > /etc/machine-info <<'EOF'
@@ -49,35 +49,35 @@ EOF
 install -d -m 0755 /etc/aptura
 cat > /etc/aptura/branding.conf <<'EOF'
 DISTRO_NAME="Aptura OS"
-DESKTOP_NAME="Aptura Classic XFCE"
-DISTRO_VERSION="0.1"
-DISTRO_CODENAME="trixie"
-THEME_NAME="Aptura-Classic"
-ICON_THEME_NAME="Aptura-Classic"
+DESKTOP_NAME="Aptura COSMIC"
+DISTRO_VERSION="0.1.4"
+DISTRO_CODENAME="adeline"
+THEME_NAME="Aptura-COSMIC"
+ICON_THEME_NAME="Aptura-COSMIC"
 LOGO_NAME="distributor-logo-aptura"
-ACCENT_COLOR="#000080"
-SECONDARY_ACCENT_COLOR="#008080"
-WARNING_COLOR="#ffff00"
-SURFACE_COLOR="#c0c0c0"
+ACCENT_COLOR="#00d9c0"
+SECONDARY_ACCENT_COLOR="#ff4fd8"
+WARNING_COLOR="#ffe45c"
+SURFACE_COLOR="#c8c6bc"
 HOME_URL="https://aptura.local"
 SUPPORT_URL="https://aptura.local/support"
-DEFAULT_MODE="classic"
+DEFAULT_MODE="cosmic"
 EOF
 
 install -d -m 0755 /etc/motd.d /etc/profile.d
 cat > /etc/motd.d/00-aptura <<'EOF'
-Aptura OS 0.1 Classic XFCE
-Debian-compatible workstation with Aptura branding, defaults, and tooling.
+Aptura OS 0.1.4 Adeline COSMIC
+Debian-compatible workstation with COSMIC, Aptura branding, defaults, and tooling.
 EOF
 
 cat > /etc/profile.d/aptura-branding.sh <<'EOF'
 export APTURA_BRAND_NAME="Aptura OS"
-export APTURA_BRAND_EDITION="Classic XFCE"
-export APTURA_BRAND_ACCENT="#000080"
+export APTURA_BRAND_EDITION="COSMIC"
+export APTURA_BRAND_ACCENT="#00d9c0"
 EOF
 
-if command -v update-alternatives >/dev/null 2>&1 && [[ -f /usr/share/backgrounds/aptura/aptura-default.svg ]]; then
-  update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/backgrounds/aptura/aptura-default.svg 80 || true
+if command -v update-alternatives >/dev/null 2>&1 && [[ -f /usr/share/backgrounds/aptura/aptura-retro-cosmic.svg ]]; then
+  update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/backgrounds/aptura/aptura-retro-cosmic.svg 90 || true
 fi
 
 if command -v plymouth-set-default-theme >/dev/null 2>&1 && [[ -d /usr/share/plymouth/themes/aptura ]]; then

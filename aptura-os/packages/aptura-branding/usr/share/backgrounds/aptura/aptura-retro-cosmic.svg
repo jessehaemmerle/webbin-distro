@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160" role="img" aria-label="Aptura OS retro COSMIC wallpaper">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07051a"/>
+      <stop offset="0.48" stop-color="#101348"/>
+      <stop offset="0.72" stop-color="#008080"/>
+      <stop offset="1" stop-color="#05070a"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffff00"/>
+      <stop offset="0.48" stop-color="#ff63bd"/>
+      <stop offset="1" stop-color="#000080"/>
+    </linearGradient>
+    <pattern id="dither" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="transparent"/>
+      <rect width="6" height="6" fill="#ffffff" opacity="0.08"/>
+      <rect x="6" y="6" width="6" height="6" fill="#000000" opacity="0.18"/>
+    </pattern>
+    <filter id="hard-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="18" dy="18" stdDeviation="0" flood-color="#000000" flood-opacity="0.58"/>
+    </filter>
+  </defs>
+
+  <rect width="3840" height="2160" fill="url(#sky)"/>
+  <rect width="3840" height="2160" fill="url(#dither)"/>
+
+  <g fill="#ffffff">
+    <rect x="410" y="210" width="10" height="10"/>
+    <rect x="830" y="360" width="8" height="8"/>
+    <rect x="1240" y="180" width="12" height="12"/>
+    <rect x="1600" y="450" width="8" height="8"/>
+    <rect x="2060" y="250" width="10" height="10"/>
+    <rect x="2560" y="390" width="7" height="7"/>
+    <rect x="3110" y="190" width="12" height="12"/>
+    <rect x="3440" y="470" width="8" height="8"/>
+    <rect x="660" y="650" width="6" height="6"/>
+    <rect x="2780" y="660" width="6" height="6"/>
+  </g>
+
+  <circle cx="1920" cy="760" r="330" fill="url(#sun)" stroke="#05070a" stroke-width="10"/>
+  <g stroke="#05070a" stroke-width="18">
+    <path d="M1580 655H2260"/>
+    <path d="M1605 735H2235"/>
+    <path d="M1650 815H2190"/>
+    <path d="M1715 895H2125"/>
+    <path d="M1810 975H2030"/>
+  </g>
+
+  <path d="M0 1180L480 910L780 1060L1120 780L1470 1060L1780 820L2140 1080L2460 840L2860 1070L3300 890L3840 1180Z" fill="#101318" stroke="#05070a" stroke-width="8"/>
+  <path d="M0 1210H3840" stroke="#ffff00" stroke-width="8"/>
+
+  <g stroke="#00d6d6" stroke-width="4" opacity="0.78">
+    <path d="M0 1320H3840"/>
+    <path d="M0 1430H3840"/>
+    <path d="M0 1560H3840"/>
+    <path d="M0 1720H3840"/>
+    <path d="M0 1920H3840"/>
+    <path d="M420 2160L1770 1210"/>
+    <path d="M940 2160L1840 1210"/>
+    <path d="M1460 2160L1910 1210"/>
+    <path d="M1920 2160V1210"/>
+    <path d="M2380 2160L1930 1210"/>
+    <path d="M2900 2160L2000 1210"/>
+    <path d="M3420 2160L2070 1210"/>
+  </g>
+
+  <g filter="url(#hard-shadow)">
+    <rect x="1220" y="560" width="1400" height="560" fill="#c8c6bc" stroke="#05070a" stroke-width="8"/>
+    <path d="M1230 570H2610V1110" fill="none" stroke="#f4f0df" stroke-width="6"/>
+    <path d="M2620 570V1120H1230" fill="none" stroke="#686a72" stroke-width="6"/>
+    <rect x="1248" y="590" width="1344" height="78" fill="#000080" stroke="#05070a" stroke-width="6"/>
+    <text x="1295" y="642" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">APTURA COSMIC</text>
+    <g fill="#c8c6bc" stroke="#05070a" stroke-width="4">
+      <rect x="2420" y="612" width="34" height="34"/>
+      <rect x="2474" y="612" width="34" height="34"/>
+      <rect x="2528" y="612" width="34" height="34"/>
+    </g>
+    <rect x="1320" y="740" width="370" height="270" fill="#101318" stroke="#05070a" stroke-width="6"/>
+    <path d="M1505 790L1646 970H1575L1544 915H1466L1435 970H1364Z" fill="#f4f0df" stroke="#05070a" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M1505 850L1540 900H1470Z" fill="#008080" stroke="#05070a" stroke-width="7" stroke-linejoin="round"/>
+    <rect x="1460" y="906" width="92" height="22" fill="#ffff00" stroke="#05070a" stroke-width="7"/>
+    <text x="1770" y="810" fill="#05070a" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700">Aptura OS</text>
+    <text x="1775" y="890" fill="#000080" font-family="Courier New, monospace" font-size="38" font-weight="700">System76 COSMIC edition</text>
+    <rect x="1778" y="934" width="560" height="28" fill="#008080"/>
+    <rect x="1778" y="986" width="400" height="28" fill="#ffff00"/>
+  </g>
+</svg>

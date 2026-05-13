@@ -88,6 +88,20 @@ check_config() {
     fi
   done
 
+  local cosmic_pkg
+  for cosmic_pkg in cosmic-session cosmic-greeter cosmic-comp cosmic-panel cosmic-app-library cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
+    if ! grep -Eq "^[[:space:]]*${cosmic_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list missing COSMIC package: ${cosmic_pkg}"
+    fi
+  done
+
+  local legacy_pkg
+  for legacy_pkg in xfce4 xfce4-session xfwm4 xfdesktop4 xfce4-panel xfconf thunar lightdm lightdm-gtk-greeter; do
+    if grep -Eq "^[[:space:]]*${legacy_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list still contains legacy desktop package: ${legacy_pkg}"
+    fi
+  done
+
   if ! grep -Eq '^[[:space:]]*efiBootloaderId:[[:space:]]*"debian"' "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"; then
     fail "bootloader.conf must set efiBootloaderId: \"debian\" for Debian GRUB EFI"
   fi
@@ -117,17 +131,19 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/distributor-logo.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-logo.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-wordmark.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-retro-cosmic.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_dark"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/cosmic/com.system76.CosmicSettings/v1/accent_palette_light"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/distributor-logo-aptura.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-welcome.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/motd.d/00-aptura"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/profile.d/aptura-branding.sh"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/index.theme"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/gtk-3.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/gtk-3.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/gtk-4.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/gtk-4.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/xfwm4/themerc"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Classic/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-3.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-3.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-4.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-COSMIC/gtk-4.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/index.theme"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-about"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-about.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-welcome"
@@ -135,10 +151,6 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
-  require_file "${ROOT_DIR}/packages/aptura-settings/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
-  require_file "${ROOT_DIR}/packages/aptura-settings/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
-  require_file "${ROOT_DIR}/packages/aptura-settings/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
-  require_file "${ROOT_DIR}/packages/aptura-settings/etc/xdg/xfce4/terminal/terminalrc"
 }
 
 check_permissions() {

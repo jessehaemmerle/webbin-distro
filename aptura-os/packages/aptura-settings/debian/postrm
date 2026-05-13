@@ -2,7 +2,7 @@
 set -e
 
 PACKAGE=aptura-settings
-XFCE_DEFAULTS="
+LEGACY_DESKTOP_DEFAULTS="
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
@@ -12,7 +12,7 @@ XFCE_DEFAULTS="
 "
 
 remove_aptura_diversions() {
-	for path in ${XFCE_DEFAULTS}; do
+	for path in ${LEGACY_DESKTOP_DEFAULTS}; do
 		diverter="$(dpkg-divert --listpackage "${path}" 2>/dev/null || true)"
 
 		if [ "${diverter}" != "${PACKAGE}" ]; then

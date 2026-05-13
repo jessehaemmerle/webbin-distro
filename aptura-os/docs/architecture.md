@@ -3,15 +3,16 @@
 ## Overview
 
 Aptura OS is a Debian Stable derivative built around APT, Debian packages,
-live-build images, Calamares installation, and an Aptura-tuned XFCE desktop.
+live-build images, Calamares installation, and an Aptura-tuned COSMIC desktop.
 
 The project follows a layered model:
 
-1. Upstream Debian Stable provides kernel, base system, APT, systemd, XFCE, and security updates.
+1. Upstream Debian Stable provides kernel, base system, APT, systemd, and security updates.
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
-3. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
-4. Calamares installs the live system to disk.
-5. Aptura's XFCE defaults provide classic branding, privacy posture, useful workstation tools, and local status visibility.
+3. Aptura supplies COSMIC desktop packages through a signed Aptura repository or local package injection.
+4. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
+5. Calamares installs the live system to disk.
+6. Aptura's COSMIC defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -33,9 +34,9 @@ installer tuning, and image tooling validation.
 Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
-- `aptura-branding`: classic wallpaper, GTK theme, XFWM4 borders, icon theme, Plymouth, login theme, and derivative identity metadata.
-- `aptura-desktop`: Aptura Classic XFCE integration, System Check launcher, and desktop package set.
-- `aptura-settings`: security, update, privacy, XFCE, and policy defaults.
+- `aptura-branding`: wallpapers, logo assets, GTK fallback theme, icon theme, COSMIC palettes, Plymouth, GRUB, and derivative identity metadata.
+- `aptura-desktop`: Aptura COSMIC integration, Welcome, System Check launcher, and desktop package set.
+- `aptura-settings`: security, update, privacy, NetworkManager, journald, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
 hard-coding every package in installer scripts, Aptura can evolve defaults by
@@ -63,13 +64,16 @@ infrastructure and can be used by installed systems after signing is complete.
 
 Aptura does not ship a full desktop environment from scratch. The MVP uses:
 
-- XFCE session, xfwm4, xfdesktop, xfce4-panel, and LightDM.
-- Aptura Classic branding through wallpaper, GTK theme, XFWM4 window borders,
-  icon theme, LightDM styling, bottom panel, and XFCE defaults.
+- System76 COSMIC session, compositor, panel, applets, launcher, settings, core
+  apps, and xdg-desktop-portal-cosmic.
+- COSMIC Greeter when available, with `greetd` as the service foundation.
+- Aptura COSMIC branding through wallpaper, logo assets, icon theme, GTK
+  fallback theme, Plymouth, Calamares artwork, and COSMIC accent palettes.
 - Aptura System Check as a local status tool for updates, firmware, power,
   security, and storage.
-- Thunar, Synaptic, Flatpak support, firmware updates, power profiles, archive,
-  image, task, audio, Bluetooth, and hardware switching tools.
+- COSMIC Files, COSMIC Terminal, COSMIC Edit, Synaptic, Flatpak support,
+  firmware updates, power profiles, archive, backup, disk, audio, Bluetooth,
+  and hardware switching tools.
 
 This keeps the system realistic while still giving Aptura OS a distinct visual
 language and a useful first-boot workstation baseline.

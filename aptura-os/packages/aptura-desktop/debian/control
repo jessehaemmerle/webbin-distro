@@ -10,15 +10,20 @@ Package: aptura-desktop
 Architecture: all
 Depends:
  bash,
- lightdm,
- lightdm-gtk-greeter,
- thunar,
- xfce4-panel,
- xfce4-session,
- xfce4-settings,
- xfconf,
- xfdesktop4,
- xfwm4,
+ cosmic-session,
+ cosmic-greeter,
+ cosmic-greeter-daemon,
+ cosmic-comp,
+ cosmic-panel,
+ cosmic-app-library,
+ cosmic-icons,
+ cosmic-settings,
+ cosmic-files,
+ cosmic-term,
+ cosmic-edit,
+ xdg-desktop-portal-cosmic,
+ greetd,
+ xwayland,
  xdg-utils,
  ${misc:Depends}
 Recommends:
@@ -28,6 +33,7 @@ Recommends:
  cups,
  cups-browsed,
  deja-dup,
+ file-roller,
  firefox-esr | www-browser,
  flatpak,
  fonts-noto-color-emoji,
@@ -38,7 +44,6 @@ Recommends:
  inxi,
  ipp-usb,
  lshw,
- mousepad,
  network-manager-gnome,
  ncdu,
  needrestart,
@@ -46,31 +51,18 @@ Recommends:
  pavucontrol,
  pciutils,
  power-profiles-daemon,
- ristretto,
  simple-scan,
  smartmontools,
  sane-airscan,
  synaptic,
  system-config-printer,
  switcheroo-control,
- thunar-archive-plugin,
- thunar-volman,
  timeshift,
- tumbler,
  usbutils,
- xarchiver,
- xfce4-appfinder,
- xfce4-goodies,
- xfce4-notifyd,
- xfce4-power-manager,
- xfce4-pulseaudio-plugin,
- xfce4-screenshooter,
- xfce4-taskmanager,
- xfce4-terminal,
  xdg-user-dirs-gtk,
  zenity
-Description: Aptura Classic XFCE desktop integration
- Installs Aptura's XFCE integration, desktop launchers, and utility hooks.
- The default desktop uses XFCE and LightDM with Aptura Classic window borders,
- an Aptura Classic color system, practical workstation tools, firmware
- visibility, power controls, and a local system health check.
+Description: Aptura COSMIC desktop integration
+ Installs Aptura's COSMIC integration, desktop launchers, and utility hooks.
+ The default desktop uses System76 COSMIC with Aptura retro-COSMIC branding,
+ practical workstation tools, firmware visibility, power controls, and a local
+ system health check.

@@ -13,11 +13,11 @@ you need.
 ## Live Session
 
 - [ ] Live session reaches graphical login or autologin desktop.
-- [ ] XFCE session starts.
-- [ ] Aptura Classic wallpaper is visible.
-- [ ] Aptura Classic GTK theme applies to GTK apps with square frames and bevel-style controls.
-- [ ] Aptura Classic XFWM4 window borders are visible, including raised title buttons.
-- [ ] Bottom XFCE panel uses the Aptura-branded application menu and task list.
+- [ ] COSMIC session starts.
+- [ ] Aptura retro-COSMIC wallpaper is visible.
+- [ ] COSMIC panel, launcher, app library, settings, and core apps open.
+- [ ] Aptura accent colors and logo assets are visible where COSMIC exposes distribution branding.
+- [ ] COSMIC Terminal, Files, and Edit are available or documented as pending package inputs.
 - [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.
@@ -40,7 +40,7 @@ you need.
 ## Installer
 
 - [ ] Calamares starts from desktop launcher.
-- [ ] Welcome page displays Aptura Classic workstation branding.
+- [ ] Welcome page displays Aptura COSMIC workstation branding.
 - [ ] Locale selection works.
 - [ ] Keyboard selection works.
 - [ ] Timezone selection works.

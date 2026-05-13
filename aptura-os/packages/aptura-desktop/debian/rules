@@ -5,4 +5,4 @@
 
 override_dh_fixperms:
 	dh_fixperms
-	chmod 0755 debian/aptura-desktop/usr/bin/aptura-system-check debian/aptura-desktop/usr/bin/aptura-welcome
+	chmod 0755 debian/aptura-desktop/usr/bin/aptura-about debian/aptura-desktop/usr/bin/aptura-system-check debian/aptura-desktop/usr/bin/aptura-welcome

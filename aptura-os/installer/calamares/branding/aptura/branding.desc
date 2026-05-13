@@ -2,10 +2,10 @@ componentName: aptura
 strings:
   productName: Aptura OS
   shortProductName: Aptura
-  version: 0.1
-  shortVersion: 0.1
-  versionedName: Aptura OS 0.1
-  shortVersionedName: Aptura 0.1
+  version: 0.1.4
+  shortVersion: 0.1.4
+  versionedName: Aptura OS 0.1.4 Adeline COSMIC
+  shortVersionedName: Aptura COSMIC
   bootloaderEntryName: Aptura OS
   productUrl: https://aptura.local
   supportUrl: https://aptura.local/support
@@ -18,8 +18,8 @@ images:
   productWelcome: welcome.svg
 
 style:
-  sidebarBackground: "#000080"
-  sidebarText: "#ffffff"
-  sidebarTextSelect: "#ffff00"
+  sidebarBackground: "#11142b"
+  sidebarText: "#f4f0df"
+  sidebarTextSelect: "#00d9c0"
 
 slideshow: "show.qml"
