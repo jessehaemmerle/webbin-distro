@@ -96,7 +96,12 @@ Important modules:
 - `fstab`
 - `displaymanager`
 - `services-systemd`
+- `grubcfg`
 - `bootloader`
+- `packages`
+- `luksbootkeyfile`
+- `initramfscfg`
+- `initramfs`
 - `finished`
 
 The installer supports whole-disk installation, manual partitioning, and a

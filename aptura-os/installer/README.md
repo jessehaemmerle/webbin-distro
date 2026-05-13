@@ -21,15 +21,17 @@ Configured flow:
 8. Partition execution
 9. Mount
 10. Unpack live filesystem
-11. Configure fstab, locale, keyboard, users, services, display manager, bootloader
-12. Unmount
-13. Finish
+11. Configure fstab, locale, keyboard, users, services, display manager, GRUB, and bootloader
+12. Remove live-only packages and rebuild encrypted-boot initramfs support
+13. Unmount
+14. Finish
 
 Partitioning risks:
 
 - Whole-disk installation deletes existing data.
 - Encryption must be tested across BIOS and UEFI paths.
 - Bootloader installation can fail when the VM or hardware boot mode does not match the partition layout.
+- Encrypted installs need the Calamares LUKS keyfile, grubcfg, and initramfs jobs in sequence.
 
 Testing:
 
