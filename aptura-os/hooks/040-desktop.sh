@@ -26,7 +26,6 @@ enable_service ipp-usb.service
 if [[ -f /usr/lib/systemd/system/cosmic-greeter.service || -f /lib/systemd/system/cosmic-greeter.service ]]; then
   enable_service cosmic-greeter.service
   enable_service cosmic-greeter-daemon.service
-else
   enable_service greetd.service
 fi
 
@@ -47,8 +46,9 @@ Categories=System;
 StartupNotify=true
 EOF
 
-install -d -m 0755 /etc/greetd
-cat > /etc/greetd/cosmic-greeter.toml <<'EOF'
+if [[ -f /usr/lib/systemd/system/cosmic-greeter.service || -f /lib/systemd/system/cosmic-greeter.service ]]; then
+  install -d -m 0755 /etc/greetd
+  cat > /etc/greetd/cosmic-greeter.toml <<'EOF'
 [terminal]
 vt = "1"
 
@@ -60,14 +60,15 @@ command = "cosmic-greeter-start"
 user = "cosmic-greeter"
 EOF
 
-if [[ -f /usr/share/wayland-sessions/cosmic.desktop || -f /usr/share/xsessions/cosmic.desktop ]]; then
-  install -d -m 0755 /var/lib/AccountsService/users
-  cat > /var/lib/AccountsService/users/aptura <<'EOF'
+  if [[ -f /usr/share/wayland-sessions/cosmic.desktop || -f /usr/share/xsessions/cosmic.desktop ]]; then
+    install -d -m 0755 /var/lib/AccountsService/users
+    cat > /var/lib/AccountsService/users/aptura <<'EOF'
 [User]
 Session=cosmic
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
+  fi
 fi
 
 log "COSMIC desktop configuration complete"
