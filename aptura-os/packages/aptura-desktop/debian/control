@@ -9,14 +9,32 @@ Rules-Requires-Root: no
 Package: aptura-desktop
 Architecture: all
 Depends:
+ bash,
  gnome-shell,
  gnome-session,
  gnome-control-center,
  xdg-utils,
  ${misc:Depends}
 Recommends:
- firefox-esr | www-browser
-Description: Aptura Flow desktop integration
- Installs the Aptura Flow system app, launchers, and integration files.
- The current MVP uses GNOME Shell as the compositor/session base and exposes
- Aptura Flow as a packaged shell companion surface.
+ baobab,
+ deja-dup,
+ evince,
+ file-roller,
+ firefox-esr | www-browser,
+ flatpak,
+ fwupd,
+ gnome-disk-utility,
+ gnome-software,
+ gnome-software-plugin-flatpak,
+ gnome-system-monitor,
+ gnome-terminal,
+ nautilus,
+ power-profiles-daemon,
+ seahorse,
+ switcheroo-control,
+ xdg-user-dirs-gtk
+Description: Aptura GNOME desktop integration
+ Installs Aptura's GNOME integration, desktop launchers, and utility hooks.
+ The default desktop stays close to upstream GNOME while adding Aptura
+ branding, privacy-minded defaults, firmware visibility, power controls,
+ recovery-oriented tools, and a local system health check.

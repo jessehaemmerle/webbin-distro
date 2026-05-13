@@ -12,11 +12,14 @@ enable_service() {
   fi
 }
 
-log "Configuring desktop session and installer launcher"
+log "Configuring Aptura GNOME session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
 enable_service gdm3.service
+enable_service power-profiles-daemon.service
+enable_service switcheroo-control.service
+enable_service fwupd-refresh.timer
 
 install -d -m 0755 /usr/share/applications
 cat > /usr/share/applications/calamares.desktop <<'EOF'
@@ -31,16 +34,6 @@ Categories=System;
 StartupNotify=true
 EOF
 
-install -d -m 0755 /etc/xdg/autostart
-cat > /etc/xdg/autostart/aptura-flow.desktop <<'EOF'
-[Desktop Entry]
-Type=Application
-Name=Aptura Flow
-Exec=aptura-flow --dashboard
-OnlyShowIn=GNOME;
-X-GNOME-Autostart-enabled=true
-EOF
-
 if [[ -f /usr/share/xsessions/gnome.desktop ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
   cat > /var/lib/AccountsService/users/aptura <<'EOF'
@@ -49,6 +42,10 @@ Session=gnome
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
+fi
+
+if command -v dconf >/dev/null 2>&1; then
+  dconf update || true
 fi
 
 log "Desktop configuration complete"

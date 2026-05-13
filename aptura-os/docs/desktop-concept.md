@@ -1,145 +1,116 @@
-# Aptura Flow Desktop Concept
+# Aptura GNOME Desktop Concept
 
 ## UX Philosophy
 
-Aptura Flow is a reduced, productivity-focused desktop layer. It should make
-common desktop actions visible without burying users in control panels.
+Aptura uses GNOME as the desktop foundation and adds practical distribution
+defaults instead of maintaining a custom shell surface.
 
 Principles:
 
-- Fast launch, search, and switching.
-- Clear system state.
-- Keyboard and touchpad first, pointer friendly.
-- Dark and light modes with configurable accent color.
-- No telemetry or cloud dependency by default.
-- Calm visuals with useful motion, not decorative excess.
+- Stay close to upstream GNOME for stability, accessibility, Wayland support,
+  and hardware integration.
+- Make useful system state visible without telemetry or cloud accounts.
+- Prefer real installed tools over mock dashboards.
+- Keep privacy defaults conservative.
+- Use Aptura branding consistently across boot, login, wallpaper, icons, and
+  GNOME defaults.
+- Make first boot feel ready for work: updates, firmware, power, storage,
+  backups, and installer access should be discoverable.
 
 ## Technical Choice
 
-The MVP uses GNOME Shell as the base session and Aptura Flow as a custom
-companion surface.
+The MVP uses:
 
-Reasoning:
+- GNOME Shell and Mutter for the session.
+- GDM for login.
+- GNOME Control Center for broad settings coverage.
+- dconf defaults for Aptura appearance, privacy, favorites, and workflow.
+- Aptura System Check for local status reporting.
 
-- GNOME Shell already provides Wayland, accessibility, input handling, workspace
-  management, session integration, and hardware support.
-- Debian Stable packages GNOME well.
-- A React prototype can be packaged quickly and later moved into WebKitGTK,
-  Tauri, Electron, or a GNOME Shell extension.
-- A custom Wayland compositor would be a multi-year project and is outside the
-  MVP boundary.
+This avoids the maintenance cost of a custom desktop shell while still giving
+Aptura OS a recognizable identity and useful default behavior.
 
-## Core Components
+## Core Defaults
 
-### Dashboard
+### Aptura Branding
 
-Central overview with session state, upcoming work, and launch entry points.
+- Aptura wallpaper for light and dark backgrounds.
+- Aptura logo on the GNOME login screen.
+- Dark color scheme by default.
+- Teal accent color where supported by the GNOME version.
+- Aptura icon reused for distro utilities.
 
-### App Launcher
+### Useful Launcher Baseline
 
-Searchable app grid with room for files, settings, and commands.
+Default favorites should expose the tasks a new user actually needs:
 
-### Workspace Overview
+- Browser.
+- Files.
+- Terminal.
+- Settings.
+- Software.
+- Aptura System Check.
+- Installer in the live session.
 
-Visual workspace cards for switching and organizing work.
+### System Check
 
-### Notification Center
+Aptura System Check is a local terminal utility. It reports:
 
-Unified notification list with severity and time.
+- APT upgrade count.
+- Unattended upgrade timer state.
+- Firmware readiness through fwupd.
+- AppArmor, firewall, and SSH server state.
+- Power profile.
+- Network and Bluetooth service state.
+- Root and home filesystem usage.
 
-### Quick Settings
+It deliberately avoids remote APIs and does not send telemetry.
 
-Controls for:
+### Workstation Tools
 
-- Wi-Fi
-- Bluetooth
-- VPN
-- Dark/light mode
-- Updates
-- Power profile
-- Brightness
-- Volume
+The default desktop should include practical packages that make the system feel
+complete:
 
-### Settings Center
-
-Modern system settings surface. In the MVP it is part of the frontend prototype.
-Later it should call privileged system services through D-Bus and PolicyKit.
-
-### Update Status
-
-APT-aware update summary that separates security updates from regular updates.
-
-### Welcome Wizard
-
-First-run onboarding for network, language, privacy, appearance, and update
-preferences.
-
-### Local Assistant Placeholder
-
-A local-only assistant can be added later as a placeholder interface. It must
-not call external APIs by default and must clearly expose what local data it can
-read.
+- GNOME Software with Flatpak plugin.
+- fwupd for firmware updates.
+- power-profiles-daemon for battery/performance modes.
+- GNOME Disk Utility and Baobab for storage inspection.
+- Deja Dup for backups.
+- Evince, File Roller, Seahorse, and GNOME System Monitor.
+- switcheroo-control for hybrid graphics support where available.
 
 ## Design System
 
 Visual style:
 
-- Minimal panels.
-- 8px card radius.
-- Strong contrast.
-- Accent color defaults to teal.
-- Warm secondary color for attention states.
-- Light and dark themes.
-- Responsive layout down to small laptop screens.
+- Calm, high-contrast GNOME defaults.
+- Aptura teal as the primary accent.
+- Dark mode by default, with light mode available.
+- 8px or smaller radii where custom UI is introduced.
+- No decorative dashboard layer unless it solves a real system workflow.
 
 Typography:
 
-- Cantarell or Inter.
+- Cantarell/Adwaita defaults.
 - No viewport-scaled type.
-- Clear hierarchy between dashboard headings and compact panel titles.
+- Clear hierarchy between system surfaces and compact controls.
 
 Interaction:
 
-- Search at the top level.
-- Icon buttons with tooltips through `title`.
-- Segmented controls for binary/limited choices.
-- Swatches for accent color.
-- Sliders for continuous values.
-
-## Implementation
-
-Prototype path:
-
-```text
-desktop/shell
-```
-
-Technology:
-
-- Vite
-- React
-- CSS
-- lucide-react icons
-
-Run locally:
-
-```bash
-cd desktop/shell
-npm install
-npm run dev
-```
-
-Packaging path:
-
-1. Build static assets with `npm run build`.
-2. Replace the packaged static runtime in `packages/aptura-desktop/usr/share/aptura-flow/` with the Vite `dist/` output.
-3. Replace the launcher with a WebKitGTK/Tauri wrapper.
-4. Add D-Bus services for update and settings state.
+- Standard GNOME keyboard, workspace, and search behavior.
+- Minimize and maximize buttons enabled for broader desktop expectations.
+- Edge tiling and dynamic workspaces enabled.
+- File chooser sorts directories first.
 
 ## Future Extensions
 
-- GNOME Shell extension for native overview integration.
-- Search provider for files, settings, and APT packages.
-- Power profile integration with `power-profiles-daemon`.
-- Update backend using PackageKit or aptdaemon-style service.
-- Accessibility review with screen readers and high contrast mode.
+Only add Aptura-specific GNOME extensions or services when they provide a clear
+workflow improvement:
+
+- Native update status integration backed by PackageKit or a narrow APT
+  service.
+- Search provider for system documentation, settings, and local packages.
+- First-run checklist for privacy, updates, backups, firmware, and restore
+  media.
+- Snapshot-based rollback profile when the installer supports Btrfs.
+- Accessibility and high-contrast validation before public beta.

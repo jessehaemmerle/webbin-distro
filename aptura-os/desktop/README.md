@@ -1,22 +1,20 @@
 # Aptura Desktop
 
-The desktop layer is named **Aptura Flow**.
-
-MVP architecture:
+Aptura's desktop is a branded, tuned GNOME experience.
 
 - GNOME Shell provides the compositor, session management, Wayland support, accessibility, and hardware integration.
-- Aptura Flow is a custom UX layer packaged as a shell companion dashboard and settings surface.
-- The prototype in `desktop/shell` uses Vite + React and can later be wrapped with Tauri, WebKitGTK, Electron, or split into a GNOME extension plus native settings app.
+- Aptura branding is applied through wallpaper, login logo/banner, icon assets, GNOME favorites, and dconf defaults.
+- Aptura-specific tools should solve concrete system workflows, starting with Aptura System Check.
+- Extra GNOME extensions or native apps should be added only after they are useful, testable, and maintainable.
 
 Subdirectories:
 
-- `shell/`: interactive Aptura Flow prototype.
 - `settings-center/`: design notes for a native settings center.
 - `greeter-theme/`: login/greeter theme notes.
 - `wallpapers/`: wallpaper source notes and open asset policy.
 
 TODO:
 
-- Convert the prototype into a packaged runtime artifact.
-- Add D-Bus service boundaries for settings and privileged actions.
-- Add GNOME extension integration for workspace and quick settings data.
+- Validate GNOME defaults on a booted ISO.
+- Add D-Bus service boundaries before exposing privileged settings.
+- Add native GNOME integration only for workflows that cannot be solved well with existing tools.

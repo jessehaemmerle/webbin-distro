@@ -15,7 +15,8 @@ you need.
 - [ ] Live session reaches graphical login or autologin desktop.
 - [ ] GNOME session starts.
 - [ ] Aptura wallpaper is visible.
-- [ ] Aptura Flow launcher starts.
+- [ ] Aptura GNOME favorites and dark branding defaults are visible.
+- [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.
 

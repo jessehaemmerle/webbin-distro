@@ -11,8 +11,8 @@ cat > /etc/os-release <<'EOF'
 PRETTY_NAME="Aptura OS 0.1"
 NAME="Aptura OS"
 VERSION_ID="0.1"
-VERSION="0.1 (flow)"
-VERSION_CODENAME=flow
+VERSION="0.1 (core)"
+VERSION_CODENAME=core
 ID=aptura
 ID_LIKE=debian
 HOME_URL="https://example.invalid/aptura"
@@ -24,7 +24,7 @@ EOF
 install -d -m 0755 /etc/aptura
 cat > /etc/aptura/branding.conf <<'EOF'
 DISTRO_NAME="Aptura OS"
-DESKTOP_NAME="Aptura Flow"
+DESKTOP_NAME="Aptura GNOME"
 ACCENT_COLOR="#18a999"
 DEFAULT_MODE="dark"
 EOF
@@ -35,6 +35,10 @@ fi
 
 if command -v plymouth-set-default-theme >/dev/null 2>&1 && [[ -d /usr/share/plymouth/themes/aptura ]]; then
   plymouth-set-default-theme aptura || true
+fi
+
+if command -v dconf >/dev/null 2>&1; then
+  dconf update || true
 fi
 
 log "Branding complete"

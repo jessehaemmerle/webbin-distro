@@ -1,8 +1,8 @@
 PRETTY_NAME="Aptura OS 0.1"
 NAME="Aptura OS"
 VERSION_ID="0.1"
-VERSION="0.1 (flow)"
-VERSION_CODENAME=flow
+VERSION="0.1 (core)"
+VERSION_CODENAME=core
 ID=aptura
 ID_LIKE=debian
 HOME_URL="https://example.invalid/aptura"

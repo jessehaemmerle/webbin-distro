@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+set -u
+
+print_header() {
+  printf 'Aptura System Check\n'
+  printf '===================\n'
+}
+
+section() {
+  printf '\n%s\n' "$1"
+  printf '%s\n' "----------------"
+}
+
+line() {
+  printf '%-28s %s\n' "$1" "$2"
+}
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+service_state() {
+  local unit="$1"
+  if have systemctl; then
+    if systemctl is-active --quiet "${unit}"; then
+      printf 'active'
+      return
+    fi
+    if systemctl is-enabled --quiet "${unit}" 2>/dev/null; then
+      printf 'enabled, not active'
+      return
+    fi
+  fi
+  printf 'not active'
+}
+
+timer_state() {
+  local unit="$1"
+  if have systemctl && systemctl is-enabled --quiet "${unit}" 2>/dev/null; then
+    printf 'enabled'
+    return
+  fi
+  printf 'not enabled'
+}
+
+apt_upgrades() {
+  if ! have apt; then
+    printf 'apt not available'
+    return
+  fi
+
+  local count
+  count="$(apt list --upgradable 2>/dev/null | awk 'NR > 1 { count++ } END { print count + 0 }')"
+  printf '%s package(s)' "${count}"
+}
+
+firmware_state() {
+  if ! have fwupdmgr; then
+    printf 'fwupd not installed'
+    return
+  fi
+
+  if fwupdmgr get-devices >/dev/null 2>&1; then
+    printf 'fwupd ready'
+    return
+  fi
+
+  printf 'fwupd installed, no device data'
+}
+
+firewall_state() {
+  if ! have ufw; then
+    printf 'ufw unavailable'
+    return
+  fi
+
+  local state
+  state="$(ufw status 2>/dev/null | awk 'NR == 1 { print $2 }')"
+  if [[ -n "${state}" ]]; then
+    printf '%s' "${state}"
+    return
+  fi
+
+  printf 'status unavailable'
+}
+
+power_profile() {
+  if have powerprofilesctl; then
+    powerprofilesctl get 2>/dev/null || printf 'unknown'
+    return
+  fi
+  printf 'power profiles unavailable'
+}
+
+disk_line() {
+  local path="$1"
+  if [[ -d "${path}" ]]; then
+    df -h "${path}" 2>/dev/null | awk 'NR == 2 { printf "%s used, %s free", $5, $4 }'
+    return
+  fi
+  printf 'not present'
+}
+
+os_name() {
+  if [[ -r /etc/os-release ]]; then
+    . /etc/os-release
+    printf '%s' "${PRETTY_NAME:-Aptura OS}"
+    return
+  fi
+  printf 'Aptura OS'
+}
+
+main() {
+  case "${1:-}" in
+    -h|--help)
+      printf 'Usage: aptura-system-check\n'
+      printf 'Shows local update, firmware, power, security, and disk status.\n'
+      return 0
+      ;;
+  esac
+
+  print_header
+  line "System" "$(os_name)"
+  line "Kernel" "$(uname -r)"
+  line "Session" "${XDG_CURRENT_DESKTOP:-unknown}"
+
+  section "Updates"
+  line "APT upgrades" "$(apt_upgrades)"
+  line "Unattended upgrades" "$(timer_state apt-daily-upgrade.timer)"
+  line "Firmware service" "$(firmware_state)"
+
+  section "Security"
+  line "AppArmor" "$(service_state apparmor.service)"
+  line "Firewall" "$(firewall_state)"
+  line "SSH server" "$(service_state ssh.service)"
+
+  section "Hardware"
+  line "Power profile" "$(power_profile)"
+  line "Bluetooth" "$(service_state bluetooth.service)"
+  line "NetworkManager" "$(service_state NetworkManager.service)"
+
+  section "Storage"
+  line "Root filesystem" "$(disk_line /)"
+  line "Home filesystem" "$(disk_line /home)"
+
+  printf '\nRun apt update before release testing for fresh update counts.\n'
+}
+
+main "$@"

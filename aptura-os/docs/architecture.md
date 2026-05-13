@@ -3,7 +3,7 @@
 ## Overview
 
 Aptura OS is a Debian Stable derivative built around APT, Debian packages,
-live-build images, Calamares installation, and the Aptura Flow desktop layer.
+live-build images, Calamares installation, and an Aptura-tuned GNOME desktop.
 
 The project follows a layered model:
 
@@ -11,7 +11,7 @@ The project follows a layered model:
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
 3. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 4. Calamares installs the live system to disk.
-5. Aptura Flow provides the custom UX layer on top of a stable GNOME session.
+5. Aptura's GNOME defaults provide branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -34,7 +34,7 @@ Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
 - `aptura-branding`: wallpaper, Plymouth, login theme, and derivative identity metadata.
-- `aptura-desktop`: Aptura Flow launcher and desktop integration.
+- `aptura-desktop`: Aptura GNOME integration, System Check launcher, and desktop package set.
 - `aptura-settings`: security, update, privacy, dconf, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
@@ -61,16 +61,20 @@ infrastructure and can be used by installed systems after signing is complete.
 
 ## Desktop Components
 
-Aptura Flow is not a full desktop environment from scratch. The MVP uses:
+Aptura does not ship a full desktop environment from scratch. The MVP uses:
 
 - GNOME Shell and Mutter for compositor/session behavior.
 - GDM for login.
 - GNOME Control Center for mature settings coverage.
-- Aptura Flow as a custom dashboard, launcher, quick settings, update status,
-  onboarding, and future settings surface.
+- Aptura branding through wallpaper, GDM logo/banner, dark mode, accent color,
+  dock favorites, and GNOME defaults.
+- Aptura System Check as a local status tool for updates, firmware, power,
+  security, and storage.
+- GNOME Software, Flatpak support, firmware updates, power profiles, backup,
+  disk, archive, document, key management, and hardware switching tools.
 
-This keeps the system realistic while still giving Aptura OS a distinct
-workflow and visual language.
+This keeps the system realistic while still giving Aptura OS a distinct visual
+language and a useful first-boot workstation baseline.
 
 ## Installer
 
@@ -120,7 +124,7 @@ Primary trust boundaries:
 - APT repository signatures.
 - Calamares privileged installation steps.
 - PolicyKit administrative actions.
-- D-Bus interfaces used by future Aptura Flow services.
+- D-Bus interfaces used by future Aptura services.
 - User session versus system services.
 
 Privileged desktop actions should never be performed directly by the frontend.

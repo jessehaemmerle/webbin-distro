@@ -114,9 +114,11 @@ check_packages() {
 
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/default/grub.d/aptura.cfg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/aptura.svg"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-flow/index.html"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-flow/app.js"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.flow.metainfo.xml"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
+  require_file "${ROOT_DIR}/packages/aptura-settings/etc/dconf/db/local.d/00-aptura-defaults"
+  require_file "${ROOT_DIR}/packages/aptura-settings/etc/dconf/db/gdm.d/00-aptura-login"
 }
 
 check_permissions() {

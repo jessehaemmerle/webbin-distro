@@ -45,7 +45,9 @@ main() {
 
   require_dir config
   require_dir hooks
-  require_dir desktop/shell/src/components
+  require_dir desktop/wallpapers
+  require_dir desktop/greeter-theme
+  require_dir desktop/settings-center
   require_dir installer/calamares/modules
   require_dir installer/calamares/branding/aptura
   require_dir packages/aptura-meta

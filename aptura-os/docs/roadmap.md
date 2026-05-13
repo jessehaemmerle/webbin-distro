@@ -7,7 +7,7 @@
 - Aptura metapackages.
 - Local APT repository generation.
 - Calamares configuration.
-- Aptura Flow React prototype.
+- Aptura GNOME defaults and System Check.
 - Security and release documentation.
 - Manual VM test checklist.
 
@@ -16,7 +16,9 @@
 - Build a booting ISO in a clean Debian VM.
 - Fix live-build and Calamares path issues.
 - Verify Calamares install in QEMU.
-- Package built Aptura Flow assets.
+- Verify Aptura GNOME branding, dconf defaults, and GDM login branding.
+- Verify System Check output in live and installed sessions.
+- Confirm firmware, Flatpak, power profile, backup, and disk tools install cleanly.
 - Add repository signing key workflow.
 - Add lintian and shellcheck CI.
 - Add first real branding pass.
@@ -27,6 +29,7 @@
 - Automated VM boot test.
 - Calamares install test automation where practical.
 - Upgrade tests from previous beta.
+- First-run checklist for updates, firmware, backups, privacy, and restore media.
 - Accessibility review.
 - Translation workflow.
 - Secure Boot implementation decision.
@@ -43,8 +46,8 @@
 
 ## Long-Term Features
 
-- Native Aptura Flow shell integration.
-- Aptura Settings Center with D-Bus backends.
+- Native GNOME integration only where it improves a concrete workflow.
+- Aptura Settings Center with narrow D-Bus backends.
 - Local-only assistant surface.
 - Edition-specific metapackages.
 - arm64 images.

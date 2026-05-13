@@ -7,5 +7,5 @@ needs. Keep optional applications in edition-specific packages later.
 
 TODO:
 
-- Add `aptura-flow-extension` once a native GNOME extension or WebView shell is packaged.
+- Add optional Aptura GNOME extensions only when they solve a real workflow problem.
 - Split development, creative, and minimal editions into separate metapackages.

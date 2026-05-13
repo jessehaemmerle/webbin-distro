@@ -3,6 +3,21 @@ color-scheme='prefer-dark'
 font-name='Cantarell 11'
 document-font-name='Cantarell 11'
 monospace-font-name='Adwaita Mono 11'
+clock-show-weekday=true
+show-battery-percentage=true
+enable-hot-corners=false
+accent-color='teal'
+
+[org/gnome/shell]
+favorite-apps=['firefox-esr.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Software.desktop', 'aptura-system-check.desktop', 'calamares.desktop']
+disable-user-extensions=false
+
+[org/gnome/desktop/wm/preferences]
+button-layout='appmenu:minimize,maximize,close'
+
+[org/gnome/mutter]
+dynamic-workspaces=true
+edge-tiling=true
 
 [org/gnome/desktop/background]
 picture-uri='file:///usr/share/backgrounds/aptura/aptura-default.svg'
@@ -12,6 +27,25 @@ picture-options='zoom'
 [org/gnome/desktop/privacy]
 remember-recent-files=false
 report-technical-problems=false
+remove-old-temp-files=true
+remove-old-trash-files=true
+old-files-age=uint32 30
 
 [org/gnome/software]
 download-updates=false
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=true
+night-light-schedule-automatic=true
+
+[org/gnome/settings-daemon/plugins/power]
+power-saver-profile-on-low-battery=true
+sleep-inactive-ac-type='nothing'
+sleep-inactive-battery-type='suspend'
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='list-view'
+show-create-link=true
+
+[org/gtk/settings/file-chooser]
+sort-directories-first=true
