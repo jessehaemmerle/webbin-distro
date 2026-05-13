@@ -121,16 +121,16 @@ check_config() {
   fi
 
   local plasma_pkg
-  for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+  for plasma_pkg in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
     if ! grep -Eq "^[[:space:]]*${plasma_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
       fail "config/packages.list missing Plasma package: ${plasma_pkg}"
     fi
   done
 
-  local removed_cosmic_pkg
-  for removed_cosmic_pkg in cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-applets cosmic-app-library cosmic-icons cosmic-launcher cosmic-bg cosmic-idle cosmic-notifications cosmic-osd cosmic-randr cosmic-screenshot cosmic-settings cosmic-settings-daemon cosmic-files cosmic-term cosmic-edit cosmic-player cosmic-wallpapers cosmic-workspaces xdg-desktop-portal-cosmic greetd; do
-    if grep -Eq "^[[:space:]]*${removed_cosmic_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
-      fail "config/packages.list still contains COSMIC package: ${removed_cosmic_pkg}"
+  local removed_desktop_pkg
+  for removed_desktop_pkg in spectacle cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-applets cosmic-app-library cosmic-icons cosmic-launcher cosmic-bg cosmic-idle cosmic-notifications cosmic-osd cosmic-randr cosmic-screenshot cosmic-settings cosmic-settings-daemon cosmic-files cosmic-term cosmic-edit cosmic-player cosmic-wallpapers cosmic-workspaces xdg-desktop-portal-cosmic greetd; do
+    if grep -Eq "^[[:space:]]*${removed_desktop_pkg}([[:space:]]*)$" "${ROOT_DIR}/config/packages.list"; then
+      fail "config/packages.list still contains removed desktop package: ${removed_desktop_pkg}"
     fi
   done
 

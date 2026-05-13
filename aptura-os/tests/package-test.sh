@@ -43,6 +43,26 @@ check_control_not_depends() {
   fi
 }
 
+check_live_package_list_contains() {
+  local package_name="$1"
+  local package_list="${ROOT_DIR}/config/packages.list"
+  if grep -Eq "^${package_name}$" "${package_list}"; then
+    ok "packages.list includes ${package_name}"
+  else
+    fail "config/packages.list missing package: ${package_name}"
+  fi
+}
+
+check_live_package_list_not_contains() {
+  local package_name="$1"
+  local package_list="${ROOT_DIR}/config/packages.list"
+  if grep -Eq "^${package_name}$" "${package_list}"; then
+    fail "config/packages.list still includes ${package_name}"
+  else
+    ok "packages.list does not include ${package_name}"
+  fi
+}
+
 check_package() {
   local pkg="$1"
   local dir="${ROOT_DIR}/packages/${pkg}"
@@ -132,15 +152,17 @@ main() {
   local desktop_control="${ROOT_DIR}/packages/aptura-desktop/debian/control"
   local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
   local plasma_dep
-  for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+  for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
+    check_live_package_list_contains "${plasma_dep}"
     check_control_depends "${desktop_control}" "${plasma_dep}"
     check_control_depends "${meta_control}" "${plasma_dep}"
   done
 
-  local cosmic_dep
-  for cosmic_dep in cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-app-library cosmic-icons cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
-    check_control_not_depends "${desktop_control}" "${cosmic_dep}"
-    check_control_not_depends "${meta_control}" "${cosmic_dep}"
+  local removed_desktop_dep
+  for removed_desktop_dep in spectacle cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-app-library cosmic-icons cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
+    check_live_package_list_not_contains "${removed_desktop_dep}"
+    check_control_not_depends "${desktop_control}" "${removed_desktop_dep}"
+    check_control_not_depends "${meta_control}" "${removed_desktop_dep}"
   done
 
   check_aptura_desktop_feature aptura-safe-update
