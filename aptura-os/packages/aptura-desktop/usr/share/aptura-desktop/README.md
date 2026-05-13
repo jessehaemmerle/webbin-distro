@@ -1,10 +1,21 @@
 # Aptura Desktop Integration
 
-`aptura-desktop` keeps the default experience close to COSMIC while adding
+`aptura-desktop` keeps the default experience close to KDE Plasma while adding
 Aptura branding and practical tools.
 
 Included integration points:
 
+- Aptura Journey (`aptura-journey`) for a local-only record of context checks,
+  profile shifts, live-readiness reports, and aftercare runs.
+- Aptura Context (`aptura-context`) for detecting live sessions, VMs, laptop
+  state, battery, networking, boot mode, and storage pressure.
+- Aptura Shift (`aptura-shift`) for code, study, create, game, travel, and
+  focus workstation rituals backed by available power profiles.
+- Aptura Aftercare (`aptura-aftercare`) for post-update and post-install
+  checks covering reboot, failed units, snapshots, disk pressure, and restart
+  tooling.
+- Aptura Live Bridge (`aptura-live-bridge`) for live-session install readiness
+  checks and local readiness reports.
 - Aptura System Check for local update, firmware, power, security, and disk
   status.
 - Aptura Safe Update for best-effort Timeshift snapshots before package
@@ -17,8 +28,8 @@ Included integration points:
 - Aptura Support Bundle for redacted diagnostics archives that are easier to
   share.
 - Aptura Welcome for a one-time first-run handoff into System Check.
-- COSMIC session, greeter, wallpaper, icon, and appearance defaults from
-  `aptura-branding` and `aptura-settings`.
+- Plasma session, SDDM, context-grid wallpaper, icon, GTK fallback theme,
+  and appearance defaults from `aptura-branding` and `aptura-settings`.
 - Firmware, power profile, disk, backup, snapshot, diagnostics, printing,
   scanning, and software management packages.
 - Installer launcher integration for the live session.

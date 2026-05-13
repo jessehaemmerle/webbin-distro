@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+set -u
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+line() {
+  printf '%-28s %s\n' "$1" "$2"
+}
+
+section() {
+  printf '\n%s\n' "$1"
+  printf '%s\n' '----------------'
+}
+
+record_journey() {
+  if have aptura-journey; then
+    aptura-journey record aftercare "$*" >/dev/null 2>&1 || true
+  fi
+}
+
+reboot_state() {
+  if [[ -f /var/run/reboot-required ]]; then
+    printf 'recommended'
+  else
+    printf 'not requested'
+  fi
+}
+
+failed_units() {
+  if have systemctl; then
+    local count
+    count="$(systemctl --failed --no-legend 2>/dev/null | awk 'NF { count++ } END { print count + 0 }')"
+    printf '%s failed unit(s)' "${count}"
+  else
+    printf 'systemctl unavailable'
+  fi
+}
+
+disk_line() {
+  if have df; then
+    df -h / 2>/dev/null | awk 'NR == 2 { printf "%s used, %s free", $5, $4 }'
+  else
+    printf 'unknown'
+  fi
+}
+
+snapshot_state() {
+  if ! have timeshift; then
+    printf 'timeshift not installed'
+    return
+  fi
+
+  if [[ -d /timeshift/snapshots ]]; then
+    local count
+    count="$(find /timeshift/snapshots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | awk '{ print $1 }')"
+    printf '%s local snapshot(s)' "${count}"
+    return
+  fi
+
+  printf 'timeshift installed, no default snapshot dir'
+}
+
+apt_history() {
+  if [[ -r /var/log/apt/history.log ]]; then
+    awk '/^Start-Date:/ { line=$0 } END { if (line) print line; else print "no apt history entries" }' /var/log/apt/history.log
+  else
+    printf 'history unavailable'
+  fi
+}
+
+restart_tooling() {
+  if have needrestart; then
+    printf 'needrestart available'
+  else
+    printf 'needrestart missing'
+  fi
+}
+
+upgrade_count() {
+  if have apt; then
+    apt list --upgradable 2>/dev/null | awk 'NR > 1 { count++ } END { print count + 0 " package(s)" }'
+  else
+    printf 'apt unavailable'
+  fi
+}
+
+usage() {
+  cat <<'EOF'
+Usage: aptura-aftercare
+
+Checks the local system after updates or installation and points out what needs
+attention next: reboot, failed services, snapshots, disk pressure, and restart
+tooling.
+EOF
+}
+
+main() {
+  case "${1:-}" in
+    -h|--help)
+      usage
+      return 0
+      ;;
+  esac
+
+  printf 'Aptura Aftercare\n'
+  printf '=================\n'
+  line "Reboot" "$(reboot_state)"
+  line "Failed units" "$(failed_units)"
+  line "Root storage" "$(disk_line)"
+  line "Snapshots" "$(snapshot_state)"
+  line "Restart tooling" "$(restart_tooling)"
+  line "APT upgrades" "$(upgrade_count)"
+  line "Last APT change" "$(apt_history)"
+
+  section "Next Moves"
+  printf '* Reboot if the system asks for it after kernel, libc, graphics, or desktop updates.\n'
+  printf '* Run Aptura Rescue Center if bootloader or EFI updates looked unusual.\n'
+  printf '* Run Aptura Support Bundle before filing a bug report.\n'
+
+  record_journey "reboot=$(reboot_state), failed_units=$(failed_units)"
+}
+
+main "$@"

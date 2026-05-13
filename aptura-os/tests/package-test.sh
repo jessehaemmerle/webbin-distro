@@ -23,6 +23,26 @@ check_control_field() {
   fi
 }
 
+check_control_depends() {
+  local control="$1"
+  local package_name="$2"
+  if grep -Eq "^[[:space:]]*${package_name},?[[:space:]]*$" "${control}"; then
+    ok "$(basename "$(dirname "$(dirname "${control}")")") depends on ${package_name}"
+  else
+    fail "${control#${ROOT_DIR}/} missing dependency: ${package_name}"
+  fi
+}
+
+check_control_not_depends() {
+  local control="$1"
+  local package_name="$2"
+  if grep -Eq "^[[:space:]]*${package_name},?[[:space:]]*$" "${control}"; then
+    fail "${control#${ROOT_DIR}/} still depends on ${package_name}"
+  else
+    ok "$(basename "$(dirname "$(dirname "${control}")")") does not depend on ${package_name}"
+  fi
+}
+
 check_package() {
   local pkg="$1"
   local dir="${ROOT_DIR}/packages/${pkg}"
@@ -57,6 +77,7 @@ check_package() {
 check_aptura_desktop_feature() {
   local feature="$1"
   local install="${ROOT_DIR}/packages/aptura-desktop/debian/install"
+  local icon_name="${2:-}"
 
   if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/bin/${feature}" ]]; then
     ok "${feature} script exists"
@@ -75,6 +96,31 @@ check_aptura_desktop_feature() {
   else
     fail "aptura-desktop/debian/install does not install ${feature}"
   fi
+
+  if [[ -n "${icon_name}" ]]; then
+    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/${icon_name}.svg" ]]; then
+      ok "${icon_name} Aptura-COSMIC icon exists"
+    else
+      fail "Missing Aptura-COSMIC icon: ${icon_name}.svg"
+    fi
+
+    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${icon_name}.svg" ]]; then
+      ok "${icon_name} hicolor icon exists"
+    else
+      fail "Missing hicolor icon: ${icon_name}.svg"
+    fi
+  fi
+}
+
+check_documented_feature() {
+  local feature="$1"
+  local doc="${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-desktop/README.md"
+
+  if grep -Eq "${feature}" "${doc}"; then
+    ok "${feature} documented in aptura-desktop README"
+  else
+    fail "${feature} missing from aptura-desktop README"
+  fi
 }
 
 main() {
@@ -83,11 +129,53 @@ main() {
   check_package aptura-desktop
   check_package aptura-settings
 
+  local desktop_control="${ROOT_DIR}/packages/aptura-desktop/debian/control"
+  local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
+  local plasma_dep
+  for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark spectacle plasma-discover xdg-desktop-portal-kde; do
+    check_control_depends "${desktop_control}" "${plasma_dep}"
+    check_control_depends "${meta_control}" "${plasma_dep}"
+  done
+
+  local cosmic_dep
+  for cosmic_dep in cosmic-session cosmic-greeter cosmic-greeter-daemon cosmic-comp cosmic-panel cosmic-app-library cosmic-icons cosmic-settings cosmic-files cosmic-term cosmic-edit xdg-desktop-portal-cosmic greetd; do
+    check_control_not_depends "${desktop_control}" "${cosmic_dep}"
+    check_control_not_depends "${meta_control}" "${cosmic_dep}"
+  done
+
   check_aptura_desktop_feature aptura-safe-update
   check_aptura_desktop_feature aptura-rescue-center
   check_aptura_desktop_feature aptura-privacy-check
   check_aptura_desktop_feature aptura-mode
   check_aptura_desktop_feature aptura-support-bundle
+  check_aptura_desktop_feature aptura-journey aptura-journey
+  check_aptura_desktop_feature aptura-context aptura-context
+  check_aptura_desktop_feature aptura-shift aptura-shift
+  check_aptura_desktop_feature aptura-aftercare aptura-aftercare
+  check_aptura_desktop_feature aptura-live-bridge aptura-live-bridge
+  check_documented_feature aptura-journey
+  check_documented_feature aptura-context
+  check_documented_feature aptura-shift
+  check_documented_feature aptura-aftercare
+  check_documented_feature aptura-live-bridge
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-context-grid.svg" ]]; then
+    ok "aptura-context-grid wallpaper exists"
+  else
+    fail "Missing aptura-context-grid wallpaper"
+  fi
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-3.0/settings.ini" ]]; then
+    ok "GTK 3 skeleton settings exist"
+  else
+    fail "Missing GTK 3 skeleton settings"
+  fi
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-4.0/settings.ini" ]]; then
+    ok "GTK 4 skeleton settings exist"
+  else
+    fail "Missing GTK 4 skeleton settings"
+  fi
 
   if [[ "${errors}" -gt 0 ]]; then
     printf '[FAIL] Package test finished with %d error(s)\n' "${errors}" >&2

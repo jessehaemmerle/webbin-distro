@@ -14,9 +14,11 @@ mkdir -p "${marker_dir}"
 title="Aptura Welcome"
 message="Welcome to Aptura OS.
 
-This COSMIC edition includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
+This Plasma edition includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
 
-New Aptura tools: Safe Update, Rescue Center, Privacy Check, Modes, and Support Bundle.
+Contextual Aptura tools: Journey, Context, Shift, Aftercare, and Live Bridge.
+
+Recovery and support tools: Safe Update, Rescue Center, Privacy Check, Modes, and Support Bundle.
 
 Run the System Check now to review update, firmware, security, hardware, and storage status."
 
@@ -26,8 +28,8 @@ run_system_check() {
     return
   fi
 
-  if command -v cosmic-term >/dev/null 2>&1; then
-    cosmic-term -e sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
+  if command -v konsole >/dev/null 2>&1; then
+    konsole -e sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
     return
   fi
 

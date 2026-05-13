@@ -1,16 +1,16 @@
-# Aptura COSMIC Desktop Concept
+# Aptura Plasma Desktop Concept
 
 ## UX Philosophy
 
-Aptura uses System76 COSMIC as the desktop foundation and gives it a deliberate
+Aptura uses KDE Plasma as the desktop foundation and gives it a deliberate
 retro workstation identity. The design should feel like a coherent distribution
-from the first boot screen through the installed desktop, not a generic COSMIC
+from the first boot screen through the installed desktop, not a generic Plasma
 session with one swapped wallpaper.
 
 Principles:
 
-- Use COSMIC for a modern Wayland session, tiling-friendly workflow, applets,
-  launcher, app library, settings, and first-party core applications.
+- Use KDE Plasma for a modern Wayland session, flexible panels/widgets,
+  application launcher, System Settings, and mature first-party applications.
 - Make the whole shell feel Aptura-native: wallpaper, logo, greeter, installer,
   icons, accent palettes, boot splash, and first-run tools should share one
   visual language.
@@ -23,17 +23,19 @@ Principles:
 
 The MVP uses:
 
-- COSMIC session with COSMIC compositor, panel, launcher, app library, settings,
-  notifications, OSD, screenshot tool, workspaces, and portal integration.
-- COSMIC Greeter when packaged, with `greetd` as the underlying login service.
-- Aptura COSMIC accent palettes under the COSMIC settings namespace.
+- Plasma session with KWin, panel/widgets, launcher, System Settings,
+  notifications, screenshot tooling, workspaces, and portal integration.
+- SDDM as the display manager.
+- Aptura color assets and GTK skeleton settings for applications that honor them.
 - `Aptura-COSMIC` GTK fallback theme for GTK applications that honor it.
 - `Aptura-COSMIC` icon theme with hicolor and Adwaita fallback.
-- Aptura System Check for local status reporting.
+- Aptura System Check and the contextual Aptura tools for local status,
+  Journey history, session context, workstation shifts, aftercare, and live
+  install readiness.
 
 ## Visual Direction
 
-### Aptura Retro-COSMIC Palette
+### Aptura Retro-Plasma Palette
 
 - Deep space: `#12142b`
 - Electric teal: `#00d9c0`
@@ -45,12 +47,13 @@ The MVP uses:
 
 ### Shell
 
-- COSMIC panel and applets should use Aptura accent colors where COSMIC allows
-  distribution defaults.
+- Plasma panels/widgets should use Aptura accent colors where upstream
+  configuration allows distribution defaults.
 - Launcher, app library, settings, and greeter should carry the Aptura mark.
-- The default wallpaper is `aptura-retro-cosmic.svg`.
+- The contextual default wallpaper is `aptura-context-grid.svg`; the retro
+  wallpaper remains available as a classic fallback.
 - Plymouth, GRUB, Calamares, Welcome, About, and System Check should present
-  the same Aptura COSMIC naming.
+  the same Aptura Plasma naming.
 
 ### Icons
 
@@ -62,15 +65,15 @@ should expand it over time with simple pixel-like icons for core actions:
 - Terminal.
 - File manager.
 - Settings.
-- Aptura System Check.
+- Aptura System Check, Journey, Context, Shift, Aftercare, and Live Bridge.
 
 ## Workstation Tools
 
 The default desktop should include practical packages that make the system feel
 complete:
 
-- COSMIC Files, COSMIC Terminal, COSMIC Edit, COSMIC Settings, COSMIC App
-  Library, and COSMIC Store when packaged.
+- Dolphin, Konsole, Kate, System Settings, Plasma application launcher, and
+  Discover when packaged.
 - Synaptic for package management.
 - fwupd for firmware updates.
 - power-profiles-daemon for battery/performance modes.
@@ -79,11 +82,12 @@ complete:
 
 ## Future Extensions
 
-Only add Aptura-specific COSMIC applets or services when they provide a clear
+Only add Aptura-specific Plasma widgets or services when they provide a clear
 workflow improvement:
 
-- First-run checklist for updates, firmware, backups, privacy, and restore
-  media.
+- A local-only Journey surface that shows what the system has done recently.
+- Context-aware live-session and post-update flows that explain next steps.
+- Workstation rituals for code, study, create, game, travel, and focus.
 - Native update status plugin backed by PackageKit or a narrow APT service.
 - Snapshot-based rollback profile when the installer supports Btrfs.
 - More complete Aptura icon coverage.

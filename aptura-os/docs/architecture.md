@@ -3,16 +3,16 @@
 ## Overview
 
 Aptura OS is a Debian Stable derivative built around APT, Debian packages,
-live-build images, Calamares installation, and an Aptura-tuned COSMIC desktop.
+live-build images, Calamares installation, and an Aptura-tuned Plasma desktop.
 
 The project follows a layered model:
 
 1. Upstream Debian Stable provides kernel, base system, APT, systemd, and security updates.
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
-3. Aptura resolves COSMIC desktop packages through a pinned Debian 13 COSMIC archive until a signed Aptura mirror/repository exists.
+3. Aptura uses Debian `trixie` KDE Plasma packages directly for the default desktop.
 4. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 5. Calamares installs the live system to disk.
-6. Aptura's COSMIC defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
+6. Aptura's Plasma defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -34,8 +34,8 @@ installer tuning, and image tooling validation.
 Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
-- `aptura-branding`: wallpapers, logo assets, GTK fallback theme, icon theme, COSMIC palettes, Plymouth, GRUB, and derivative identity metadata.
-- `aptura-desktop`: Aptura COSMIC integration, Welcome, System Check launcher, and desktop package set.
+- `aptura-branding`: wallpapers, logo assets, GTK fallback theme, icon theme, Aptura color assets, Plymouth, GRUB, and derivative identity metadata.
+- `aptura-desktop`: Aptura Plasma integration, Welcome, System Check launcher, and desktop package set.
 - `aptura-settings`: security, update, privacy, NetworkManager, journald, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
@@ -64,14 +64,14 @@ infrastructure and can be used by installed systems after signing is complete.
 
 Aptura does not ship a full desktop environment from scratch. The MVP uses:
 
-- System76 COSMIC session, compositor, panel, applets, launcher, settings, core
-  apps, and xdg-desktop-portal-cosmic.
-- COSMIC Greeter when available, with `greetd` as the service foundation.
-- Aptura COSMIC branding through wallpaper, logo assets, icon theme, GTK
-  fallback theme, Plymouth, Calamares artwork, and COSMIC accent palettes.
+- KDE Plasma session, KWin compositor, Plasma panel/widgets, application
+  launcher, System Settings, core KDE apps, and xdg-desktop-portal-kde.
+- SDDM as the login/display manager.
+- Aptura Plasma branding through wallpaper, logo assets, icon theme, GTK
+  fallback theme, Plymouth, Calamares artwork, and Aptura color assets.
 - Aptura System Check as a local status tool for updates, firmware, power,
   security, and storage.
-- COSMIC Files, COSMIC Terminal, COSMIC Edit, Synaptic, Flatpak support,
+- Dolphin, Konsole, Kate, Synaptic, Flatpak support,
   firmware updates, power profiles, archive, backup, disk, audio, Bluetooth,
   and hardware switching tools.
 
@@ -110,7 +110,7 @@ MVP update sources:
 - Debian `trixie`
 - Debian `trixie-updates`
 - Debian `trixie-security`
-- Pinned Debian 13 COSMIC archive from openSUSE Build Service
+- Debian `trixie` KDE Plasma packages
 - Local Aptura packages during ISO build
 
 Production update model:
@@ -118,7 +118,7 @@ Production update model:
 - Signed Aptura repository.
 - Release channels such as stable, testing, and nightly.
 - Explicit pinning policy for Aptura packages.
-- Aptura-owned COSMIC mirror or native Aptura COSMIC packages, replacing the temporary external archive.
+- Signed Aptura repository for Aptura-owned packages.
 - Reproducible package builds and published checksums.
 
 ## Trust Boundaries

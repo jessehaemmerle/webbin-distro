@@ -1,6 +1,6 @@
 # Aptura OS
 
-Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned System76 COSMIC desktop.
+Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned KDE Plasma desktop.
 
 This repository is an MVP foundation, not a finished public distribution. It is structured so you can grow it into a real derivative with signed package repositories, release engineering, QA, security review, and visual identity work.
 
@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive retro-COSMIC experience.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-compatible desktop with practical workstation defaults, transparent package management, and a cohesive retro-Plasma experience.
 
 ## Features
 
@@ -33,14 +33,19 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura COSMIC visual identity: custom Aptura logo assets, retro-COSMIC wallpaper, COSMIC accent palettes, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
+- Aptura Plasma visual identity: custom Aptura logo assets, context-grid and retro-Plasma wallpapers, Aptura color assets, GTK fallback theme, pixel-like icons, Plymouth branding, Calamares branding, and shell identity metadata.
 - Aptura System Check for local update, firmware, power, security, and disk status.
+- Aptura Journey for local-only system events and user-visible system memory.
+- Aptura Context for live/installed, VM, laptop, battery, network, boot, and storage cues.
+- Aptura Shift for code, study, create, game, travel, and focus workstation rituals.
+- Aptura Aftercare for post-update and post-install next steps.
+- Aptura Live Bridge for live-session install readiness and local readiness reports.
 - Aptura Safe Update for best-effort Timeshift snapshots before package upgrades.
 - Aptura Rescue Center for boot, EFI, GRUB, disk, and installer recovery context.
 - Aptura Privacy Check for firewall, exposed services, MAC privacy, and sockets.
 - Aptura Modes for quick balanced, performance, battery, studio, and focus profiles.
 - Aptura Support Bundle for redacted diagnostics archives that are easier to share.
-- Useful desktop differentiators installed by default: COSMIC session, COSMIC Greeter, COSMIC Files, COSMIC Terminal, COSMIC Edit, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
+- Useful desktop differentiators installed by default: Plasma session, SDDM, Dolphin, Konsole, Kate, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, backups, disk tools, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.
 - Documentation for architecture, build, package management, security, releases, and roadmap.
@@ -153,20 +158,20 @@ The live ISO includes Calamares configuration for:
 
 Partitioning is destructive when the user selects whole-disk installation. Always test in a VM first.
 
-## Aptura COSMIC Desktop
+## Aptura Plasma Desktop
 
-Aptura uses System76 COSMIC as the session base because it provides a modern
+Aptura uses KDE Plasma as the session base because it provides a modern
 Wayland desktop, tiling-friendly workflows, applets, launcher, app library,
 settings, and core applications while allowing distributions to ship their own
-brand colors and defaults. Aptura layers its own logo set, retro-COSMIC
-wallpaper, accent palettes, Plymouth theme, Calamares artwork, first-run
-Welcome flow, and local System Check tooling on top.
+brand colors and defaults. Aptura layers its own logo set, retro-Plasma and
+context-grid wallpapers, accent palettes, Plymouth theme, Calamares artwork,
+first-run Welcome flow, and local contextual tooling on top.
 
-Debian `trixie` does not currently provide a complete stable COSMIC desktop set
-in the default archive. For the COSMIC edition build, Aptura uses a pinned
-Debian 13 COSMIC archive from openSUSE Build Service with its signing key in
-`config/keyrings/`; production should mirror or replace that source with a
-signed Aptura repository.
+The Plasma edition uses Debian `trixie` KDE packages directly, including SDDM,
+Plasma Workspace, Dolphin, Konsole, Kate, Discover, Spectacle, and the KDE
+desktop portal. This keeps the default desktop stack inside the Debian archive
+and removes the temporary external desktop package source used by the previous
+edition.
 
 ## Project Structure
 
@@ -186,8 +191,8 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- COSMIC currently comes from a pinned external Debian 13 archive; production should replace this with an Aptura-owned mirror/repository.
-- Aptura COSMIC branding, GTK fallback theme, icon theme, and wallpaper still need visual QA on a real booted ISO.
+- KDE Plasma now comes from Debian `trixie`; production still needs signed Aptura repository infrastructure for Aptura-owned packages.
+- Aptura Plasma branding, GTK fallback theme, icon theme, and wallpaper still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -197,7 +202,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Verify Aptura COSMIC defaults, System Check, firmware tooling, and power profiles in a live session.
+- Verify Aptura Plasma defaults, contextual UX tools, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Add more wallpaper, icon, and accessibility variants under an open license.

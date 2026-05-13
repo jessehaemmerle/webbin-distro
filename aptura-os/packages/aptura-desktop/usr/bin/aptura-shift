@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+usage() {
+  cat <<'EOF'
+Usage: aptura-shift [code|study|create|game|travel|focus]
+
+Switches into an Aptura workstation ritual. The command applies a matching
+power profile when powerprofilesctl is available, prints launch hints, and
+records the local shift in Aptura Journey.
+EOF
+}
+
+record_journey() {
+  if have aptura-journey; then
+    aptura-journey record shift "$*" >/dev/null 2>&1 || true
+  fi
+}
+
+set_power() {
+  local profile="$1"
+  if have powerprofilesctl; then
+    powerprofilesctl set "${profile}" 2>/dev/null || true
+  fi
+}
+
+choose_mode() {
+  printf 'Aptura Shift profiles:\n'
+  printf '  code    Terminal, editor, balanced power\n'
+  printf '  study   Reading, notes, quiet battery-aware setup\n'
+  printf '  create  Media work, sustained balanced performance\n'
+  printf '  game    Performance profile and graphics reminder\n'
+  printf '  travel  Power saver, network and privacy reminders\n'
+  printf '  focus   Power saver and notification reminder\n'
+  printf '\nShift: '
+  read -r REPLY
+  printf '%s' "${REPLY}"
+}
+
+print_profile() {
+  local name="$1"
+  local power="$2"
+  local intent="$3"
+  local apps="$4"
+  local note="$5"
+
+  set_power "${power}"
+
+  printf 'Aptura Shift: %s\n' "${name}"
+  printf '================%s\n' "$(printf '%*s' "${#name}" '' | tr ' ' '=')"
+  printf 'Intent: %s\n' "${intent}"
+  printf 'Power:  %s\n' "${power}"
+  printf 'Apps:   %s\n' "${apps}"
+  printf 'Note:   %s\n' "${note}"
+
+  record_journey "${name} power=${power}"
+}
+
+main() {
+  local mode="${1:-}"
+
+  case "${mode}" in
+    -h|--help)
+      usage
+      return 0
+      ;;
+    '')
+      if [[ -t 0 ]]; then
+        mode="$(choose_mode)"
+      else
+        usage
+        return 0
+      fi
+      ;;
+  esac
+
+  case "${mode}" in
+    code)
+      print_profile "code" "balanced" "Build, debug, and ship without visual noise." "Konsole, Kate, Git, browser" "Run aptura-context first on unfamiliar hardware."
+      ;;
+    study)
+      print_profile "study" "power-saver" "Read, annotate, and keep the machine calm." "browser, Kate, file search" "Use focus if notifications become distracting."
+      ;;
+    create)
+      print_profile "create" "balanced" "Keep creative tools responsive without forcing max power." "Dolphin, media tools, backup tools" "Plug in AC power for long exports."
+      ;;
+    game)
+      print_profile "game" "performance" "Prioritize frame stability and input responsiveness." "game launcher, graphics settings, audio controls" "Check switcheroo-control on hybrid graphics systems."
+      ;;
+    travel)
+      print_profile "travel" "power-saver" "Make battery, privacy, and offline work the default." "Privacy Check, browser, notes" "Review Wi-Fi and firewall posture before public networks."
+      ;;
+    focus)
+      print_profile "focus" "power-saver" "Reduce churn and stay inside one task." "Plasma notification settings, editor, terminal" "Use Plasma System Settings for deeper do-not-disturb control."
+      ;;
+    *)
+      usage >&2
+      return 1
+      ;;
+  esac
+}
+
+main "$@"

@@ -7,6 +7,11 @@ usr/bin/aptura-safe-update usr/bin/
 usr/bin/aptura-welcome usr/bin/
 usr/bin/aptura-system-check usr/bin/
 usr/bin/aptura-support-bundle usr/bin/
+usr/bin/aptura-journey usr/bin/
+usr/bin/aptura-context usr/bin/
+usr/bin/aptura-shift usr/bin/
+usr/bin/aptura-aftercare usr/bin/
+usr/bin/aptura-live-bridge usr/bin/
 usr/share/applications/aptura-about.desktop usr/share/applications/
 usr/share/applications/aptura-mode.desktop usr/share/applications/
 usr/share/applications/aptura-privacy-check.desktop usr/share/applications/
@@ -15,5 +20,10 @@ usr/share/applications/aptura-safe-update.desktop usr/share/applications/
 usr/share/applications/aptura-welcome.desktop usr/share/applications/
 usr/share/applications/aptura-system-check.desktop usr/share/applications/
 usr/share/applications/aptura-support-bundle.desktop usr/share/applications/
+usr/share/applications/aptura-journey.desktop usr/share/applications/
+usr/share/applications/aptura-context.desktop usr/share/applications/
+usr/share/applications/aptura-shift.desktop usr/share/applications/
+usr/share/applications/aptura-aftercare.desktop usr/share/applications/
+usr/share/applications/aptura-live-bridge.desktop usr/share/applications/
 usr/share/metainfo/io.aptura.system-check.metainfo.xml usr/share/metainfo/
 usr/share/aptura-desktop/README.md usr/share/aptura-desktop/

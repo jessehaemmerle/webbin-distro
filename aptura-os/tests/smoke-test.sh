@@ -44,7 +44,7 @@ main() {
   require_file clean.sh
 
   require_dir config
-  require_file config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd
+  require_file config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm
   require_dir hooks
   require_dir desktop/wallpapers
   require_dir desktop/greeter-theme
@@ -72,6 +72,11 @@ main() {
   require_executable packages/aptura-desktop/usr/bin/aptura-privacy-check
   require_executable packages/aptura-desktop/usr/bin/aptura-mode
   require_executable packages/aptura-desktop/usr/bin/aptura-support-bundle
+  require_executable packages/aptura-desktop/usr/bin/aptura-journey
+  require_executable packages/aptura-desktop/usr/bin/aptura-context
+  require_executable packages/aptura-desktop/usr/bin/aptura-shift
+  require_executable packages/aptura-desktop/usr/bin/aptura-aftercare
+  require_executable packages/aptura-desktop/usr/bin/aptura-live-bridge
 
   if [[ "${errors}" -gt 0 ]]; then
     printf '[FAIL] Smoke test finished with %d error(s)\n' "${errors}" >&2

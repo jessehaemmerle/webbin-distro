@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Journey
+Comment=Review the local-only Aptura system journey
+Exec=aptura-journey
+Icon=aptura-journey
+Terminal=true
+Categories=System;Utility;
+Keywords=aptura;journey;log;history;local;

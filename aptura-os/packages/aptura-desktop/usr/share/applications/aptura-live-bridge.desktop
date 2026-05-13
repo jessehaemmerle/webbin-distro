@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Live Bridge
+Comment=Check live-session install readiness and explain what carries over
+Exec=aptura-live-bridge
+Icon=aptura-live-bridge
+Terminal=true
+Categories=System;Utility;
+Keywords=aptura;live;installer;readiness;session;calamares;

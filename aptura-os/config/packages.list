@@ -36,38 +36,20 @@ smartmontools
 nvme-cli
 needrestart
 
-# COSMIC Desktop from System76.
-# Debian trixie does not currently ship this as a stable desktop set.
-# The build resolves these through the pinned Debian_13 COSMIC archive in
-# config/live-build/config/archives until Aptura publishes its own mirror.
-cosmic-session
-cosmic-greeter
-cosmic-greeter-daemon
-cosmic-comp
-cosmic-panel
-cosmic-applets
-cosmic-app-library
-cosmic-icons
-cosmic-launcher
-cosmic-bg
-cosmic-idle
-cosmic-notifications
-cosmic-osd
-cosmic-randr
-cosmic-screenshot
-cosmic-settings
-cosmic-settings-daemon
-cosmic-files
-cosmic-term
-cosmic-edit
-cosmic-player
-# cosmic-store requires appstream-data-pop, which is not available in the
-# configured external COSMIC repository. Disable until the dependency can
-# be provided by the build sources.
-# cosmic-store
-cosmic-wallpapers
-cosmic-workspaces
-xdg-desktop-portal-cosmic
+# KDE Plasma desktop.
+# Use Debian trixie packages directly so the default desktop stack no longer
+# depends on a temporary external desktop archive.
+kde-plasma-desktop
+plasma-workspace
+sddm
+systemsettings
+dolphin
+konsole
+kate
+ark
+spectacle
+plasma-discover
+xdg-desktop-portal-kde
 
 # Temporary software center replacement
 gnome-software
@@ -75,7 +57,6 @@ gnome-software-plugin-flatpak
 appstream
 packagekit
 
-greetd
 xwayland
 file-roller
 synaptic
