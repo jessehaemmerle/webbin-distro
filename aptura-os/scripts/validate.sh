@@ -65,6 +65,12 @@ check_config() {
   require_file "${ROOT_DIR}/config/packages.list"
   require_file "${ROOT_DIR}/config/apt-sources.list"
   require_file "${ROOT_DIR}/config/branding.conf"
+  require_file "${ROOT_DIR}/config/keyrings/aptura-cosmic-desktop-obs.asc"
+  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.chroot"
+  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.list.binary"
+  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.chroot"
+  require_file "${ROOT_DIR}/config/live-build/config/archives/cosmic-desktop.key.binary"
+  require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
   require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/partition.conf"
   require_dir "${ROOT_DIR}/config/live-build"
@@ -75,6 +81,10 @@ check_config() {
 
   if grep -Eiq 'trusted=yes|allow-insecure' "${ROOT_DIR}/config/apt-sources.list"; then
     fail "config/apt-sources.list contains insecure repository options"
+  fi
+
+  if ! grep -Eq 'signed-by=/usr/share/keyrings/aptura-cosmic-desktop-obs\.asc' "${ROOT_DIR}/config/apt-sources.list"; then
+    fail "config/apt-sources.list must pin the COSMIC OBS repository to the packaged keyring"
   fi
 
   local packages_count
@@ -151,6 +161,7 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
+  require_file "${ROOT_DIR}/packages/aptura-settings/etc/apt/preferences.d/60aptura-cosmic-desktop-obs"
 }
 
 check_permissions() {

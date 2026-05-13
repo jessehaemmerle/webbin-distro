@@ -1,0 +1,7 @@
+Package: cosmic-* cosmic-ext-* xdg-desktop-portal-cosmic pop-launcher pop-launcher-system76-power pop-fonts adw-gtk3
+Pin: release o=obs://build.opensuse.org/home:nomispaz:debian:cosmic-desktop/Debian_13
+Pin-Priority: 990
+
+Package: *
+Pin: release o=obs://build.opensuse.org/home:nomispaz:debian:cosmic-desktop/Debian_13
+Pin-Priority: 100

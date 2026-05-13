@@ -158,9 +158,10 @@ wallpaper, accent palettes, Plymouth theme, Calamares artwork, first-run
 Welcome flow, and local System Check tooling on top.
 
 Debian `trixie` does not currently provide a complete stable COSMIC desktop set
-in the default archive. Aptura therefore expects COSMIC packages to come from a
-signed Aptura package repository or from local `.deb` packages injected during
-the image build.
+in the default archive. For the COSMIC edition build, Aptura uses a pinned
+Debian 13 COSMIC archive from openSUSE Build Service with its signing key in
+`config/keyrings/`; production should mirror or replace that source with a
+signed Aptura repository.
 
 ## Project Structure
 
@@ -180,7 +181,7 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- COSMIC packages must be supplied through an Aptura repository or local package injection before the ISO can resolve the desktop stack.
+- COSMIC currently comes from a pinned external Debian 13 archive; production should replace this with an Aptura-owned mirror/repository.
 - Aptura COSMIC branding, GTK fallback theme, icon theme, and wallpaper still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.

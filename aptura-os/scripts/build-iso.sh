@@ -58,6 +58,14 @@ copy_sources() {
   cp -- "${ROOT_DIR}/config/apt-sources.list" "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/etc/apt/sources.list"
 }
 
+copy_keyrings() {
+  local keyring_dir="${ROOT_DIR}/config/keyrings"
+  [[ -d "${keyring_dir}" ]] || return 0
+
+  mkdir -p "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/share/keyrings"
+  cp -- "${keyring_dir}"/* "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/share/keyrings/"
+}
+
 prepare_live_build_tree() {
   rm -rf -- "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}"
   mkdir -p "${ROOT_DIR}/${LIVE_BUILD_WORKDIR}"
@@ -67,6 +75,7 @@ prepare_live_build_tree() {
   copy_local_packages
   copy_installer_config
   copy_sources
+  copy_keyrings
 }
 
 configure_live_build() {

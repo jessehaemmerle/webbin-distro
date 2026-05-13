@@ -37,8 +37,9 @@ nvme-cli
 needrestart
 
 # COSMIC Desktop from System76.
-# Debian trixie does not currently ship this as a stable desktop set; provide
-# these packages through an Aptura COSMIC repository or local packages.chroot.
+# Debian trixie does not currently ship this as a stable desktop set.
+# The build resolves these through the pinned Debian_13 COSMIC archive in
+# config/live-build/config/archives until Aptura publishes its own mirror.
 cosmic-session
 cosmic-greeter
 cosmic-greeter-daemon

@@ -9,7 +9,7 @@ The project follows a layered model:
 
 1. Upstream Debian Stable provides kernel, base system, APT, systemd, and security updates.
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
-3. Aptura supplies COSMIC desktop packages through a signed Aptura repository or local package injection.
+3. Aptura resolves COSMIC desktop packages through a pinned Debian 13 COSMIC archive until a signed Aptura mirror/repository exists.
 4. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 5. Calamares installs the live system to disk.
 6. Aptura's COSMIC defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
@@ -110,6 +110,7 @@ MVP update sources:
 - Debian `trixie`
 - Debian `trixie-updates`
 - Debian `trixie-security`
+- Pinned Debian 13 COSMIC archive from openSUSE Build Service
 - Local Aptura packages during ISO build
 
 Production update model:
@@ -117,6 +118,7 @@ Production update model:
 - Signed Aptura repository.
 - Release channels such as stable, testing, and nightly.
 - Explicit pinning policy for Aptura packages.
+- Aptura-owned COSMIC mirror or native Aptura COSMIC packages, replacing the temporary external archive.
 - Reproducible package builds and published checksums.
 
 ## Trust Boundaries
