@@ -4,7 +4,8 @@
 # Aptura packages are injected through config/packages.chroot during build.
 # Do not list them here unless you switch to a signed Aptura APT repository.
 
-linux-image-amd64
+# Pull the rolling Debian kernel meta-package from trixie-backports.
+linux-image-amd64/trixie-backports
 live-boot
 live-config
 systemd-sysv
