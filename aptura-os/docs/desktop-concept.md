@@ -1,126 +1,98 @@
-# Aptura GNOME Desktop Concept
+# Aptura Classic XFCE Desktop Concept
 
 ## UX Philosophy
 
-Aptura uses GNOME as the desktop foundation and adds practical distribution
-defaults plus a retro workstation visual language instead of maintaining a
-custom shell surface.
+Aptura uses XFCE as the desktop foundation and gives it a deliberate classic
+workstation identity. The design should feel like a coherent system from the
+Windows 3.1 and Windows 95 era, not a modern desktop with a retro wallpaper.
 
 Principles:
 
-- Stay close to upstream GNOME for stability, accessibility, Wayland support,
-  and hardware integration.
-- Make useful system state visible without telemetry or cloud accounts.
-- Prefer real installed tools over mock dashboards.
+- Use XFCE because xfwm4, xfce4-panel, Thunar, and xfconf are lightweight,
+  themeable, and close to the classic desktop model.
+- Make the whole shell feel period-consistent: window borders, controls, panel,
+  wallpaper, login screen, icons, and installer should share one palette.
+- Prefer useful local tools over mock surfaces.
 - Keep privacy defaults conservative.
-- Use Aptura Retro branding consistently across boot, login, wallpaper, icons,
-  GTK theme files, and GNOME defaults.
-- Evoke late 80s and early 90s workstations with square frames, bevel controls,
-  hard shadows, dithered surfaces, and restrained teal/magenta/amber accents.
-- Make first boot feel ready for work: updates, firmware, power, storage,
-  backups, and installer access should be discoverable.
+- Avoid soft blur, rounded cards, gradients as decoration, and oversized modern
+  typography.
 
 ## Technical Choice
 
 The MVP uses:
 
-- GNOME Shell and Mutter for the session.
-- GDM for login.
-- GNOME Control Center for broad settings coverage.
-- dconf defaults for Aptura appearance, privacy, favorites, and workflow.
-- `Aptura-Retro` GTK theme files for GTK 3 and GTK 4 surfaces.
+- XFCE session with xfwm4 window management.
+- LightDM with lightdm-gtk-greeter for login.
+- xfconf defaults for panel, window manager, desktop background, icons, and GTK
+  settings.
+- `Aptura-Classic` GTK theme for application controls.
+- `Aptura-Classic` XFWM4 theme for custom window borders and title buttons.
+- `Aptura-Classic` icon theme with hicolor and Adwaita fallback.
 - Aptura System Check for local status reporting.
 
-This avoids the maintenance cost of a custom desktop shell while still giving
-Aptura OS a recognizable identity and useful default behavior.
+## Visual Direction
 
-## Core Defaults
+### Aptura Classic Palette
 
-### Aptura Retro Branding
+- Desktop teal: `#008080`
+- Active title blue: `#000080`
+- Workbench gray: `#c0c0c0`
+- Highlight white: `#ffffff`
+- Shadow black: `#000000`
+- Mid shadow gray: `#808080`
+- Warning yellow: `#ffff00`
 
-- Dithered workbench wallpaper with layered retro application windows.
-- Aptura logo on the GNOME login screen.
-- Dark color scheme by default.
-- Teal accent color where supported by the GNOME version.
-- Magenta and amber secondary accents for focus and attention states.
-- Square GTK controls, visible titlebars, bevel borders, and hard shadows.
-- Aptura icon reused for distro utilities.
+### Window Borders
 
-### Useful Launcher Baseline
+XFWM4 owns the period feel:
 
-Default favorites should expose the tasks a new user actually needs:
+- Active windows use navy titlebars.
+- Inactive windows use gray titlebars.
+- Borders use white top/left and black bottom/right highlights.
+- Title buttons are raised square XPM assets with pressed variants.
+- Menu, minimize, maximize, close, shade, and stick buttons are provided.
 
-- Browser.
-- Files.
+### Desktop Shell
+
+- Bottom XFCE panel acts like a taskbar.
+- Application menu button is labeled `Start`.
+- Task list shows window labels.
+- System tray, audio, and clock stay on the right.
+- Desktop icons remain visible for filesystem, home, removable media, and trash.
+
+### Icons
+
+The custom icon theme starts small and falls back to hicolor/Adwaita. Aptura
+should expand it over time with simple pixel-like icons for core actions:
+
+- Folder and home.
+- Computer and disk.
 - Terminal.
+- File manager.
 - Settings.
-- Software.
 - Aptura System Check.
-- Installer in the live session.
 
-### System Check
-
-Aptura System Check is a local terminal utility. It reports:
-
-- APT upgrade count.
-- Unattended upgrade timer state.
-- Firmware readiness through fwupd.
-- AppArmor, firewall, and SSH server state.
-- Power profile.
-- Network and Bluetooth service state.
-- Root and home filesystem usage.
-
-It deliberately avoids remote APIs and does not send telemetry.
-
-### Workstation Tools
+## Workstation Tools
 
 The default desktop should include practical packages that make the system feel
 complete:
 
-- GNOME Software with Flatpak plugin.
+- Thunar with archive and volume plugins.
+- xfce4-terminal, Mousepad, Ristretto, Xarchiver, and xfce4-taskmanager.
+- Synaptic for package management.
 - fwupd for firmware updates.
-- power-profiles-daemon for battery/performance modes.
-- GNOME Disk Utility and Baobab for storage inspection.
-- Deja Dup for backups.
-- Evince, File Roller, Seahorse, and GNOME System Monitor.
-- switcheroo-control for hybrid graphics support where available.
-
-## Design System
-
-Visual style:
-
-- Late 80s and early 90s workstation inspiration without fake nostalgia text.
-- Square window frames and titlebars.
-- Raised buttons and inset entries using 1px/2px bevels.
-- Hard black shadows instead of soft blur.
-- Dither/checker textures in wallpaper and login surfaces.
-- Aptura teal as the primary accent, with magenta and amber as secondary accents.
-- Dark desktop base with light workbench panels.
-- 0px radii where custom UI is introduced.
-- No decorative dashboard layer unless it solves a real system workflow.
-
-Typography:
-
-- Cantarell/Adwaita defaults.
-- No viewport-scaled type.
-- Clear hierarchy between system surfaces and compact controls.
-
-Interaction:
-
-- Standard GNOME keyboard, workspace, and search behavior.
-- Minimize, maximize, and menu buttons enabled for a more classic window model.
-- Edge tiling and dynamic workspaces enabled.
-- File chooser sorts directories first.
+- power-profiles-daemon and xfce4-power-manager for battery/performance modes.
+- Blueman, NetworkManager applet, pavucontrol, and the PulseAudio panel plugin.
+- Flatpak support for users who want app sandboxing.
 
 ## Future Extensions
 
-Only add Aptura-specific GNOME extensions or services when they provide a clear
+Only add Aptura-specific XFCE plugins or services when they provide a clear
 workflow improvement:
 
-- Native update status integration backed by PackageKit or a narrow APT
-  service.
-- Search provider for system documentation, settings, and local packages.
-- First-run checklist for privacy, updates, backups, firmware, and restore
+- First-run checklist for updates, firmware, backups, privacy, and restore
   media.
+- Native update status plugin backed by PackageKit or a narrow APT service.
 - Snapshot-based rollback profile when the installer supports Btrfs.
+- More complete Aptura Classic icon coverage.
 - Accessibility and high-contrast validation before public beta.

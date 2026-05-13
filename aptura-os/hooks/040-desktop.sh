@@ -12,11 +12,11 @@ enable_service() {
   fi
 }
 
-log "Configuring Aptura GNOME session and installer launcher"
+log "Configuring Aptura Classic XFCE session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
-enable_service gdm3.service
+enable_service lightdm.service
 enable_service power-profiles-daemon.service
 enable_service switcheroo-control.service
 enable_service fwupd-refresh.timer
@@ -34,18 +34,33 @@ Categories=System;
 StartupNotify=true
 EOF
 
-if [[ -f /usr/share/xsessions/gnome.desktop ]]; then
+install -d -m 0755 /etc/lightdm/lightdm.conf.d
+cat > /etc/lightdm/lightdm.conf.d/50-aptura-session.conf <<'EOF'
+[Seat:*]
+user-session=xfce
+greeter-session=lightdm-gtk-greeter
+EOF
+
+install -d -m 0755 /etc/lightdm/lightdm-gtk-greeter.conf.d
+cat > /etc/lightdm/lightdm-gtk-greeter.conf.d/50-aptura-classic.conf <<'EOF'
+[greeter]
+theme-name=Aptura-Classic
+icon-theme-name=Aptura-Classic
+font-name=Sans 10
+background=/usr/share/backgrounds/aptura/aptura-default.svg
+user-background=false
+xft-antialias=false
+indicators=~host;~spacer;~clock;~spacer;~language;~session;~a11y;~power
+EOF
+
+if [[ -f /usr/share/xsessions/xfce.desktop ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
   cat > /var/lib/AccountsService/users/aptura <<'EOF'
 [User]
-Session=gnome
+Session=xfce
 Icon=/usr/share/pixmaps/aptura.svg
 SystemAccount=false
 EOF
-fi
-
-if command -v dconf >/dev/null 2>&1; then
-  dconf update || true
 fi
 
 log "Desktop configuration complete"

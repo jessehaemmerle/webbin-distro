@@ -40,7 +40,7 @@ MVP defaults:
 - Unattended security updates are available but opt-in for the desktop MVP.
 - No telemetry.
 - No external cloud accounts or online assistant by default.
-- GNOME privacy defaults reduce recent-file tracking and technical problem reporting.
+- XFCE privacy defaults should avoid telemetry, cloud accounts, and unnecessary recent-file exposure.
 
 ## Package Source Security
 

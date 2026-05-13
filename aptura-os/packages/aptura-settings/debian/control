@@ -9,10 +9,10 @@ Rules-Requires-Root: no
 Package: aptura-settings
 Architecture: all
 Depends:
- dconf-cli,
+ xfconf,
  ufw,
  unattended-upgrades,
  ${misc:Depends}
 Description: default settings for Aptura OS
- Installs distribution defaults for APT, security posture, desktop appearance,
+ Installs distribution defaults for APT, security posture, XFCE appearance,
  update behavior, and local policy documentation.

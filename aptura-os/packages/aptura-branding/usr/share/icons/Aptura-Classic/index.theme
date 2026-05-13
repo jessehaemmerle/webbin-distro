@@ -1,0 +1,26 @@
+[Icon Theme]
+Name=Aptura Classic
+Comment=Classic workstation icons for Aptura OS
+Inherits=hicolor,Adwaita
+Directories=scalable/apps,scalable/places,scalable/devices
+
+[scalable/apps]
+Size=48
+Type=Scalable
+MinSize=16
+MaxSize=256
+Context=Applications
+
+[scalable/places]
+Size=48
+Type=Scalable
+MinSize=16
+MaxSize=256
+Context=Places
+
+[scalable/devices]
+Size=48
+Type=Scalable
+MinSize=16
+MaxSize=256
+Context=Devices

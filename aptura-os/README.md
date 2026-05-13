@@ -1,6 +1,6 @@
 # Aptura OS
 
-Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned GNOME desktop.
+Aptura OS is a Debian-based Linux distribution project scaffold for building a bootable live ISO with APT, local `.deb` packages, Calamares installer configuration, custom branding, and an Aptura-tuned XFCE desktop.
 
 This repository is an MVP foundation, not a finished public distribution. It is structured so you can grow it into a real derivative with signed package repositories, release engineering, QA, security review, and visual identity work.
 
@@ -20,7 +20,7 @@ Relevant upstream references:
 
 ## Target Users
 
-Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-based desktop with practical workstation defaults, transparent package management, and a retro-inspired GNOME experience that feels intentionally curated instead of rebuilt from scratch.
+Aptura OS targets technically curious desktop users, developers, and distribution builders who want a clean Debian-based desktop with practical workstation defaults, transparent package management, and a classic XFCE experience that feels like it could have shipped beside Windows 3.1 or Windows 95.
 
 ## Features
 
@@ -33,9 +33,9 @@ Aptura OS targets technically curious desktop users, developers, and distributio
   - `aptura-desktop`
   - `aptura-settings`
 - Calamares installer configuration with Aptura branding.
-- Aptura Retro visual identity inspired by late 80s and early 90s workstations: square window frames, bevel controls, hard shadows, dithered wallpaper, teal/magenta/amber accents, login styling, and GNOME defaults.
+- Aptura Classic visual identity inspired by Windows 3.1 and Windows 95: custom XFWM4 window borders, gray workbench panels, navy titlebars, teal desktop, beveled controls, hard shadows, pixel-like icons, LightDM styling, and XFCE defaults.
 - Aptura System Check for local update, firmware, power, security, and disk status.
-- Useful desktop differentiators installed by default: GNOME Software, Flatpak support, firmware updates, power profiles, disk utilities, backups, document viewing, archive handling, key management, and hardware switching support.
+- Useful desktop differentiators installed by default: XFCE utilities, Thunar, Synaptic, Flatpak support, firmware updates, power profiles, archive handling, image viewing, task management, Bluetooth, audio controls, and hardware switching support.
 - Security defaults for AppArmor, UFW, signed APT repositories, no telemetry, and no SSH server by default.
 - VM test helper for QEMU/KVM.
 - Documentation for architecture, build, package management, security, releases, and roadmap.
@@ -148,15 +148,16 @@ The live ISO includes Calamares configuration for:
 
 Partitioning is destructive when the user selects whole-disk installation. Always test in a VM first.
 
-## Aptura GNOME Desktop
+## Aptura Classic XFCE Desktop
 
-Aptura uses GNOME Shell as the stable compositor and session base, then layers
-Aptura Retro identity and practical workstation defaults on top. The look is
-inspired by late 80s and early 90s workstations: square frames, beveled controls,
-chunky titlebars, hard shadows, and a dithered workbench wallpaper. The goal is
-not to ship a novelty shell; it is to make the default desktop more useful on
-first boot with visible update status, firmware tooling, power profiles, backup
-and disk utilities, privacy defaults, and a local System Check launcher.
+Aptura uses XFCE as the session base because its panel, window manager, and
+theme stack are a good fit for a believable 80s/90s workstation. The look is
+inspired by Windows 3.1 and Windows 95: custom XFWM4 borders, square titlebars,
+gray raised controls, inset text fields, a teal desktop, simple pixel-like
+icons, and a bottom taskbar with a Start-style menu. The goal is not a costume;
+it is a coherent classic desktop with useful first-boot tools such as firmware
+visibility, power profiles, archive tools, privacy defaults, and Aptura System
+Check.
 
 ## Project Structure
 
@@ -176,7 +177,7 @@ tests/        Repository smoke tests and manual ISO test checklist.
 - This is an MVP scaffold. It has not produced a verified release ISO in this Windows-hosted workspace.
 - Secure Boot is documented but not implemented.
 - Repository signing requires a real GPG key and release infrastructure.
-- Retro GNOME branding and GTK theme defaults are packaged, but still need visual QA on a real booted ISO.
+- Aptura Classic XFCE branding, GTK theme, icon theme, and XFWM4 borders are packaged, but still need visual QA on a real booted ISO.
 - Calamares module paths and package names may need adjustment for the exact Debian point release.
 - Proprietary firmware is not bundled beyond Debian's `non-free-firmware` archive area.
 
@@ -186,7 +187,7 @@ The roadmap is documented in `docs/roadmap.md`. The next practical milestones ar
 
 - Build the ISO in a clean Debian 13 VM.
 - Verify Calamares installation end to end.
-- Verify Aptura Retro GNOME defaults, System Check, firmware tooling, and power profiles in a live session.
+- Verify Aptura Classic XFCE defaults, System Check, firmware tooling, and power profiles in a live session.
 - Add signed public package repository infrastructure.
 - Add automated VM boot tests.
 - Complete branding assets under an open license.

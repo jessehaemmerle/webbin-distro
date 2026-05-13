@@ -1,14 +1,13 @@
 # Aptura Greeter Theme
 
-The package `aptura-branding` ships a minimal LightDM WebKit theme placeholder.
-The default MVP desktop uses GDM with GNOME, so this directory documents the
-visual direction rather than enforcing a production greeter.
+The package `aptura-branding` ships LightDM GTK greeter defaults and a minimal
+LightDM WebKit theme placeholder.
 
-The visual direction follows Aptura Retro: square panels, chunky titlebars,
-beveled input wells, and hard drop shadows.
+The visual direction follows Aptura Classic: square panels, chunky titlebars,
+beveled input wells, hard shadows, and a teal desktop background.
 
 TODO:
 
-- Decide whether Aptura OS uses GDM branding, LightDM WebKit, or a custom greeter.
+- Validate LightDM GTK greeter rendering in the live ISO.
 - Add accessibility checks for contrast, keyboard navigation, and screen reader behavior.
 - Replace placeholder login markup with a fully supported greeter implementation.

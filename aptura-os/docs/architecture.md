@@ -3,15 +3,15 @@
 ## Overview
 
 Aptura OS is a Debian Stable derivative built around APT, Debian packages,
-live-build images, Calamares installation, and an Aptura-tuned GNOME desktop.
+live-build images, Calamares installation, and an Aptura-tuned XFCE desktop.
 
 The project follows a layered model:
 
-1. Upstream Debian Stable provides kernel, base system, APT, systemd, GNOME, and security updates.
+1. Upstream Debian Stable provides kernel, base system, APT, systemd, XFCE, and security updates.
 2. Aptura packages add identity, defaults, desktop integration, and release policy.
 3. live-build composes a bootable live ISO using Debian package repositories and local Aptura packages.
 4. Calamares installs the live system to disk.
-5. Aptura's GNOME defaults provide retro branding, privacy posture, useful workstation tools, and local status visibility.
+5. Aptura's XFCE defaults provide classic branding, privacy posture, useful workstation tools, and local status visibility.
 
 ## Base Distribution
 
@@ -33,9 +33,9 @@ installer tuning, and image tooling validation.
 Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
-- `aptura-branding`: retro wallpaper, GTK theme, Plymouth, login theme, and derivative identity metadata.
-- `aptura-desktop`: Aptura GNOME integration, System Check launcher, and desktop package set.
-- `aptura-settings`: security, update, privacy, dconf, and policy defaults.
+- `aptura-branding`: classic wallpaper, GTK theme, XFWM4 borders, icon theme, Plymouth, login theme, and derivative identity metadata.
+- `aptura-desktop`: Aptura Classic XFCE integration, System Check launcher, and desktop package set.
+- `aptura-settings`: security, update, privacy, XFCE, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
 hard-coding every package in installer scripts, Aptura can evolve defaults by
@@ -63,15 +63,13 @@ infrastructure and can be used by installed systems after signing is complete.
 
 Aptura does not ship a full desktop environment from scratch. The MVP uses:
 
-- GNOME Shell and Mutter for compositor/session behavior.
-- GDM for login.
-- GNOME Control Center for mature settings coverage.
-- Aptura Retro branding through wallpaper, GTK theme, GDM logo/banner, dark
-  mode, accent color, dock favorites, and GNOME defaults.
+- XFCE session, xfwm4, xfdesktop, xfce4-panel, and LightDM.
+- Aptura Classic branding through wallpaper, GTK theme, XFWM4 window borders,
+  icon theme, LightDM styling, bottom panel, and XFCE defaults.
 - Aptura System Check as a local status tool for updates, firmware, power,
   security, and storage.
-- GNOME Software, Flatpak support, firmware updates, power profiles, backup,
-  disk, archive, document, key management, and hardware switching tools.
+- Thunar, Synaptic, Flatpak support, firmware updates, power profiles, archive,
+  image, task, audio, Bluetooth, and hardware switching tools.
 
 This keeps the system realistic while still giving Aptura OS a distinct visual
 language and a useful first-boot workstation baseline.

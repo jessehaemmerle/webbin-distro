@@ -1,22 +1,22 @@
 QWidget {
-  font-family: Cantarell, Inter, sans-serif;
+  font-family: Sans, Arial, Helvetica, sans-serif;
   color: #101318;
-  background: #c8c6bc;
+  background: #c0c0c0;
 }
 
 #sidebarAppName {
-  color: #f7f2df;
+  color: #000000;
   font-weight: 700;
 }
 
 #sidebarMenuApp {
-  background: #30343b;
-  border-right: 3px solid #05070a;
+  background: #c0c0c0;
+  border-right: 3px solid #000000;
 }
 
 #sidebarMenuApp QListView::item:selected {
-  color: #f7f2df;
-  background: #00a6a6;
+  color: #ffffff;
+  background: #000080;
 }
 
 QPushButton {
@@ -56,7 +56,7 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-  background: #f2b84b;
+  background: #000080;
 }
 
 QTabBar::tab {

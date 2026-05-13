@@ -1,14 +1,13 @@
 :root {
   color-scheme: dark;
-  --bg: #242830;
-  --panel: #c8c6bc;
-  --panel-light: #f4f0df;
-  --panel-dark: #30343b;
+  --bg: #008080;
+  --panel: #c0c0c0;
+  --panel-light: #ffffff;
+  --panel-dark: #c0c0c0;
   --ink: #101318;
-  --fg: #f7f2df;
-  --accent: #00a6a6;
-  --magenta: #d44fb0;
-  --amber: #f2b84b;
+  --fg: #ffffff;
+  --accent: #000080;
+  --amber: #ffff00;
   --shadow: #05070a;
 }
 
@@ -20,7 +19,7 @@ body {
   min-height: 100vh;
   margin: 0;
   color: var(--fg);
-  font-family: Cantarell, "Adwaita Sans", system-ui, sans-serif;
+  font-family: Sans, Arial, Helvetica, system-ui, sans-serif;
   background:
     linear-gradient(rgb(36 40 48 / 22%), rgb(36 40 48 / 22%)),
     url("/usr/share/backgrounds/aptura/aptura-default.svg") center / cover no-repeat,
@@ -57,15 +56,9 @@ body {
 .eyebrow {
   margin: 0;
   padding: 12px 18px;
-  color: var(--accent);
+  color: var(--fg);
   background:
-    repeating-linear-gradient(
-      90deg,
-      #21454f 0,
-      #21454f 8px,
-      #1a3943 8px,
-      #1a3943 16px
-    );
+    linear-gradient(90deg, #000080, #1084d0);
   border-bottom: 4px solid var(--shadow);
   font-size: 13px;
   font-weight: 700;

@@ -24,12 +24,14 @@ EOF
 install -d -m 0755 /etc/aptura
 cat > /etc/aptura/branding.conf <<'EOF'
 DISTRO_NAME="Aptura OS"
-DESKTOP_NAME="Aptura GNOME"
-THEME_NAME="Aptura-Retro"
-ACCENT_COLOR="#00a6a6"
-SECONDARY_ACCENT_COLOR="#d44fb0"
-WARNING_COLOR="#f2b84b"
-DEFAULT_MODE="dark"
+DESKTOP_NAME="Aptura Classic XFCE"
+THEME_NAME="Aptura-Classic"
+ICON_THEME_NAME="Aptura-Classic"
+ACCENT_COLOR="#000080"
+SECONDARY_ACCENT_COLOR="#008080"
+WARNING_COLOR="#ffff00"
+SURFACE_COLOR="#c0c0c0"
+DEFAULT_MODE="classic"
 EOF
 
 if command -v update-alternatives >/dev/null 2>&1 && [[ -f /usr/share/backgrounds/aptura/aptura-default.svg ]]; then
@@ -38,10 +40,6 @@ fi
 
 if command -v plymouth-set-default-theme >/dev/null 2>&1 && [[ -d /usr/share/plymouth/themes/aptura ]]; then
   plymouth-set-default-theme aptura || true
-fi
-
-if command -v dconf >/dev/null 2>&1; then
-  dconf update || true
 fi
 
 log "Branding complete"

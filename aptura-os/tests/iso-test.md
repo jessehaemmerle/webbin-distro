@@ -13,10 +13,11 @@ you need.
 ## Live Session
 
 - [ ] Live session reaches graphical login or autologin desktop.
-- [ ] GNOME session starts.
-- [ ] Retro Aptura wallpaper is visible.
-- [ ] Aptura Retro GTK theme applies to GTK apps with square frames and bevel-style controls.
-- [ ] Aptura GNOME favorites and dark retro branding defaults are visible.
+- [ ] XFCE session starts.
+- [ ] Aptura Classic wallpaper is visible.
+- [ ] Aptura Classic GTK theme applies to GTK apps with square frames and bevel-style controls.
+- [ ] Aptura Classic XFWM4 window borders are visible, including raised title buttons.
+- [ ] Bottom XFCE panel uses the Start-style application menu and task list.
 - [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.
@@ -39,7 +40,7 @@ you need.
 ## Installer
 
 - [ ] Calamares starts from desktop launcher.
-- [ ] Welcome page displays Aptura retro workbench branding.
+- [ ] Welcome page displays Aptura Classic workstation branding.
 - [ ] Locale selection works.
 - [ ] Keyboard selection works.
 - [ ] Timezone selection works.

@@ -1,7 +1,7 @@
 # Aptura Settings Center
 
 The settings center is a future native system app idea. For the MVP, Aptura OS
-uses GNOME Control Center plus Aptura System Check instead of a custom settings
+uses XFCE Settings Manager plus Aptura System Check instead of a custom settings
 shell.
 
 Planned sections:

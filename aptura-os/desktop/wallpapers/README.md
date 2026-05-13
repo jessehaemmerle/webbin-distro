@@ -2,9 +2,9 @@
 
 Open placeholder wallpaper assets live in `packages/aptura-branding`.
 
-The default direction is Aptura Retro: dithered workstation backgrounds,
-visible window-frame motifs, hard shadows, and restrained teal/magenta/amber
-accents.
+The default direction is Aptura Classic: teal dithered desktop backgrounds,
+visible window-frame motifs, hard shadows, gray panels, navy titlebars, and
+yellow focus accents.
 
 Policy:
 
