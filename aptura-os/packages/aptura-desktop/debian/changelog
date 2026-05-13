@@ -1,3 +1,10 @@
+aptura-desktop (0.1.4) trixie; urgency=medium
+
+  * Add Aptura Shell as the default labwc-based Wayland session.
+  * Add Aptura panel, launcher, quick control, and screenshot integration.
+
+ -- Aptura OS Team <maintainers@aptura.local>  Wed, 13 May 2026 18:00:00 +0000
+
 aptura-desktop (0.1.3) trixie; urgency=medium
 
   * Add Safe Update, Rescue Center, Privacy Check, Modes, and Support Bundle tools.

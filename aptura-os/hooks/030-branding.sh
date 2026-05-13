@@ -8,15 +8,15 @@ log() {
 log "Applying Aptura OS branding"
 
 cat > /etc/os-release <<'EOF'
-PRETTY_NAME="Aptura OS 0.1.4 Adeline COSMIC"
+PRETTY_NAME="Aptura OS 0.1.4 Adeline Shell"
 NAME="Aptura OS"
 VERSION_ID="0.1.4"
-VERSION="0.1.4 (Adeline COSMIC)"
+VERSION="0.1.4 (Adeline Shell)"
 VERSION_CODENAME=adeline
 ID=aptura
 ID_LIKE=debian
-VARIANT="COSMIC"
-VARIANT_ID=cosmic
+VARIANT="Shell"
+VARIANT_ID=aptura-shell
 LOGO=distributor-logo-aptura
 ANSI_COLOR="1;36"
 HOME_URL="https://aptura.local"
@@ -29,15 +29,15 @@ cat > /etc/lsb-release <<'EOF'
 DISTRIB_ID=Aptura
 DISTRIB_RELEASE=0.1.4
 DISTRIB_CODENAME=adeline
-DISTRIB_DESCRIPTION="Aptura OS 0.1.4 Adeline COSMIC"
+DISTRIB_DESCRIPTION="Aptura OS 0.1.4 Adeline Shell"
 EOF
 
 cat > /etc/issue <<'EOF'
-Aptura OS 0.1.4 Adeline COSMIC \n \l
+Aptura OS 0.1.4 Adeline Shell \n \l
 EOF
 
 cat > /etc/issue.net <<'EOF'
-Aptura OS 0.1.4 Adeline COSMIC
+Aptura OS 0.1.4 Adeline Shell
 EOF
 
 cat > /etc/machine-info <<'EOF'
@@ -49,11 +49,11 @@ EOF
 install -d -m 0755 /etc/aptura
 cat > /etc/aptura/branding.conf <<'EOF'
 DISTRO_NAME="Aptura OS"
-DESKTOP_NAME="Aptura COSMIC"
+DESKTOP_NAME="Aptura Shell"
 DISTRO_VERSION="0.1.4"
 DISTRO_CODENAME="adeline"
-THEME_NAME="Aptura-COSMIC"
-ICON_THEME_NAME="Aptura-COSMIC"
+THEME_NAME="Aptura-Shell"
+ICON_THEME_NAME="Aptura-Shell"
 LOGO_NAME="distributor-logo-aptura"
 ACCENT_COLOR="#00d9c0"
 SECONDARY_ACCENT_COLOR="#ff4fd8"
@@ -61,18 +61,18 @@ WARNING_COLOR="#ffe45c"
 SURFACE_COLOR="#c8c6bc"
 HOME_URL="https://aptura.local"
 SUPPORT_URL="https://aptura.local/support"
-DEFAULT_MODE="cosmic"
+DEFAULT_MODE="aptura-shell"
 EOF
 
 install -d -m 0755 /etc/motd.d /etc/profile.d
 cat > /etc/motd.d/00-aptura <<'EOF'
-Aptura OS 0.1.4 Adeline COSMIC
-Debian-compatible workstation with COSMIC, Aptura branding, defaults, and tooling.
+Aptura OS 0.1.4 Adeline Shell
+Debian-compatible workstation with Aptura Shell, branding, defaults, and tooling.
 EOF
 
 cat > /etc/profile.d/aptura-branding.sh <<'EOF'
 export APTURA_BRAND_NAME="Aptura OS"
-export APTURA_BRAND_EDITION="COSMIC"
+export APTURA_BRAND_EDITION="Shell"
 export APTURA_BRAND_ACCENT="#00d9c0"
 EOF
 

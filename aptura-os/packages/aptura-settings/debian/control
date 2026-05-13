@@ -13,5 +13,6 @@ Depends:
  unattended-upgrades,
  ${misc:Depends}
 Description: default settings for Aptura OS
- Installs distribution defaults for APT, security posture, Plasma appearance,
- GTK theme skeletons, update behavior, and local policy documentation.
+ Installs distribution defaults for APT, security posture, Aptura Shell
+ appearance, GTK theme skeletons, update behavior, and local policy
+ documentation.

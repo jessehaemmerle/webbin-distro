@@ -95,7 +95,7 @@ main() {
       print_profile "travel" "power-saver" "Make battery, privacy, and offline work the default." "Privacy Check, browser, notes" "Review Wi-Fi and firewall posture before public networks."
       ;;
     focus)
-      print_profile "focus" "power-saver" "Reduce churn and stay inside one task." "Plasma notification settings, editor, terminal" "Use Plasma System Settings for deeper do-not-disturb control."
+      print_profile "focus" "power-saver" "Reduce churn and stay inside one task." "Notification settings, editor, terminal" "Use System Settings for deeper do-not-disturb control."
       ;;
     *)
       usage >&2

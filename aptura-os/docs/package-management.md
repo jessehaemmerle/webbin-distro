@@ -77,11 +77,15 @@ deb [signed-by=/usr/share/keyrings/aptura-archive-keyring.gpg] https://repo.aptu
 
 Do not use `trusted=yes` in production.
 
-## Plasma Packages
+## Desktop Packages
 
-The Plasma edition uses KDE packages from Debian `trixie` directly. The default
-package list and metapackages include Plasma Workspace, SDDM, Dolphin, Konsole,
-Kate, Discover, Spectacle, and `xdg-desktop-portal-kde`.
+Aptura Shell uses labwc/wlroots packages from Debian `trixie` directly. The
+default package list and metapackages include labwc, waybar, wofi, swaybg,
+mako, grim, slurp, wl-clipboard, and `xdg-desktop-portal-wlr`.
+
+KDE Plasma packages remain installed from Debian `trixie` as a fallback session
+and application base, including Plasma Workspace, SDDM, Dolphin, Konsole, Kate,
+Discover, Spectacle, and `xdg-desktop-portal-kde`.
 
 The previous external OBS repository and its APT pinning files are no
 longer part of the default build. New external repositories should only be

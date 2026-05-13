@@ -67,6 +67,11 @@ main() {
   require_executable scripts/create-local-repo.sh
   require_executable scripts/sign-repo.sh
   require_executable scripts/test-vm.sh
+  require_executable packages/aptura-desktop/usr/bin/aptura-session
+  require_executable packages/aptura-desktop/usr/bin/aptura-panel
+  require_executable packages/aptura-desktop/usr/bin/aptura-launcher
+  require_executable packages/aptura-desktop/usr/bin/aptura-control
+  require_executable packages/aptura-desktop/usr/bin/aptura-screenshot
   require_executable packages/aptura-desktop/usr/bin/aptura-safe-update
   require_executable packages/aptura-desktop/usr/bin/aptura-rescue-center
   require_executable packages/aptura-desktop/usr/bin/aptura-privacy-check

@@ -118,10 +118,10 @@ check_aptura_desktop_feature() {
   fi
 
   if [[ -n "${icon_name}" ]]; then
-    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-COSMIC/scalable/apps/${icon_name}.svg" ]]; then
-      ok "${icon_name} Aptura-COSMIC icon exists"
+    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/${icon_name}.svg" ]]; then
+      ok "${icon_name} Aptura-Shell icon exists"
     else
-      fail "Missing Aptura-COSMIC icon: ${icon_name}.svg"
+      fail "Missing Aptura-Shell icon: ${icon_name}.svg"
     fi
 
     if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${icon_name}.svg" ]]; then
@@ -151,6 +151,13 @@ main() {
 
   local desktop_control="${ROOT_DIR}/packages/aptura-desktop/debian/control"
   local meta_control="${ROOT_DIR}/packages/aptura-meta/debian/control"
+  local shell_dep
+  for shell_dep in labwc waybar wofi swaybg mako-notifier foot grim slurp swaylock wl-clipboard libnotify-bin xdg-desktop-portal-wlr polkit-kde-agent-1; do
+    check_live_package_list_contains "${shell_dep}"
+    check_control_depends "${desktop_control}" "${shell_dep}"
+    check_control_depends "${meta_control}" "${shell_dep}"
+  done
+
   local plasma_dep
   for plasma_dep in kde-plasma-desktop plasma-workspace sddm systemsettings dolphin konsole kate ark kde-spectacle plasma-discover xdg-desktop-portal-kde; do
     check_live_package_list_contains "${plasma_dep}"
@@ -170,6 +177,40 @@ main() {
     check_control_not_depends "${desktop_control}" "${removed_desktop_dep}"
     check_control_not_depends "${meta_control}" "${removed_desktop_dep}"
   done
+
+  for shell_feature in aptura-session aptura-panel aptura-launcher aptura-control aptura-screenshot; do
+    if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/bin/${shell_feature}" ]]; then
+      ok "${shell_feature} script exists"
+    else
+      fail "Missing aptura-desktop/usr/bin/${shell_feature}"
+    fi
+
+    if grep -Eq "usr/bin/${shell_feature}[[:space:]]+usr/bin/" "${ROOT_DIR}/packages/aptura-desktop/debian/install"; then
+      ok "${shell_feature} is installed"
+    else
+      fail "aptura-desktop/debian/install does not install ${shell_feature}"
+    fi
+  done
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/share/wayland-sessions/aptura.desktop" ]]; then
+    ok "Aptura Shell session file exists"
+  else
+    fail "Missing Aptura Shell wayland session file"
+  fi
+
+  if grep -Eq 'usr/share/wayland-sessions/aptura.desktop[[:space:]]+usr/share/wayland-sessions/' "${ROOT_DIR}/packages/aptura-desktop/debian/install"; then
+    ok "Aptura Shell session file is installed"
+  else
+    fail "aptura-desktop/debian/install does not install Aptura Shell session file"
+  fi
+
+  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/xdg/labwc/rc.xml" ]]; then
+    ok "Aptura Shell labwc configuration exists"
+  else
+    fail "Missing Aptura Shell labwc configuration"
+  fi
+
+  check_documented_feature "Aptura Shell"
 
   check_aptura_desktop_feature aptura-safe-update
   check_aptura_desktop_feature aptura-rescue-center

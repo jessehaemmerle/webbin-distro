@@ -1,0 +1,37 @@
+window {
+  margin: 0;
+  border: 1px solid rgba(0, 217, 192, 0.55);
+  background-color: rgba(18, 20, 43, 0.98);
+  font-family: "Noto Sans", "Cantarell", sans-serif;
+  font-size: 14px;
+}
+
+#input {
+  margin: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f6f7fb;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+#inner-box {
+  margin: 0 10px 10px;
+}
+
+#entry {
+  padding: 9px 10px;
+  color: #f6f7fb;
+}
+
+#entry:selected {
+  background-color: rgba(0, 217, 192, 0.20);
+  color: #ffffff;
+}
+
+#img {
+  margin-right: 10px;
+}
+
+#text {
+  color: inherit;
+}

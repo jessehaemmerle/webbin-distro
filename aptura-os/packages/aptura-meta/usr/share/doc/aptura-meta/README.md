@@ -7,5 +7,5 @@ needs. Keep optional applications in edition-specific packages later.
 
 TODO:
 
-- Add optional Aptura COSMIC applets only when they solve a real workflow problem.
+- Add optional Aptura Shell applets only when they solve a real workflow problem.
 - Split development, creative, and minimal editions into separate metapackages.

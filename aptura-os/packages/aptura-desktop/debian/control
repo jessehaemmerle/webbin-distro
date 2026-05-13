@@ -10,9 +10,22 @@ Package: aptura-desktop
 Architecture: all
 Depends:
  bash,
+ labwc,
+ waybar,
+ wofi,
+ swaybg,
+ mako-notifier,
+ foot,
+ grim,
+ slurp,
+ swaylock,
+ wl-clipboard,
+ libnotify-bin,
+ xdg-desktop-portal-wlr,
  kde-plasma-desktop,
  plasma-workspace,
  sddm,
+ polkit-kde-agent-1,
  systemsettings,
  dolphin,
  konsole,
@@ -59,8 +72,10 @@ Recommends:
  usbutils,
  xdg-user-dirs-gtk,
  zenity
-Description: Aptura Plasma desktop integration
- Installs Aptura's KDE Plasma integration, desktop launchers, and utility hooks.
- The default desktop uses KDE Plasma with Aptura contextual branding,
- practical workstation tools, firmware visibility, power controls,
- local journey/context tooling, and a local system health check.
+Description: Aptura Shell desktop integration
+ Installs Aptura Shell, desktop launchers, and utility hooks.
+ The default desktop uses Aptura's own Wayland shell profile with labwc,
+ waybar, wofi, Aptura contextual branding, practical workstation tools,
+ firmware visibility, power controls, local journey/context tooling, and
+ a local system health check. KDE Plasma remains available as a fallback
+ session and application base.

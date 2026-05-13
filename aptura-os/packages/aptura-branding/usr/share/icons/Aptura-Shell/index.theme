@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Aptura Plasma
-Comment=Aptura icons for the Plasma edition
+Name=Aptura Shell
+Comment=Aptura icons for the Shell edition
 Inherits=hicolor,Adwaita
 Directories=scalable/apps,scalable/places,scalable/devices
 

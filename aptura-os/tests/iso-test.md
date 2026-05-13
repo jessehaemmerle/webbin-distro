@@ -13,10 +13,10 @@ you need.
 ## Live Session
 
 - [ ] Live session reaches graphical login or autologin desktop.
-- [ ] Plasma session starts.
-- [ ] Aptura retro-Plasma wallpaper is visible.
-- [ ] Plasma panel, launcher, app library, settings, and core apps open.
-- [ ] Aptura accent colors and logo assets are visible where Plasma exposes distribution branding.
+- [ ] Aptura Shell session starts.
+- [ ] Aptura retro-shell wallpaper is visible.
+- [ ] Aptura panel, launcher, task list, settings, and core apps open.
+- [ ] Aptura accent colors and logo assets are visible in the shell.
 - [ ] Konsole, Dolphin, and Kate are available.
 - [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
@@ -40,7 +40,7 @@ you need.
 ## Installer
 
 - [ ] Calamares starts from desktop launcher.
-- [ ] Welcome page displays Aptura Plasma workstation branding.
+- [ ] Welcome page displays Aptura Shell workstation branding.
 - [ ] Locale selection works.
 - [ ] Keyboard selection works.
 - [ ] Timezone selection works.
