@@ -6,8 +6,8 @@ Packages:
 
 - `aptura-meta`: pulls in the distribution's core package set.
 - `aptura-branding`: installs the Aptura Classic visual identity, wallpaper, GTK theme, XFWM4 borders, icon theme, login theme placeholders, Plymouth theme, and derivative metadata.
-- `aptura-desktop`: installs Aptura Classic XFCE integration, System Check, and useful desktop packages.
-- `aptura-settings`: installs system defaults for APT, security, XFCE, update behavior, and policy documentation.
+- `aptura-desktop`: installs Aptura Classic XFCE integration, Welcome, System Check, and useful desktop packages.
+- `aptura-settings`: installs system defaults for APT, security, NetworkManager privacy, XFCE, update behavior, and policy documentation.
 
 Build all packages:
 

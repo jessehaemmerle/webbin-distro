@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -u
+
+config_home="${XDG_CONFIG_HOME:-${HOME:-/tmp}/.config}"
+marker_dir="${config_home}/aptura"
+marker="${marker_dir}/welcome-seen"
+
+if [[ "${1:-}" != "--force" && -f "${marker}" ]]; then
+  exit 0
+fi
+
+mkdir -p "${marker_dir}"
+
+title="Aptura Welcome"
+message="Welcome to Aptura OS.
+
+This build includes the Debian backports 7.x kernel, automatic security updates, AppArmor, UFW defaults, firmware update support, backup tools, disk utilities, printer and scanner helpers, and local diagnostics.
+
+Run the System Check now to review update, firmware, security, hardware, and storage status."
+
+run_system_check() {
+  if command -v x-terminal-emulator >/dev/null 2>&1; then
+    x-terminal-emulator -T "Aptura System Check" -e sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
+    return
+  fi
+
+  if command -v xfce4-terminal >/dev/null 2>&1; then
+    xfce4-terminal --title="Aptura System Check" --hold --command=aptura-system-check
+    return
+  fi
+
+  aptura-system-check
+}
+
+if command -v zenity >/dev/null 2>&1; then
+  if zenity --question \
+      --title="${title}" \
+      --width=520 \
+      --ok-label="Run System Check" \
+      --cancel-label="Close" \
+      --text="${message}"; then
+    run_system_check
+  fi
+else
+  printf '%s\n\n%s\n\n' "${title}" "${message}"
+  run_system_check
+fi
+
+touch "${marker}"

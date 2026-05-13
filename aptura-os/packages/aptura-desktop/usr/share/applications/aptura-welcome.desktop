@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Welcome
+Comment=Show first-run status and setup shortcuts
+Exec=aptura-welcome --force
+Icon=aptura
+Terminal=false
+Categories=System;Settings;
+StartupNotify=true

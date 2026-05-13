@@ -25,6 +25,17 @@ pipewire-pulse
 wireplumber
 alsa-utils
 
+# Hardware, diagnostics, and repair tools.
+htop
+ncdu
+inxi
+lshw
+pciutils
+usbutils
+smartmontools
+nvme-cli
+needrestart
+
 xfce4
 xfce4-goodies
 xfce4-session
@@ -64,6 +75,13 @@ flatpak
 fwupd
 power-profiles-daemon
 switcheroo-control
+gnome-disk-utility
+baobab
+deja-dup
+timeshift
+catfish
+gufw
+zenity
 
 firefox-esr
 curl
@@ -78,6 +96,14 @@ unattended-upgrades
 ufw
 apparmor
 apparmor-utils
+fonts-noto-color-emoji
+
+cups
+cups-browsed
+ipp-usb
+sane-airscan
+system-config-printer
+simple-scan
 
 calamares
 calamares-settings-debian

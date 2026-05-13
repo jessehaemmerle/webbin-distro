@@ -20,6 +20,9 @@ enable_service lightdm.service
 enable_service power-profiles-daemon.service
 enable_service switcheroo-control.service
 enable_service fwupd-refresh.timer
+enable_service cups.service
+enable_service cups-browsed.service
+enable_service ipp-usb.service
 
 install -d -m 0755 /usr/share/applications
 cat > /usr/share/applications/calamares.desktop <<'EOF'

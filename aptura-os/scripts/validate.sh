@@ -121,6 +121,8 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/gtk-4.0/gtk-dark.css"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Classic/xfwm4/themerc"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Classic/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-welcome"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-welcome.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"

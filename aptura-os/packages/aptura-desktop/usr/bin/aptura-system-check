@@ -43,6 +43,15 @@ timer_state() {
   printf 'not enabled'
 }
 
+package_state() {
+  local package="$1"
+  if have dpkg-query && dpkg-query -W -f='${Status}' "${package}" 2>/dev/null | grep -q 'install ok installed'; then
+    printf 'installed'
+    return
+  fi
+  printf 'not installed'
+}
+
 apt_upgrades() {
   if ! have apt; then
     printf 'apt not available'
@@ -52,6 +61,19 @@ apt_upgrades() {
   local count
   count="$(apt list --upgradable 2>/dev/null | awk 'NR > 1 { count++ } END { print count + 0 }')"
   printf '%s package(s)' "${count}"
+}
+
+kernel_meta() {
+  local kernel version
+  kernel="$(uname -r)"
+  if have dpkg-query; then
+    version="$(dpkg-query -W -f='${Version}' linux-image-amd64 2>/dev/null || true)"
+    if [[ -n "${version}" ]]; then
+      printf '%s via linux-image-amd64 %s' "${kernel}" "${version}"
+      return
+    fi
+  fi
+  printf '%s' "${kernel}"
 }
 
 firmware_state() {
@@ -92,6 +114,42 @@ power_profile() {
   printf 'power profiles unavailable'
 }
 
+boot_mode() {
+  if [[ -d /sys/firmware/efi ]]; then
+    printf 'UEFI'
+    return
+  fi
+  printf 'BIOS/legacy'
+}
+
+locale_line() {
+  printf '%s' "${LANG:-unset}"
+}
+
+cpu_line() {
+  if [[ -r /proc/cpuinfo ]]; then
+    awk -F ': ' '/model name/ { print $2; exit }' /proc/cpuinfo
+    return
+  fi
+  printf 'unknown'
+}
+
+memory_line() {
+  if have free; then
+    free -h | awk '/^Mem:/ { printf "%s total, %s available", $2, $7 }'
+    return
+  fi
+  printf 'unknown'
+}
+
+swap_line() {
+  if have free; then
+    free -h | awk '/^Swap:/ { printf "%s total, %s used", $2, $3 }'
+    return
+  fi
+  printf 'unknown'
+}
+
 disk_line() {
   local path="$1"
   if [[ -d "${path}" ]]; then
@@ -121,13 +179,16 @@ main() {
 
   print_header
   line "System" "$(os_name)"
-  line "Kernel" "$(uname -r)"
+  line "Kernel" "$(kernel_meta)"
+  line "Boot mode" "$(boot_mode)"
+  line "Locale" "$(locale_line)"
   line "Session" "${XDG_CURRENT_DESKTOP:-unknown}"
 
   section "Updates"
   line "APT upgrades" "$(apt_upgrades)"
   line "Unattended upgrades" "$(timer_state apt-daily-upgrade.timer)"
   line "Firmware service" "$(firmware_state)"
+  line "Needrestart" "$(package_state needrestart)"
 
   section "Security"
   line "AppArmor" "$(service_state apparmor.service)"
@@ -135,9 +196,23 @@ main() {
   line "SSH server" "$(service_state ssh.service)"
 
   section "Hardware"
+  line "CPU" "$(cpu_line)"
+  line "Memory" "$(memory_line)"
+  line "Swap" "$(swap_line)"
   line "Power profile" "$(power_profile)"
   line "Bluetooth" "$(service_state bluetooth.service)"
   line "NetworkManager" "$(service_state NetworkManager.service)"
+  line "SMART tools" "$(package_state smartmontools)"
+  line "NVMe tools" "$(package_state nvme-cli)"
+
+  section "Desktop Tools"
+  line "Backup" "$(package_state deja-dup)"
+  line "Snapshots" "$(package_state timeshift)"
+  line "Disk utility" "$(package_state gnome-disk-utility)"
+  line "File search" "$(package_state catfish)"
+  line "Firewall UI" "$(package_state gufw)"
+  line "Printing" "$(service_state cups.service)"
+  line "Scanning" "$(package_state simple-scan)"
 
   section "Storage"
   line "Root filesystem" "$(disk_line /)"
