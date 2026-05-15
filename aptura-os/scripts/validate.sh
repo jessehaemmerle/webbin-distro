@@ -6,6 +6,29 @@ ENV_FILE="${ROOT_DIR}/config/distro.env"
 
 # shellcheck source=../config/distro.env
 source "${ENV_FILE}"
+if [[ -f "${ROOT_DIR}/config/distro.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/distro.local.env"
+fi
+# shellcheck source=../config/branding.conf
+source "${ROOT_DIR}/config/branding.conf"
+if [[ -f "${ROOT_DIR}/config/branding.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/branding.local.env"
+fi
+
+: "${SHELL_SESSION_ID:=aptura}"
+: "${THEME_NAME:=Aptura-Shell}"
+: "${GTK_THEME_NAME:=${THEME_NAME}}"
+: "${ICON_THEME_NAME:=Aptura-Shell}"
+: "${DEFAULT_WALLPAPER:=/usr/share/backgrounds/aptura/aptura-context-grid.svg}"
+: "${WALLPAPER_ALTERNATIVES:=}"
+: "${APP_ICON:=/usr/share/icons/hicolor/scalable/apps/aptura.svg}"
+: "${USER_ICON:=/usr/share/pixmaps/aptura.svg}"
+: "${LOGO_NAME:=distributor-logo-aptura}"
+: "${LOGO_ASSET:=/usr/share/aptura/branding/aptura-logo.svg}"
+: "${WORDMARK_ASSET:=/usr/share/aptura/branding/aptura-wordmark.svg}"
+: "${BADGE_ASSET:=/usr/share/aptura/branding/aptura-badge.svg}"
 
 errors=0
 warnings=0
@@ -34,6 +57,16 @@ require_file() {
 
 require_dir() {
   [[ -d "$1" ]] || fail "Missing directory: ${1#${ROOT_DIR}/}"
+}
+
+require_packaged_branding_file() {
+  local installed_path="$1"
+  if [[ "${installed_path}" != /* ]]; then
+    fail "Branding asset path must be absolute: ${installed_path}"
+    return
+  fi
+
+  require_file "${ROOT_DIR}/packages/aptura-branding${installed_path}"
 }
 
 first_matching_line() {
@@ -71,6 +104,7 @@ check_config() {
   require_file "${ROOT_DIR}/config/packages.list"
   require_file "${ROOT_DIR}/config/apt-sources.list"
   require_file "${ROOT_DIR}/config/branding.conf"
+  require_file "${ROOT_DIR}/scripts/render-branding.sh"
   require_file "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"
   require_file "${ROOT_DIR}/installer/calamares/modules/bootloader.conf"
   require_file "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"
@@ -214,16 +248,16 @@ check_config() {
     fail "displaymanager.conf must select sddm"
   fi
 
-  if ! grep -Eq '^[[:space:]]*desktopFile:[[:space:]]*"aptura"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
-    fail "displaymanager.conf must set Aptura Shell as the default desktop file"
+  if ! grep -Eq "^[[:space:]]*desktopFile:[[:space:]]*\"${SHELL_SESSION_ID}\"" "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
+    fail "displaymanager.conf must set ${SHELL_SESSION_ID} as the default desktop file"
   fi
 
   if ! grep -Eq '^[[:space:]]*executable:[[:space:]]*"aptura-session"' "${ROOT_DIR}/installer/calamares/modules/displaymanager.conf"; then
     fail "displaymanager.conf must launch aptura-session"
   fi
 
-  if ! grep -Eq '^[[:space:]]*Session=aptura[[:space:]]*$' "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"; then
-    fail "live SDDM config must autologin to the Aptura Shell session"
+  if ! grep -Eq '^[[:space:]]*Session=\$\{SHELL_SESSION_ID\}[[:space:]]*$' "${ROOT_DIR}/config/live-build/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"; then
+    fail "live SDDM config must autologin through SHELL_SESSION_ID from branding"
   fi
 
   if grep -Eq '^[[:space:]]*-[[:space:]]*xfs[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
@@ -269,22 +303,27 @@ check_packages() {
   done
 
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/default/grub.d/aptura.cfg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/aptura.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/pixmaps/distributor-logo.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-logo.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/aptura/branding/aptura-wordmark.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-retro-cosmic.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-context-grid.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/distributor-logo-aptura.svg"
+  require_packaged_branding_file "${USER_ICON}"
+  require_packaged_branding_file "${APP_ICON}"
+  require_packaged_branding_file "${LOGO_ASSET}"
+  require_packaged_branding_file "${WORDMARK_ASSET}"
+  require_packaged_branding_file "${BADGE_ASSET}"
+  require_packaged_branding_file "${DEFAULT_WALLPAPER}"
+  local wallpaper_asset
+  for wallpaper_asset in ${WALLPAPER_ALTERNATIVES//,/ }; do
+    require_packaged_branding_file "${wallpaper_asset}"
+  done
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${LOGO_NAME}.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-welcome.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/motd.d/00-aptura"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/profile.d/aptura-branding.sh"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/index.theme"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-3.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-3.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-4.0/gtk.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/Aptura-Shell/gtk-4.0/gtk-dark.css"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/gtk-3.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/gtk-3.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/gtk-4.0/gtk.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/gtk-4.0/gtk-dark.css"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/index.theme"
+  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/branding.sh"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-session"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-panel"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-launcher"
@@ -324,11 +363,11 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-aftercare.desktop"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-live-bridge"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-live-bridge.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-journey.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-context.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-shift.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-aftercare.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/aptura-live-bridge.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-journey.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-context.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-shift.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-aftercare.svg"
+  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-live-bridge.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-journey.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-context.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-shift.svg"

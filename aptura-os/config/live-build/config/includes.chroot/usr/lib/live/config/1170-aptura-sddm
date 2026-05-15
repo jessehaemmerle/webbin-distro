@@ -18,6 +18,11 @@ Init() {
 		exit 0
 	fi
 
+	if [ -r /etc/aptura/branding.conf ]; then
+		. /etc/aptura/branding.conf
+	fi
+	SHELL_SESSION_ID="${SHELL_SESSION_ID:-aptura}"
+
 	echo -n " ${COMPONENT}"
 }
 
@@ -26,7 +31,7 @@ Config() {
 	cat > /etc/sddm.conf.d/10-aptura-live.conf <<EOF
 [Autologin]
 User=${LIVE_USER_NAME}
-Session=aptura
+Session=${SHELL_SESSION_ID}
 
 [Theme]
 Current=breeze

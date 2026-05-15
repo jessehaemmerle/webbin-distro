@@ -1,16 +1,16 @@
 componentName: aptura
 strings:
-  productName: Aptura OS
-  shortProductName: Aptura
-  version: 0.1.4
-  shortVersion: 0.1.4
-  versionedName: Aptura OS 0.1.4 Adeline Shell
-  shortVersionedName: Aptura Shell
-  bootloaderEntryName: Aptura OS
-  productUrl: https://aptura.local
-  supportUrl: https://aptura.local/support
-  knownIssuesUrl: https://aptura.local/issues
-  releaseNotesUrl: https://aptura.local/releases
+  productName: "Aptura OS"
+  shortProductName: "Aptura"
+  version: "0.1.4.1"
+  shortVersion: "0.1.4.1"
+  versionedName: "Aptura OS 0.1.4.1 Adeline Shell"
+  shortVersionedName: "Aptura Shell"
+  bootloaderEntryName: "Aptura OS"
+  productUrl: "https://aptura.local"
+  supportUrl: "https://aptura.local/support"
+  knownIssuesUrl: "https://aptura.local/issues"
+  releaseNotesUrl: "https://aptura.local/releases"
 
 images:
   productLogo: logo.svg

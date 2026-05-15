@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Aptura Shell
-Comment=Aptura icons for the Shell edition
+Name=Aptura-Shell
+Comment=Aptura icons for Aptura Shell
 Inherits=hicolor,Adwaita
 Directories=scalable/apps,scalable/places,scalable/devices
 

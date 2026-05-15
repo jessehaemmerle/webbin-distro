@@ -4,6 +4,10 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=../config/distro.env
 source "${ROOT_DIR}/config/distro.env"
+if [[ -f "${ROOT_DIR}/config/distro.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/distro.local.env"
+fi
 
 log() {
   printf '[build-packages] %s\n' "$*"
@@ -45,6 +49,7 @@ collect_debs() {
 main() {
   require_command dpkg-buildpackage
   require_command dpkg-deb
+  bash "${ROOT_DIR}/scripts/render-branding.sh"
   prepare_output
 
   local pkg

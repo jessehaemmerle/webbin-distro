@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -r /usr/share/aptura-shell/branding.sh ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/aptura-shell/branding.sh
+fi
+
 have() {
   command -v "$1" >/dev/null 2>&1
 }
 
 if ! have grim; then
-  printf 'Aptura screenshot needs grim, but grim is not installed.\n' >&2
+  printf '%s screenshot needs grim, but grim is not installed.\n' "${SHORT_NAME:-Aptura}" >&2
   exit 127
 fi
 
@@ -44,7 +49,7 @@ if have wl-copy; then
 fi
 
 if have notify-send; then
-  notify-send -a "Aptura Shell" "Screenshot saved" "${file}"
+  notify-send -a "${SHELL_SESSION_NAME:-Aptura Shell}" "Screenshot saved" "${file}"
 fi
 
 printf '%s\n' "${file}"

@@ -5,6 +5,19 @@ log() {
   printf '[040-desktop] %s\n' "$*"
 }
 
+load_branding() {
+  if [[ -r /etc/aptura/branding.conf ]]; then
+    # shellcheck source=/dev/null
+    source /etc/aptura/branding.conf
+  fi
+
+  : "${NAME:=Aptura OS}"
+  : "${DESKTOP_NAME:=Aptura Shell}"
+  : "${SHELL_SESSION_ID:=aptura}"
+  : "${LOGO_NAME:=distributor-logo-aptura}"
+  : "${USER_ICON:=/usr/share/pixmaps/aptura.svg}"
+}
+
 enable_service() {
   local service="$1"
   if command -v systemctl >/dev/null 2>&1; then
@@ -31,9 +44,9 @@ configure_sddm() {
   printf '/usr/bin/sddm\n' > /etc/X11/default-display-manager
   ln -sf "${service_path}" /etc/systemd/system/display-manager.service
 
-  cat > /etc/sddm.conf.d/10-aptura.conf <<'EOF'
+  cat > /etc/sddm.conf.d/10-aptura.conf <<EOF
 [General]
-Session=aptura
+Session=${SHELL_SESSION_ID}
 
 [Theme]
 Current=breeze
@@ -43,7 +56,8 @@ EOF
   enable_service display-manager.service
 }
 
-log "Configuring Aptura Shell session and installer launcher"
+load_branding
+log "Configuring ${DESKTOP_NAME} session and installer launcher"
 
 enable_service NetworkManager.service
 enable_service bluetooth.service
@@ -61,26 +75,26 @@ if command -v systemctl >/dev/null 2>&1; then
 fi
 
 install -d -m 0755 /usr/share/applications
-cat > /usr/share/applications/calamares.desktop <<'EOF'
+cat > /usr/share/applications/calamares.desktop <<EOF
 [Desktop Entry]
 Type=Application
-Name=Install Aptura OS
-Comment=Install Aptura OS to disk
+Name=Install ${NAME}
+Comment=Install ${NAME} to disk
 Exec=pkexec calamares
-Icon=distributor-logo-aptura
+Icon=${LOGO_NAME}
 Terminal=false
 Categories=System;
 StartupNotify=true
 EOF
 
-if [[ -f /usr/share/wayland-sessions/aptura.desktop ]]; then
+if [[ -f "/usr/share/wayland-sessions/${SHELL_SESSION_ID}.desktop" ]]; then
   install -d -m 0755 /var/lib/AccountsService/users
-  cat > /var/lib/AccountsService/users/aptura <<'EOF'
+  cat > /var/lib/AccountsService/users/aptura <<EOF
 [User]
-Session=aptura
-Icon=/usr/share/pixmaps/aptura.svg
+Session=${SHELL_SESSION_ID}
+Icon=${USER_ICON}
 SystemAccount=false
 EOF
 fi
 
-log "Aptura Shell desktop configuration complete"
+log "${DESKTOP_NAME} desktop configuration complete"

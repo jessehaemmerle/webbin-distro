@@ -1,7 +1,7 @@
 QWidget {
   font-family: Sans, Arial, Helvetica, sans-serif;
   color: #101318;
-  background: #c0c0c0;
+  background: #c8c6bc;
 }
 
 #sidebarAppName {
@@ -40,7 +40,7 @@ QLineEdit,
 QComboBox,
 QTextEdit,
 QPlainTextEdit {
-  background: #f4f0df;
+  background: #fffaf0;
   color: #101318;
   border-top: 2px solid #686a72;
   border-left: 2px solid #686a72;

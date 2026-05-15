@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export XDG_CURRENT_DESKTOP="Aptura"
-export XDG_SESSION_DESKTOP="aptura"
-export DESKTOP_SESSION="aptura"
+if [[ -r /usr/share/aptura-shell/branding.sh ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/aptura-shell/branding.sh
+fi
+
+export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP_NAME:-Aptura}"
+export XDG_SESSION_DESKTOP="${SHELL_SESSION_ID:-aptura}"
+export DESKTOP_SESSION="${SHELL_SESSION_ID:-aptura}"
 export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
-export XDG_MENU_PREFIX="aptura-"
-export GTK_THEME="${GTK_THEME:-Aptura-Shell}"
-export XCURSOR_THEME="${XCURSOR_THEME:-Adwaita}"
-export XCURSOR_SIZE="${XCURSOR_SIZE:-24}"
+export XDG_MENU_PREFIX="${XDG_MENU_PREFIX:-aptura-}"
+export GTK_THEME="${GTK_THEME:-${GTK_THEME_NAME:-Aptura-Shell}}"
+export XCURSOR_THEME="${XCURSOR_THEME:-${CURSOR_THEME_NAME:-Adwaita}}"
+export XCURSOR_SIZE="${XCURSOR_SIZE:-${CURSOR_SIZE:-24}}"
 export MOZ_ENABLE_WAYLAND="${MOZ_ENABLE_WAYLAND:-1}"
 export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-wayland;xcb}"
 export XDG_CONFIG_DIRS="/usr/share/aptura-shell/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
@@ -28,7 +33,7 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
 fi
 
 if ! command -v labwc >/dev/null 2>&1; then
-  printf 'Aptura Shell needs labwc, but labwc is not installed.\n' >&2
+  printf '%s needs labwc, but labwc is not installed.\n' "${SHELL_SESSION_NAME:-Aptura Shell}" >&2
   exit 127
 fi
 

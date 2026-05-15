@@ -23,7 +23,7 @@
     "custom/power"
   ],
   "custom/launcher": {
-    "format": "Aptura",
+    "format": "@BRAND_PANEL_TITLE@",
     "tooltip": false,
     "on-click": "aptura-launcher",
     "on-click-right": "aptura-control menu"

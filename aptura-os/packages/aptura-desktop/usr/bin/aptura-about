@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-title="About Aptura OS"
-message="Aptura OS 0.1.4 Adeline Shell
+if [[ -r /usr/share/aptura-shell/branding.sh ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/aptura-shell/branding.sh
+fi
 
-A Debian-compatible desktop distribution with Aptura Shell, Wayland defaults, practical tooling, and a Plasma fallback session.
+title="About ${NAME:-Aptura OS}"
+message="${PRETTY_NAME:-${NAME:-Aptura OS}}
 
-Edition: Adeline Shell
-Base: Debian trixie
-Kernel channel: trixie-backports"
+${ABOUT_DESCRIPTION:-A Debian-compatible desktop distribution with Aptura Shell, Wayland defaults, practical tooling, and a Plasma fallback session.}
+
+Edition: ${SHELL_SESSION_NAME:-${DESKTOP_NAME:-Aptura Shell}}
+Base: ${BASE_FAMILY:-debian} ${BASE_SUITE:-trixie}
+Wallpaper: ${DEFAULT_WALLPAPER:-/usr/share/backgrounds/aptura/aptura-context-grid.svg}
+Icon theme: ${ICON_THEME_NAME:-Aptura-Shell}"
 
 if command -v zenity >/dev/null 2>&1; then
   zenity --info \
     --title="${title}" \
-    --window-icon=distributor-logo-aptura \
+    --window-icon="${LOGO_NAME:-distributor-logo-aptura}" \
     --width=440 \
     --text="${message}"
 else

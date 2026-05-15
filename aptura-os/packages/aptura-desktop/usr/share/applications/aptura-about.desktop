@@ -5,6 +5,5 @@ Comment=Show Aptura OS edition and build identity
 Exec=aptura-about
 Icon=distributor-logo-aptura
 Terminal=false
-Categories=System;Settings;
+Categories=System;
 Keywords=aptura;about;version;branding;identity;
-StartupNotify=true

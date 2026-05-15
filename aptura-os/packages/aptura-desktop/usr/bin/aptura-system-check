@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 set -u
 
+if [[ -r /usr/share/aptura-shell/branding.sh ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/aptura-shell/branding.sh
+fi
+
 print_header() {
-  printf 'Aptura System Check\n'
+  printf '%s System Check\n' "${SHORT_NAME:-Aptura}"
   printf '===================\n'
 }
 
@@ -162,10 +167,10 @@ disk_line() {
 os_name() {
   if [[ -r /etc/os-release ]]; then
     . /etc/os-release
-    printf '%s' "${PRETTY_NAME:-Aptura OS}"
+    printf '%s' "${PRETTY_NAME:-${NAME:-Aptura OS}}"
     return
   fi
-  printf 'Aptura OS'
+  printf '%s' "${NAME:-Aptura OS}"
 }
 
 main() {
@@ -216,7 +221,7 @@ main() {
   line "Safe Update" "$(have aptura-safe-update && printf available || printf missing)"
   line "Rescue Center" "$(have aptura-rescue-center && printf available || printf missing)"
   line "Privacy Check" "$(have aptura-privacy-check && printf available || printf missing)"
-  line "Aptura Modes" "$(have aptura-mode && printf available || printf missing)"
+  line "${SHORT_NAME:-Aptura} Modes" "$(have aptura-mode && printf available || printf missing)"
   line "Support Bundle" "$(have aptura-support-bundle && printf available || printf missing)"
   line "Disk utility" "$(package_state gnome-disk-utility)"
   line "File search" "$(package_state catfish)"

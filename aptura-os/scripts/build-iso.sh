@@ -4,6 +4,18 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=../config/distro.env
 source "${ROOT_DIR}/config/distro.env"
+if [[ -f "${ROOT_DIR}/config/distro.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/distro.local.env"
+fi
+# shellcheck source=../config/branding.conf
+source "${ROOT_DIR}/config/branding.conf"
+if [[ -f "${ROOT_DIR}/config/branding.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/branding.local.env"
+fi
+: "${LIVE_USERNAME:=${DISTRO_ID}}"
+: "${LIVE_HOSTNAME:=${DISTRO_ID}-live}"
 
 log() {
   printf '[build-iso] %s\n' "$*"
@@ -67,7 +79,7 @@ copy_keyrings() {
 }
 
 set_live_config_permissions() {
-  local component="${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/lib/live/config/1170-aptura-greetd"
+  local component="${ROOT_DIR}/${LIVE_BUILD_WORKDIR}/config/includes.chroot/usr/lib/live/config/1170-aptura-sddm"
   [[ -f "${component}" ]] || return 0
   chmod 0755 "${component}"
 }
@@ -95,7 +107,7 @@ configure_live_build() {
       --archive-areas "${APT_COMPONENTS}" \
       --binary-images iso-hybrid \
       --bootloaders "syslinux,grub-efi" \
-      --bootappend-live "boot=live components quiet splash username=aptura hostname=aptura-live" \
+      --bootappend-live "boot=live components quiet splash username=${LIVE_USERNAME} hostname=${LIVE_HOSTNAME}" \
       --debian-installer live \
       --iso-application "${DISTRO_NAME} Live" \
       --iso-publisher "${DISTRO_NAME}" \
@@ -138,6 +150,7 @@ main() {
   fi
   require_command sha256sum
 
+  bash "${ROOT_DIR}/scripts/render-branding.sh"
   prepare_live_build_tree
   configure_live_build
   build_image

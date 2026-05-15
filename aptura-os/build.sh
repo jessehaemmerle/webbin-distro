@@ -11,6 +11,10 @@ fi
 
 # shellcheck source=config/distro.env
 source "${ENV_FILE}"
+if [[ -f "${ROOT_DIR}/config/distro.local.env" ]]; then
+  # shellcheck source=/dev/null
+  source "${ROOT_DIR}/config/distro.local.env"
+fi
 
 mkdir -p "${ROOT_DIR}/${LOG_DIR}"
 
@@ -33,6 +37,7 @@ run_step() {
 
 main() {
   log "Building ${DISTRO_NAME} ${DISTRO_VERSION} for ${ARCH} on ${BASE_SUITE}"
+  run_step "render-branding" bash "${ROOT_DIR}/scripts/render-branding.sh"
   run_step "validate" bash "${ROOT_DIR}/scripts/validate.sh"
   run_step "build-packages" bash "${ROOT_DIR}/scripts/build-packages.sh"
   run_step "create-local-repo" bash "${ROOT_DIR}/scripts/create-local-repo.sh"

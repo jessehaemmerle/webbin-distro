@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -r /usr/share/aptura-shell/branding.sh ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/aptura-shell/branding.sh
+fi
+
 have() {
   command -v "$1" >/dev/null 2>&1
 }
 
 notify() {
   if have notify-send; then
-    notify-send -a "Aptura Shell" "$@"
+    notify-send -a "${SHELL_SESSION_NAME:-Aptura Shell}" "$@"
   fi
 }
 
@@ -15,7 +20,7 @@ pick() {
   if have wofi; then
     wofi --dmenu \
       --insensitive \
-      --prompt "${1:-Aptura}" \
+      --prompt "${1:-${PANEL_TITLE:-Aptura}}" \
       --conf /usr/share/aptura-shell/wofi/config \
       --style /usr/share/aptura-shell/wofi/style.css
     return
@@ -27,7 +32,7 @@ pick() {
 confirm() {
   local message="$1"
   if have zenity; then
-    zenity --question --title="Aptura Shell" --text="${message}"
+    zenity --question --title="${SHELL_SESSION_NAME:-Aptura Shell}" --text="${message}"
     return
   fi
 
@@ -64,7 +69,7 @@ run_in_terminal() {
 }
 
 system_check() {
-  run_in_terminal "Aptura System Check" sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
+  run_in_terminal "${SHORT_NAME:-Aptura} System Check" sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
 }
 
 lock_session() {
@@ -88,7 +93,7 @@ logout_session() {
     return
   fi
 
-  printf 'Unable to find the current Aptura Shell session.\n' >&2
+  printf 'Unable to find the current %s session.\n' "${SHELL_SESSION_NAME:-Aptura Shell}" >&2
 }
 
 mode_menu() {
@@ -97,7 +102,7 @@ mode_menu() {
   [[ -n "${choice}" ]] || exit 0
 
   aptura-mode "${choice}"
-  notify "Aptura mode" "Switched to ${choice}."
+  notify "${SHORT_NAME:-Aptura} mode" "Switched to ${choice}."
 }
 
 power_menu() {
@@ -109,7 +114,7 @@ power_menu() {
       lock_session
       ;;
     "Log out")
-      confirm "Log out of Aptura Shell?" && logout_session
+      confirm "Log out of ${SHELL_SESSION_NAME:-Aptura Shell}?" && logout_session
       ;;
     Reboot)
       confirm "Reboot this system?" && systemctl reboot
@@ -122,7 +127,7 @@ power_menu() {
 
 quick_menu() {
   local choice
-  choice="$(printf '%s\n' "Launcher" "Terminal" "Files" "System Check" "Modes" "Settings" "Power" | pick "Aptura")"
+  choice="$(printf '%s\n' "Launcher" "Terminal" "Files" "System Check" "Modes" "Settings" "Power" | pick "${PANEL_TITLE:-Aptura}")"
 
   case "${choice}" in
     Launcher) exec aptura-launcher ;;
