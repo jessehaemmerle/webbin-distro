@@ -59,12 +59,6 @@
     <keybind key="W-s">
       <action name="Execute" command="systemsettings" />
     </keybind>
-    <keybind key="W-c">
-      <action name="Execute" command="aptura-context" />
-    </keybind>
-    <keybind key="W-m">
-      <action name="Execute" command="aptura-control modes" />
-    </keybind>
     <keybind key="W-S-q">
       <action name="Execute" command="aptura-control power" />
     </keybind>

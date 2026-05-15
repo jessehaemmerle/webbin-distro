@@ -18,7 +18,6 @@ you need.
 - [ ] Aptura panel, launcher, task list, settings, and core apps open.
 - [ ] Aptura accent colors and logo assets are visible in the shell.
 - [ ] Konsole, Dolphin, and Kate are available.
-- [ ] Aptura System Check starts from the launcher and reports local status.
 - [ ] Keyboard and touchpad work.
 - [ ] Display scaling is usable on small screens.
 

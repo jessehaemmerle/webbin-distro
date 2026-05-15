@@ -73,16 +73,6 @@ main() {
   require_executable packages/aptura-desktop/usr/bin/aptura-launcher
   require_executable packages/aptura-desktop/usr/bin/aptura-control
   require_executable packages/aptura-desktop/usr/bin/aptura-screenshot
-  require_executable packages/aptura-desktop/usr/bin/aptura-safe-update
-  require_executable packages/aptura-desktop/usr/bin/aptura-rescue-center
-  require_executable packages/aptura-desktop/usr/bin/aptura-privacy-check
-  require_executable packages/aptura-desktop/usr/bin/aptura-mode
-  require_executable packages/aptura-desktop/usr/bin/aptura-support-bundle
-  require_executable packages/aptura-desktop/usr/bin/aptura-journey
-  require_executable packages/aptura-desktop/usr/bin/aptura-context
-  require_executable packages/aptura-desktop/usr/bin/aptura-shift
-  require_executable packages/aptura-desktop/usr/bin/aptura-aftercare
-  require_executable packages/aptura-desktop/usr/bin/aptura-live-bridge
   require_file packages/aptura-desktop/usr/share/aptura-shell/branding.sh
 
   if [[ "${errors}" -gt 0 ]]; then

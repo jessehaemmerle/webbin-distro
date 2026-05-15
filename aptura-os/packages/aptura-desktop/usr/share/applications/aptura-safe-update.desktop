@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Safe Update
-Comment=Run package upgrades with a snapshot attempt first
-Exec=aptura-safe-update
-Icon=aptura-shift
-Terminal=false
-Categories=System;
-Keywords=aptura;update;snapshot;upgrade;

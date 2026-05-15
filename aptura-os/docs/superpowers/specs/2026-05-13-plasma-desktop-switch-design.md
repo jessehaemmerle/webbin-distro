@@ -40,7 +40,7 @@ Core desktop packages:
 - `plasma-discover`
 - `xdg-desktop-portal-kde`
 
-Existing workstation packages such as Firefox ESR, Flatpak, Synaptic, firmware tools, backup tools, printer/scanner support, diagnostics, power profiles, and Aptura desktop utilities should remain.
+Existing workstation packages such as Firefox ESR, Flatpak, Synaptic, firmware tools, backup tools, printer/scanner support, diagnostics, and power profiles should remain.
 
 COSMIC packages, COSMIC portal packages, COSMIC Greeter, and `greetd` should be removed from the default dependency surface.
 

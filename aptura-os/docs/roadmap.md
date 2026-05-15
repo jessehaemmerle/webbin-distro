@@ -7,7 +7,7 @@
 - Aptura metapackages.
 - Local APT repository generation.
 - Calamares configuration.
-- Aptura Shell defaults and System Check.
+- Aptura Shell defaults.
 - Security and release documentation.
 - Manual VM test checklist.
 
@@ -17,7 +17,6 @@
 - Fix live-build and Calamares path issues.
 - Verify Calamares install in QEMU.
 - Verify Aptura Shell session, greeter, panel, launcher, accent palettes, icon theme, wallpaper, and Aptura branding.
-- Verify System Check output in live and installed sessions.
 - Confirm firmware, Flatpak, power profile, backup, and disk tools install cleanly.
 - Add repository signing key workflow.
 - Add lintian and shellcheck CI.

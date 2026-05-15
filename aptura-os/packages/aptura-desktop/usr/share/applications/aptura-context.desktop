@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Context
-Comment=Show live session, hardware, battery, network, and boot context
-Exec=aptura-context
-Icon=aptura-context
-Terminal=false
-Categories=System;
-Keywords=aptura;context;live;hardware;network;power;

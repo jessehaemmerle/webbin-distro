@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Journey
-Comment=Review local-only system journey events
-Exec=aptura-journey
-Icon=aptura-journey
-Terminal=false
-Categories=System;
-Keywords=aptura;journey;log;history;local;

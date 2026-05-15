@@ -6,7 +6,7 @@ Packages:
 
 - `aptura-meta`: pulls in the distribution's core package set.
 - `aptura-branding`: installs the Aptura visual identity, distributor logos, wallpaper, accent palettes, GTK fallback theme, icon theme, Plymouth theme, shell branding, and derivative metadata.
-- `aptura-desktop`: installs Aptura Shell integration, Welcome, System Check, and useful desktop packages.
+- `aptura-desktop`: installs Aptura Shell integration and useful desktop packages.
 - `aptura-settings`: installs system defaults for APT, security, NetworkManager privacy, update behavior, and policy documentation.
 
 Branding assets and generated package metadata are driven by

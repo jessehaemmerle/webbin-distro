@@ -40,9 +40,6 @@ The MVP uses:
   them.
 - `Aptura-Shell` GTK fallback theme for GTK applications that honor it.
 - `Aptura-Shell` icon theme with hicolor and Adwaita fallback.
-- Aptura System Check and the contextual Aptura tools for local status,
-  Journey history, session context, workstation shifts, aftercare, and live
-  install readiness.
 
 ## Visual Direction
 
@@ -63,8 +60,8 @@ The MVP uses:
   Aptura palette.
 - The contextual default wallpaper is `aptura-context-grid.svg`; the retro
   wallpaper remains available as a classic fallback.
-- Plymouth, GRUB, Calamares, Welcome, About, and System Check should present
-  the same Aptura Shell naming.
+- Plymouth, GRUB, Calamares, and the shell session should present the same
+  Aptura Shell naming.
 
 ### Icons
 
@@ -76,7 +73,6 @@ should expand it over time with simple pixel-like icons for core actions:
 - Terminal.
 - File manager.
 - Settings.
-- Aptura System Check, Journey, Context, Shift, Aftercare, and Live Bridge.
 
 ## Workstation Tools
 
@@ -96,9 +92,6 @@ complete:
 Only add Aptura-specific shell widgets or services when they provide a clear
 workflow improvement:
 
-- A local-only Journey surface that shows what the system has done recently.
-- Context-aware live-session and post-update flows that explain next steps.
-- Workstation rituals for code, study, create, game, travel, and focus.
 - Native update status plugin backed by PackageKit or a narrow APT service.
 - Snapshot-based rollback profile when the installer supports Btrfs.
 - More complete Aptura icon coverage.

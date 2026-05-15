@@ -41,7 +41,6 @@ window#waybar {
 #pulseaudio,
 #battery,
 #tray,
-#custom-modes,
 #custom-power {
   background: rgba(255, 255, 255, 0.08);
   color: #f6f7fb;

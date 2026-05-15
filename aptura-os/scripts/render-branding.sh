@@ -136,8 +136,6 @@ ensure_dirs() {
     "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}" \
     "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-3.0" \
     "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-4.0" \
-    "${ROOT_DIR}/packages/aptura-desktop/etc/skel/.config/autostart" \
-    "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications" \
     "${ROOT_DIR}/packages/aptura-desktop/usr/share/wayland-sessions"
 }
 
@@ -413,7 +411,7 @@ write_waybar_style() {
     printf '  font-weight: 700;\n'
     printf '  padding: 0 12px;\n'
     printf '}\n\n'
-    printf '#idle_inhibitor,\n#network,\n#pulseaudio,\n#battery,\n#tray,\n#custom-modes,\n#custom-power {\n'
+    printf '#idle_inhibitor,\n#network,\n#pulseaudio,\n#battery,\n#tray,\n#custom-power {\n'
     printf '  background: rgba(255, 255, 255, 0.08);\n'
     printf '  color: #f6f7fb;\n'
     printf '  margin: 4px 3px;\n'
@@ -475,13 +473,6 @@ write_labwc_config() {
     printf '    <item label="Files" icon="system-file-manager">\n'
     printf '      <action name="Execute" command="dolphin" />\n'
     printf '    </item>\n'
-    printf '    <separator />\n'
-    printf '    <item label="System Check" icon="aptura-system-check">\n'
-    printf '      <action name="Execute" command="aptura-control system-check" />\n'
-    printf '    </item>\n'
-    printf '    <item label="Modes" icon="preferences-system">\n'
-    printf '      <action name="Execute" command="aptura-control modes" />\n'
-    printf '    </item>\n'
     printf '    <item label="Settings" icon="preferences-system">\n'
     printf '      <action name="Execute" command="systemsettings" />\n'
     printf '    </item>\n'
@@ -513,95 +504,6 @@ write_labwc_config() {
     ' "${rc}" > "${tmp}"
     mv -- "${tmp}" "${rc}"
   fi
-}
-
-write_desktop_entry() {
-  local target="$1"
-  local name="$2"
-  local comment="$3"
-  local exec_cmd="$4"
-  local icon="$5"
-  local categories="$6"
-  local keywords="$7"
-  {
-    printf '[Desktop Entry]\n'
-    printf 'Type=Application\n'
-    printf 'Name=%s\n' "${name}"
-    printf 'Comment=%s\n' "${comment}"
-    printf 'Exec=%s\n' "${exec_cmd}"
-    printf 'Icon=%s\n' "${icon}"
-    printf 'Terminal=false\n'
-    printf 'Categories=%s\n' "${categories}"
-    printf 'Keywords=%s\n' "${keywords}"
-  } > "${target}"
-}
-
-write_desktop_launchers() {
-  local apps="${ROOT_DIR}/packages/aptura-desktop/usr/share/applications"
-  write_desktop_entry "${apps}/aptura-about.desktop" \
-    "About ${NAME}" \
-    "Show ${NAME} edition and build identity" \
-    "aptura-about" "${LOGO_NAME}" "System;" "${ID};about;version;branding;identity;"
-  write_desktop_entry "${apps}/aptura-welcome.desktop" \
-    "${SHORT_NAME} Welcome" \
-    "Show first-run status and setup shortcuts" \
-    "aptura-welcome --force" "aptura-welcome" "System;" "${ID};welcome;setup;first-run;"
-  write_desktop_entry "${apps}/aptura-system-check.desktop" \
-    "${SHORT_NAME} System Check" \
-    "Review update, firmware, power, security, and storage status" \
-    "aptura-system-check" "aptura-system-check" "System;" "${ID};system;check;health;updates;"
-  write_desktop_entry "${apps}/aptura-safe-update.desktop" \
-    "${SHORT_NAME} Safe Update" \
-    "Run package upgrades with a snapshot attempt first" \
-    "aptura-safe-update" "aptura-shift" "System;" "${ID};update;snapshot;upgrade;"
-  write_desktop_entry "${apps}/aptura-rescue-center.desktop" \
-    "${SHORT_NAME} Rescue Center" \
-    "Review boot, disk, EFI, and recovery context" \
-    "aptura-rescue-center" "preferences-system" "System;" "${ID};rescue;grub;efi;boot;installer;"
-  write_desktop_entry "${apps}/aptura-privacy-check.desktop" \
-    "${SHORT_NAME} Privacy Check" \
-    "Review firewall, network, service, and socket exposure" \
-    "aptura-privacy-check" "preferences-system" "System;" "${ID};privacy;firewall;network;security;"
-  write_desktop_entry "${apps}/aptura-mode.desktop" \
-    "${SHORT_NAME} Modes" \
-    "Switch power, focus, and workstation profiles" \
-    "aptura-mode" "preferences-system" "System;" "${ID};mode;power;focus;performance;battery;"
-  write_desktop_entry "${apps}/aptura-support-bundle.desktop" \
-    "${SHORT_NAME} Support Bundle" \
-    "Create a redacted local diagnostics bundle" \
-    "aptura-support-bundle" "aptura-system-check" "System;" "${ID};support;diagnostics;logs;"
-  write_desktop_entry "${apps}/aptura-journey.desktop" \
-    "${SHORT_NAME} Journey" \
-    "Review local-only system journey events" \
-    "aptura-journey" "aptura-journey" "System;" "${ID};journey;log;history;local;"
-  write_desktop_entry "${apps}/aptura-context.desktop" \
-    "${SHORT_NAME} Context" \
-    "Show live session, hardware, battery, network, and boot context" \
-    "aptura-context" "aptura-context" "System;" "${ID};context;live;hardware;network;power;"
-  write_desktop_entry "${apps}/aptura-shift.desktop" \
-    "${SHORT_NAME} Shift" \
-    "Apply workstation profiles for code, study, create, game, travel, or focus" \
-    "aptura-shift" "aptura-shift" "System;" "${ID};shift;profile;workflow;focus;"
-  write_desktop_entry "${apps}/aptura-aftercare.desktop" \
-    "${SHORT_NAME} Aftercare" \
-    "Review post-update and post-install next steps" \
-    "aptura-aftercare" "aptura-aftercare" "System;" "${ID};aftercare;update;reboot;snapshot;service;"
-  write_desktop_entry "${apps}/aptura-live-bridge.desktop" \
-    "${SHORT_NAME} Live Bridge" \
-    "Review live-session readiness before installing" \
-    "aptura-live-bridge" "aptura-live-bridge" "System;" "${ID};live;installer;readiness;session;calamares;"
-
-  {
-    printf '[Desktop Entry]\n'
-    printf 'Type=Application\n'
-    printf 'Name=%s Welcome\n' "${SHORT_NAME}"
-    printf 'Comment=Show first-run status and setup shortcuts\n'
-    printf 'Exec=aptura-welcome\n'
-    printf 'Icon=aptura-welcome\n'
-    printf 'OnlyShowIn=%s;\n' "${XDG_CURRENT_DESKTOP_NAME}"
-    printf 'Terminal=false\n'
-    printf 'X-GNOME-Autostart-enabled=true\n'
-  } > "${ROOT_DIR}/packages/aptura-desktop/etc/skel/.config/autostart/aptura-welcome.desktop"
 }
 
 copy_calamares_branding_assets() {
@@ -898,7 +800,6 @@ main() {
   write_waybar_style
   write_wofi_config
   write_labwc_config
-  write_desktop_launchers
   write_calamares_branding
   printf '[render-branding] Rendered %s branding from config files.\n' "${NAME}"
 }

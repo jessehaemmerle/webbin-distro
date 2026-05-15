@@ -1,8 +1,7 @@
 # Aptura Settings Center
 
 The settings center is a future native system app idea. For the MVP, Aptura OS
-uses System Settings plus Aptura System Check instead of a custom settings
-shell.
+uses upstream System Settings instead of a custom settings shell.
 
 Planned sections:
 

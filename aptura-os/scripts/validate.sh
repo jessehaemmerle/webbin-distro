@@ -62,6 +62,10 @@ require_dir() {
   [[ -d "$1" ]] || fail "Missing directory: ${1#${ROOT_DIR}/}"
 }
 
+forbid_path() {
+  [[ ! -e "$1" ]] || fail "Unexpected file remains: ${1#${ROOT_DIR}/}"
+}
+
 require_packaged_branding_file() {
   local installed_path="$1"
   if [[ "${installed_path}" != /* ]]; then
@@ -344,7 +348,6 @@ check_packages() {
     require_packaged_branding_file "${wallpaper_asset}"
   done
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${LOGO_NAME}.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-welcome.svg"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/motd.d/00-aptura"
   require_file "${ROOT_DIR}/packages/aptura-branding/etc/profile.d/aptura-branding.sh"
   require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/themes/${THEME_NAME}/index.theme"
@@ -367,45 +370,22 @@ check_packages() {
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/waybar/style.css"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/wofi/config"
   require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-shell/wofi/style.css"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-about"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-about.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-welcome"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-welcome.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-system-check"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-system-check.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-safe-update"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-safe-update.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-rescue-center"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-rescue-center.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-privacy-check"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-privacy-check.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-mode"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-mode.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-support-bundle"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-support-bundle.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-journey"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-journey.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-context"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-context.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-shift"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-shift.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-aftercare"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-aftercare.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-live-bridge"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-live-bridge.desktop"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-journey.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-context.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-shift.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-aftercare.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/aptura-live-bridge.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-journey.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-context.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-shift.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-aftercare.svg"
-  require_file "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/aptura-live-bridge.svg"
+  local removed_app
+  for removed_app in about welcome system-check safe-update rescue-center privacy-check mode support-bundle journey context shift aftercare live-bridge; do
+    forbid_path "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-${removed_app}"
+    forbid_path "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-${removed_app}.desktop"
+  done
+
+  local removed_icon
+  for removed_icon in aptura-welcome aptura-system-check aptura-journey aptura-context aptura-shift aptura-aftercare aptura-live-bridge; do
+    forbid_path "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/${ICON_THEME_NAME}/scalable/apps/${removed_icon}.svg"
+    forbid_path "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${removed_icon}.svg"
+  done
+
+  forbid_path "${ROOT_DIR}/packages/aptura-desktop/etc/skel/.config/autostart/aptura-welcome.desktop"
+  forbid_path "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
   require_file "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-3.0/settings.ini"
   require_file "${ROOT_DIR}/packages/aptura-settings/etc/skel/.config/gtk-4.0/settings.ini"
-  require_file "${ROOT_DIR}/packages/aptura-desktop/usr/share/metainfo/io.aptura.system-check.metainfo.xml"
 }
 
 check_permissions() {

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Support Bundle
-Comment=Create a redacted local diagnostics bundle
-Exec=aptura-support-bundle
-Icon=aptura-system-check
-Terminal=false
-Categories=System;
-Keywords=aptura;support;diagnostics;logs;

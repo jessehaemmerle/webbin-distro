@@ -87,7 +87,7 @@ sudo apt install live-build
 On Linux:
 
 ```bash
-chmod +x build.sh clean.sh scripts/*.sh tests/*.sh hooks/*.sh packages/*/debian/rules packages/aptura-desktop/usr/bin/aptura-system-check
+chmod +x build.sh clean.sh scripts/*.sh tests/*.sh hooks/*.sh packages/*/debian/rules packages/aptura-desktop/usr/bin/aptura-*
 ```
 
 ### Calamares cannot find squashfs

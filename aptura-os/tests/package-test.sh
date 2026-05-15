@@ -94,44 +94,6 @@ check_package() {
   fi
 }
 
-check_aptura_desktop_feature() {
-  local feature="$1"
-  local install="${ROOT_DIR}/packages/aptura-desktop/debian/install"
-  local icon_name="${2:-}"
-
-  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/bin/${feature}" ]]; then
-    ok "${feature} script exists"
-  else
-    fail "Missing aptura-desktop/usr/bin/${feature}"
-  fi
-
-  if [[ -f "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/${feature}.desktop" ]]; then
-    ok "${feature}.desktop exists"
-  else
-    fail "Missing aptura-desktop/usr/share/applications/${feature}.desktop"
-  fi
-
-  if grep -Eq "usr/bin/${feature}[[:space:]]+usr/bin/" "${install}"; then
-    ok "${feature} is installed"
-  else
-    fail "aptura-desktop/debian/install does not install ${feature}"
-  fi
-
-  if [[ -n "${icon_name}" ]]; then
-    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/Aptura-Shell/scalable/apps/${icon_name}.svg" ]]; then
-      ok "${icon_name} Aptura-Shell icon exists"
-    else
-      fail "Missing Aptura-Shell icon: ${icon_name}.svg"
-    fi
-
-    if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/icons/hicolor/scalable/apps/${icon_name}.svg" ]]; then
-      ok "${icon_name} hicolor icon exists"
-    else
-      fail "Missing hicolor icon: ${icon_name}.svg"
-    fi
-  fi
-}
-
 check_documented_feature() {
   local feature="$1"
   local doc="${ROOT_DIR}/packages/aptura-desktop/usr/share/aptura-desktop/README.md"
@@ -140,6 +102,29 @@ check_documented_feature() {
     ok "${feature} documented in aptura-desktop README"
   else
     fail "${feature} missing from aptura-desktop README"
+  fi
+}
+
+check_absent_aptura_app() {
+  local app="$1"
+  local install="${ROOT_DIR}/packages/aptura-desktop/debian/install"
+
+  if [[ -e "${ROOT_DIR}/packages/aptura-desktop/usr/bin/aptura-${app}" ]]; then
+    fail "Unexpected Aptura app script remains: aptura-${app}"
+  else
+    ok "aptura-${app} script removed"
+  fi
+
+  if [[ -e "${ROOT_DIR}/packages/aptura-desktop/usr/share/applications/aptura-${app}.desktop" ]]; then
+    fail "Unexpected Aptura app launcher remains: aptura-${app}.desktop"
+  else
+    ok "aptura-${app}.desktop removed"
+  fi
+
+  if grep -Eq "aptura-${app}" "${install}"; then
+    fail "aptura-desktop/debian/install still references aptura-${app}"
+  else
+    ok "aptura-desktop/debian/install does not reference aptura-${app}"
   fi
 }
 
@@ -198,7 +183,7 @@ main() {
     fail "Missing Aptura Shell wayland session file"
   fi
 
-  if grep -Eq 'usr/share/wayland-sessions/aptura.desktop[[:space:]]+usr/share/wayland-sessions/' "${ROOT_DIR}/packages/aptura-desktop/debian/install"; then
+  if grep -Eq 'usr/share/wayland-sessions/(aptura\.desktop|\*\.desktop)[[:space:]]+usr/share/wayland-sessions/' "${ROOT_DIR}/packages/aptura-desktop/debian/install"; then
     ok "Aptura Shell session file is installed"
   else
     fail "aptura-desktop/debian/install does not install Aptura Shell session file"
@@ -212,21 +197,10 @@ main() {
 
   check_documented_feature "Aptura Shell"
 
-  check_aptura_desktop_feature aptura-safe-update
-  check_aptura_desktop_feature aptura-rescue-center
-  check_aptura_desktop_feature aptura-privacy-check
-  check_aptura_desktop_feature aptura-mode
-  check_aptura_desktop_feature aptura-support-bundle
-  check_aptura_desktop_feature aptura-journey aptura-journey
-  check_aptura_desktop_feature aptura-context aptura-context
-  check_aptura_desktop_feature aptura-shift aptura-shift
-  check_aptura_desktop_feature aptura-aftercare aptura-aftercare
-  check_aptura_desktop_feature aptura-live-bridge aptura-live-bridge
-  check_documented_feature aptura-journey
-  check_documented_feature aptura-context
-  check_documented_feature aptura-shift
-  check_documented_feature aptura-aftercare
-  check_documented_feature aptura-live-bridge
+  local removed_app
+  for removed_app in about welcome system-check safe-update rescue-center privacy-check mode support-bundle journey context shift aftercare live-bridge; do
+    check_absent_aptura_app "${removed_app}"
+  done
 
   if [[ -f "${ROOT_DIR}/packages/aptura-branding/usr/share/backgrounds/aptura/aptura-context-grid.svg" ]]; then
     ok "aptura-context-grid wallpaper exists"

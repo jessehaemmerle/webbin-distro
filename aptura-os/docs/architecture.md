@@ -35,7 +35,7 @@ Custom packages are native Debian packages:
 
 - `aptura-meta`: top-level dependency package for default installs.
 - `aptura-branding`: wallpapers, logo assets, GTK fallback theme, icon theme, Aptura color assets, Plymouth, GRUB, and derivative identity metadata.
-- `aptura-desktop`: Aptura Shell integration, Welcome, System Check launcher, and desktop package set.
+- `aptura-desktop`: Aptura Shell integration and desktop package set.
 - `aptura-settings`: security, update, privacy, NetworkManager, journald, and policy defaults.
 
 The metapackage approach keeps package selection declarative. Instead of
@@ -72,8 +72,6 @@ components. The MVP uses:
 - SDDM as the login/display manager.
 - Aptura Shell branding through wallpaper, logo assets, icon theme, GTK
   fallback theme, Plymouth, Calamares artwork, and Aptura color assets.
-- Aptura System Check as a local status tool for updates, firmware, power,
-  security, and storage.
 - Dolphin, Konsole, Kate, Synaptic, Flatpak support,
   firmware updates, power profiles, archive, backup, disk, audio, Bluetooth,
   and hardware switching tools.

@@ -150,5 +150,4 @@ Production release testing must verify:
 - No automated ISO boot test yet.
 - No Secure Boot implementation yet.
 - No AppArmor profiles for future Aptura-specific services yet.
-- Aptura System Check is read-only and local; future privileged integrations still need narrow D-Bus services.
 - Calamares configuration needs end-to-end validation on the first real ISO.

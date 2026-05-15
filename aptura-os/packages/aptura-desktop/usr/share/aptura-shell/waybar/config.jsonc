@@ -19,7 +19,6 @@
     "pulseaudio",
     "battery",
     "tray",
-    "custom/modes",
     "custom/power"
   ],
   "custom/launcher": {
@@ -71,11 +70,6 @@
   "tray": {
     "icon-size": 16,
     "spacing": 8
-  },
-  "custom/modes": {
-    "format": "Mode",
-    "tooltip": false,
-    "on-click": "aptura-control modes"
   },
   "custom/power": {
     "format": "Power",

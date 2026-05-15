@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Modes
-Comment=Switch power, focus, and workstation profiles
-Exec=aptura-mode
-Icon=preferences-system
-Terminal=false
-Categories=System;
-Keywords=aptura;mode;power;focus;performance;battery;

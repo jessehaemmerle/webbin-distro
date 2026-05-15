@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Rescue Center
-Comment=Review boot, disk, EFI, and recovery context
-Exec=aptura-rescue-center
-Icon=preferences-system
-Terminal=false
-Categories=System;
-Keywords=aptura;rescue;grub;efi;boot;installer;

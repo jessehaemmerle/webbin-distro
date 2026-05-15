@@ -10,12 +10,6 @@ have() {
   command -v "$1" >/dev/null 2>&1
 }
 
-notify() {
-  if have notify-send; then
-    notify-send -a "${SHELL_SESSION_NAME:-Aptura Shell}" "$@"
-  fi
-}
-
 pick() {
   if have wofi; then
     wofi --dmenu \
@@ -53,25 +47,6 @@ open_terminal() {
   exec x-terminal-emulator
 }
 
-run_in_terminal() {
-  local title="$1"
-  shift
-
-  if have foot; then
-    exec foot "$@"
-  fi
-
-  if have konsole; then
-    exec konsole -p "tabtitle=${title}" -e "$@"
-  fi
-
-  exec x-terminal-emulator -T "${title}" -e "$@"
-}
-
-system_check() {
-  run_in_terminal "${SHORT_NAME:-Aptura} System Check" sh -c 'aptura-system-check; printf "\nPress Enter to close..."; read _'
-}
-
 lock_session() {
   if have swaylock; then
     exec swaylock -f -c 12142b
@@ -96,15 +71,6 @@ logout_session() {
   printf 'Unable to find the current %s session.\n' "${SHELL_SESSION_NAME:-Aptura Shell}" >&2
 }
 
-mode_menu() {
-  local choice
-  choice="$(printf '%s\n' balanced performance battery studio focus | pick "Mode")"
-  [[ -n "${choice}" ]] || exit 0
-
-  aptura-mode "${choice}"
-  notify "${SHORT_NAME:-Aptura} mode" "Switched to ${choice}."
-}
-
 power_menu() {
   local choice
   choice="$(printf '%s\n' "Lock" "Log out" "Reboot" "Power off" | pick "Power")"
@@ -127,14 +93,12 @@ power_menu() {
 
 quick_menu() {
   local choice
-  choice="$(printf '%s\n' "Launcher" "Terminal" "Files" "System Check" "Modes" "Settings" "Power" | pick "${PANEL_TITLE:-Aptura}")"
+  choice="$(printf '%s\n' "Launcher" "Terminal" "Files" "Settings" "Power" | pick "${PANEL_TITLE:-Aptura}")"
 
   case "${choice}" in
     Launcher) exec aptura-launcher ;;
     Terminal) open_terminal ;;
     Files) exec dolphin ;;
-    "System Check") system_check ;;
-    Modes) mode_menu ;;
     Settings) exec systemsettings ;;
     Power) power_menu ;;
   esac
@@ -143,12 +107,10 @@ quick_menu() {
 case "${1:-menu}" in
   menu) quick_menu ;;
   lock) lock_session ;;
-  modes) mode_menu ;;
   power) power_menu ;;
-  system-check) system_check ;;
   terminal) open_terminal ;;
   *)
-    printf 'Usage: aptura-control [menu|lock|modes|power|system-check|terminal]\n' >&2
+    printf 'Usage: aptura-control [menu|lock|power|terminal]\n' >&2
     exit 2
     ;;
 esac

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Aptura Privacy Check
-Comment=Review firewall, network, service, and socket exposure
-Exec=aptura-privacy-check
-Icon=preferences-system
-Terminal=false
-Categories=System;
-Keywords=aptura;privacy;firewall;network;security;

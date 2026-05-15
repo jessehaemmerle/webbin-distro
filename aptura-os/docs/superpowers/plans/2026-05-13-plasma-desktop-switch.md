@@ -27,7 +27,7 @@
 - Modify `aptura-os/hooks/040-desktop.sh`: configure SDDM and Plasma session defaults instead of COSMIC Greeter.
 - Modify `aptura-os/installer/calamares/modules/displaymanager.conf`: select SDDM and Plasma.
 - Modify `aptura-os/installer/calamares/modules/services-systemd.conf`: enable SDDM instead of COSMIC Greeter services.
-- Modify identity files: `aptura-os/config/distro.env`, `aptura-os/config/branding.conf`, `aptura-os/packages/aptura-branding/etc/aptura/branding.conf`, `aptura-os/packages/aptura-branding/usr/lib/os-release.d/aptura-os-release`, `aptura-os/packages/aptura-branding/etc/profile.d/aptura-branding.sh`, `aptura-os/packages/aptura-branding/etc/motd.d/00-aptura`, and `aptura-os/packages/aptura-desktop/usr/bin/aptura-about`.
+- Modify identity files: `aptura-os/config/distro.env`, `aptura-os/config/branding.conf`, `aptura-os/packages/aptura-branding/etc/aptura/branding.conf`, `aptura-os/packages/aptura-branding/usr/lib/os-release.d/aptura-os-release`, `aptura-os/packages/aptura-branding/etc/profile.d/aptura-branding.sh`, and `aptura-os/packages/aptura-branding/etc/motd.d/00-aptura`.
 - Modify visible docs and SVG text where practical: `README.md`, `docs/*.md`, `desktop/*.md`, `installer/calamares/branding/aptura/branding.desc`, `installer/calamares/branding/aptura/welcome.svg`, and Aptura wallpaper/wordmark SVG text.
 
 ### Task 1: Add Plasma Expectations To Tests
@@ -420,25 +420,7 @@ VARIANT_ID=plasma
 
 Keep existing colors, wallpaper paths, logo paths, `THEME_NAME="Aptura-COSMIC"`, and `ICON_THEME_NAME="Aptura-COSMIC"` unless a future migration renames those asset namespaces.
 
-- [ ] **Step 2: Update user-facing scripts**
-
-In `aptura-about`, use:
-
-```bash
-message="Aptura OS 0.1.4 Adeline Plasma
-
-A Debian-compatible desktop distribution with KDE Plasma, Aptura branding, practical defaults, and workstation tooling.
-
-Edition: Adeline Plasma
-Base: Debian trixie
-Kernel channel: trixie-backports"
-```
-
-In `aptura-welcome`, replace "COSMIC edition" with "Plasma edition" and replace references to COSMIC apps with KDE equivalents where the command is user-facing.
-
-In `aptura-shift` and `aptura-mode`, replace user-facing COSMIC settings hints with Plasma System Settings hints.
-
-- [ ] **Step 3: Update branding text assets**
+- [ ] **Step 2: Update branding text assets**
 
 Update SVG text and metadata that literally says COSMIC edition/workstation to Plasma, including:
 

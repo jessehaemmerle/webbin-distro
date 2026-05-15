@@ -10,13 +10,6 @@
     <item label="Files" icon="system-file-manager">
       <action name="Execute" command="dolphin" />
     </item>
-    <separator />
-    <item label="System Check" icon="aptura-system-check">
-      <action name="Execute" command="aptura-control system-check" />
-    </item>
-    <item label="Modes" icon="preferences-system">
-      <action name="Execute" command="aptura-control modes" />
-    </item>
     <item label="Settings" icon="preferences-system">
       <action name="Execute" command="systemsettings" />
     </item>

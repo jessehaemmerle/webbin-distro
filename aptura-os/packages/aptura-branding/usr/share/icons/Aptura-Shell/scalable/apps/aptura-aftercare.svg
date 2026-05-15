@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Aptura Aftercare">
-  <rect x="6" y="6" width="52" height="52" fill="#c8c6bc" stroke="#05070a" stroke-width="3"/>
-  <path d="M9 9H55V55" fill="none" stroke="#f4f0df" stroke-width="2"/>
-  <path d="M58 9V58H9" fill="none" stroke="#686a72" stroke-width="2"/>
-  <rect x="12" y="12" width="40" height="9" fill="#12142b" stroke="#05070a" stroke-width="2"/>
-  <rect x="16" y="27" width="32" height="22" fill="#ffffff" stroke="#05070a" stroke-width="3"/>
-  <path d="M22 38L29 45L43 31" fill="none" stroke="#00a86b" stroke-width="5"/>
-  <rect x="20" y="25" width="24" height="6" fill="#ffb14a" stroke="#05070a" stroke-width="2"/>
-</svg>
