@@ -26,6 +26,14 @@ Configured flow:
 13. Unmount
 14. Finish
 
+Branding:
+
+- Calamares uses the theme named by `LOGIN_THEME` in `config/branding.conf`.
+- `branding.desc`, `style.qss`, `logo.svg`, `welcome.svg`, and `show.qml` are
+  rendered by `./scripts/render-branding.sh`.
+- Installer copy, colors, logo initial, and welcome slide text come from the
+  `CALAMARES_*` and palette values in `config/branding.conf`.
+
 Partitioning risks:
 
 - Whole-disk installation deletes existing data.

@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Aptura OS Shell installer welcome">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Aptura OS installer welcome">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#11142b"/>
-      <stop offset="0.48" stop-color="#28164d"/>
+      <stop offset="0.48" stop-color="#12142b"/>
       <stop offset="1" stop-color="#0d1026"/>
     </linearGradient>
     <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
@@ -11,9 +11,9 @@
     </linearGradient>
     <pattern id="stars" width="90" height="90" patternUnits="userSpaceOnUse">
       <rect width="90" height="90" fill="none"/>
-      <rect x="14" y="22" width="4" height="4" fill="#f7f3d7"/>
+      <rect x="14" y="22" width="4" height="4" fill="#f4f0df"/>
       <rect x="68" y="14" width="3" height="3" fill="#00d9c0"/>
-      <rect x="42" y="70" width="4" height="4" fill="#ffb14a"/>
+      <rect x="42" y="70" width="4" height="4" fill="#ffe45c"/>
     </pattern>
     <clipPath id="sunClip">
       <circle cx="600" cy="295" r="118"/>
@@ -25,7 +25,7 @@
 
   <g clip-path="url(#sunClip)">
     <circle cx="600" cy="295" r="118" fill="url(#sun)"/>
-    <g stroke="#28164d" stroke-width="12">
+    <g stroke="#12142b" stroke-width="12">
       <path d="M470 254H730"/>
       <path d="M462 293H738"/>
       <path d="M478 332H722"/>
@@ -49,12 +49,12 @@
     <path d="M600 545L1080 800"/>
   </g>
 
-  <rect x="130" y="110" width="940" height="430" rx="0" fill="#c0c0c0" stroke="#05070a" stroke-width="8"/>
+  <rect x="130" y="110" width="940" height="430" rx="0" fill="#c8c6bc" stroke="#05070a" stroke-width="8"/>
   <path d="M140 120H1060V530" fill="none" stroke="#f4f0df" stroke-width="6"/>
   <path d="M1070 120V540H140" fill="none" stroke="#686a72" stroke-width="6"/>
-  <rect x="156" y="142" width="888" height="66" fill="#141742" stroke="#05070a" stroke-width="6"/>
-  <text x="202" y="185" fill="#f4f0df" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">APTURA PLASMA INSTALLER</text>
-  <g fill="#c0c0c0" stroke="#05070a" stroke-width="4">
+  <rect x="156" y="142" width="888" height="66" fill="#11142b" stroke="#05070a" stroke-width="6"/>
+  <text x="202" y="185" fill="#f4f0df" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Aptura Shell Installer</text>
+  <g fill="#c8c6bc" stroke="#05070a" stroke-width="4">
     <rect x="902" y="160" width="28" height="28"/>
     <rect x="944" y="160" width="28" height="28"/>
     <rect x="986" y="160" width="28" height="28"/>
@@ -62,7 +62,7 @@
 
   <rect x="226" y="260" width="236" height="200" fill="#101318" stroke="#05070a" stroke-width="5"/>
   <path d="M344 296L422 428H383L366 390H323L306 428H266Z" fill="#f4f0df" stroke="#05070a" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M344 338L363 374H326Z" fill="#00d9c0" stroke="#05070a" stroke-width="5" stroke-linejoin="round"/>
+  <text x="344" y="381" text-anchor="middle" fill="#00d9c0" stroke="#05070a" stroke-width="3" paint-order="stroke" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">A</text>
   <rect x="318" y="378" width="54" height="18" fill="#ffe45c" stroke="#05070a" stroke-width="5"/>
   <path d="M274 448H414" stroke="#ff4fd8" stroke-width="12"/>
 

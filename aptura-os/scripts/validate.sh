@@ -29,6 +29,9 @@ fi
 : "${LOGO_ASSET:=/usr/share/aptura/branding/aptura-logo.svg}"
 : "${WORDMARK_ASSET:=/usr/share/aptura/branding/aptura-wordmark.svg}"
 : "${BADGE_ASSET:=/usr/share/aptura/branding/aptura-badge.svg}"
+: "${LOGIN_THEME:=aptura}"
+: "${CALAMARES_HEADER_TEXT:=Aptura Shell Installer}"
+: "${CALAMARES_WELCOME_TITLE:=Install Aptura OS}"
 
 errors=0
 warnings=0
@@ -262,6 +265,33 @@ check_config() {
 
   if grep -Eq '^[[:space:]]*-[[:space:]]*xfs[[:space:]]*$' "${ROOT_DIR}/installer/calamares/modules/partition.conf"; then
     fail "partition.conf must not offer XFS root until a separate GRUB-safe /boot layout exists"
+  fi
+
+  local calamares_brand_dir="${ROOT_DIR}/installer/calamares/branding/${LOGIN_THEME}"
+  require_file "${calamares_brand_dir}/branding.desc"
+  require_file "${calamares_brand_dir}/style.qss"
+  require_file "${calamares_brand_dir}/logo.svg"
+  require_file "${calamares_brand_dir}/welcome.svg"
+  require_file "${calamares_brand_dir}/show.qml"
+
+  if ! grep -Eq "^branding:[[:space:]]*${LOGIN_THEME}[[:space:]]*$" "${ROOT_DIR}/installer/calamares/settings.conf"; then
+    fail "settings.conf must use Calamares branding theme ${LOGIN_THEME}"
+  fi
+
+  if ! grep -Eq "^componentName:[[:space:]]*${LOGIN_THEME}[[:space:]]*$" "${calamares_brand_dir}/branding.desc"; then
+    fail "Calamares branding.desc must set componentName: ${LOGIN_THEME}"
+  fi
+
+  if ! grep -Fq "${CALAMARES_HEADER_TEXT}" "${calamares_brand_dir}/welcome.svg"; then
+    fail "Calamares welcome.svg missing configured header text: ${CALAMARES_HEADER_TEXT}"
+  fi
+
+  if ! grep -Fq "${CALAMARES_WELCOME_TITLE}" "${calamares_brand_dir}/welcome.svg"; then
+    fail "Calamares welcome.svg missing configured welcome title: ${CALAMARES_WELCOME_TITLE}"
+  fi
+
+  if grep -Eiq 'plasma installer|cosmic installer|aptura plasma' "${calamares_brand_dir}/welcome.svg" "${calamares_brand_dir}/branding.desc"; then
+    fail "Calamares branding contains stale installer branding text"
   fi
 
   case " ${SUPPORTED_ARCHITECTURES} " in
