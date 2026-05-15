@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Aptura Safe Update
-Comment=Create a best-effort snapshot and update packages
+Comment=Run package upgrades with a snapshot attempt first
 Exec=aptura-safe-update
-Icon=system-software-update
-Terminal=true
-Categories=System;Settings;
-Keywords=aptura;update;snapshot;apt;upgrade;
+Icon=aptura-shift
+Terminal=false
+Categories=System;
+Keywords=aptura;update;snapshot;upgrade;

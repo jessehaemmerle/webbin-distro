@@ -98,19 +98,30 @@ From the repository root:
 
 The build performs these steps:
 
-1. Validate tools, config, package metadata, and repository layout.
-2. Build the Aptura `.deb` packages.
-3. Create a local APT repository under `build/localrepo`.
-4. Optionally sign the repository if `SIGN_REPO=true`.
-5. Build the live ISO with live-build.
-6. Write the ISO and checksum to `dist/`.
+1. Render branding from `config/distro.env`, `config/branding.conf`, and optional local overrides.
+2. Validate tools, config, package metadata, and repository layout.
+3. Build the Aptura `.deb` packages.
+4. Create a local APT repository under `build/localrepo`.
+5. Optionally sign the repository if `SIGN_REPO=true`.
+6. Build the live ISO with live-build.
+7. Write the ISO and checksum to `dist/`.
 
 The expected output is:
 
 ```text
-dist/aptura-os-0.1.4-adeline-amd64.iso
-dist/aptura-os-0.1.4-adeline-amd64.iso.sha256
+dist/aptura-os-0.1.4.1-adeline-amd64.iso
+dist/aptura-os-0.1.4.1-adeline-amd64.iso.sha256
 ```
+
+## Branding
+
+Tracked branding defaults live in `config/branding.conf`; tracked build identity
+defaults live in `config/distro.env`. For private or machine-local overrides,
+create `config/distro.local.env` or `config/branding.local.env`.
+
+Run `./scripts/render-branding.sh` after changing names, URLs, colors, icon
+theme names, wallpaper paths, Plymouth themes, or Calamares theme IDs. Full
+builds run the renderer automatically before validation and package builds.
 
 ## Test In A VM
 
@@ -123,7 +134,7 @@ After building:
 Or pass a custom ISO path:
 
 ```bash
-./scripts/test-vm.sh dist/aptura-os-0.1.4-adeline-amd64.iso
+./scripts/test-vm.sh dist/aptura-os-0.1.4.1-adeline-amd64.iso
 ```
 
 The helper uses QEMU/KVM if available and falls back to QEMU's configured acceleration chain.

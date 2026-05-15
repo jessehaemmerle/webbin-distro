@@ -9,6 +9,7 @@ Rules-Requires-Root: no
 Package: aptura-desktop
 Architecture: all
 Depends:
+ aptura-branding,
  bash,
  labwc,
  waybar,

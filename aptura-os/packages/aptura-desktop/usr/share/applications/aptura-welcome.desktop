@@ -5,5 +5,5 @@ Comment=Show first-run status and setup shortcuts
 Exec=aptura-welcome --force
 Icon=aptura-welcome
 Terminal=false
-Categories=System;Settings;
-StartupNotify=true
+Categories=System;
+Keywords=aptura;welcome;setup;first-run;

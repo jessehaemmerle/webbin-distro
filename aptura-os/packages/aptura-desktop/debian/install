@@ -30,8 +30,9 @@ usr/share/applications/aptura-context.desktop usr/share/applications/
 usr/share/applications/aptura-shift.desktop usr/share/applications/
 usr/share/applications/aptura-aftercare.desktop usr/share/applications/
 usr/share/applications/aptura-live-bridge.desktop usr/share/applications/
-usr/share/wayland-sessions/aptura.desktop usr/share/wayland-sessions/
+usr/share/wayland-sessions/*.desktop usr/share/wayland-sessions/
 usr/share/aptura-shell/README.md usr/share/aptura-shell/
+usr/share/aptura-shell/branding.sh usr/share/aptura-shell/
 usr/share/aptura-shell/xdg/labwc/environment usr/share/aptura-shell/xdg/labwc/
 usr/share/aptura-shell/xdg/labwc/autostart usr/share/aptura-shell/xdg/labwc/
 usr/share/aptura-shell/xdg/labwc/menu.xml usr/share/aptura-shell/xdg/labwc/

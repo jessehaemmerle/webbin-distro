@@ -4,6 +4,6 @@ Name=Aptura Welcome
 Comment=Show first-run status and setup shortcuts
 Exec=aptura-welcome
 Icon=aptura-welcome
-OnlyShowIn=XFCE;
+OnlyShowIn=Aptura;
 Terminal=false
 X-GNOME-Autostart-enabled=true

@@ -9,6 +9,12 @@ Packages:
 - `aptura-desktop`: installs Aptura Shell integration, Welcome, System Check, and useful desktop packages.
 - `aptura-settings`: installs system defaults for APT, security, NetworkManager privacy, update behavior, and policy documentation.
 
+Branding assets and generated package metadata are driven by
+`config/distro.env`, `config/branding.conf`, and optional untracked
+`config/*.local.env` overrides. After changing branding names, colors, icon
+themes, wallpaper paths, Plymouth themes, or Calamares theme IDs, run
+`./scripts/render-branding.sh`; full builds call it automatically.
+
 Build all packages:
 
 ```bash

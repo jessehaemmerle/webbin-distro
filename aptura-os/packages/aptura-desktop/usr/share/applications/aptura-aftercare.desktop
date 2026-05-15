@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Aptura Aftercare
-Comment=Check what needs attention after updates or installation
+Comment=Review post-update and post-install next steps
 Exec=aptura-aftercare
 Icon=aptura-aftercare
-Terminal=true
-Categories=System;Utility;
+Terminal=false
+Categories=System;
 Keywords=aptura;aftercare;update;reboot;snapshot;service;

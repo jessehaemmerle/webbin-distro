@@ -62,6 +62,7 @@ main() {
   require_executable build.sh
   require_executable clean.sh
   require_executable scripts/validate.sh
+  require_executable scripts/render-branding.sh
   require_executable scripts/build-iso.sh
   require_executable scripts/build-packages.sh
   require_executable scripts/create-local-repo.sh
@@ -82,6 +83,7 @@ main() {
   require_executable packages/aptura-desktop/usr/bin/aptura-shift
   require_executable packages/aptura-desktop/usr/bin/aptura-aftercare
   require_executable packages/aptura-desktop/usr/bin/aptura-live-bridge
+  require_file packages/aptura-desktop/usr/share/aptura-shell/branding.sh
 
   if [[ "${errors}" -gt 0 ]]; then
     printf '[FAIL] Smoke test finished with %d error(s)\n' "${errors}" >&2

@@ -1,8 +1,12 @@
 #!/bin/sh
 
-export XDG_CURRENT_DESKTOP=Aptura
-export XDG_SESSION_DESKTOP=aptura
-export DESKTOP_SESSION=aptura
+if [ -r /usr/share/aptura-shell/branding.sh ]; then
+  . /usr/share/aptura-shell/branding.sh
+fi
+
+export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP_NAME:-Aptura}"
+export XDG_SESSION_DESKTOP="${SHELL_SESSION_ID:-aptura}"
+export DESKTOP_SESSION="${SHELL_SESSION_ID:-aptura}"
 
 for agent in \
   /usr/libexec/polkit-kde-authentication-agent-1 \
@@ -14,7 +18,16 @@ for agent in \
 done
 
 mako &
-swaybg -i /usr/share/backgrounds/aptura/aptura-context-grid.svg -m fill &
+wallpaper="${DEFAULT_WALLPAPER:-}"
+if [ -n "${wallpaper}" ] && [ ! -f "${wallpaper}" ]; then
+  wallpaper=""
+fi
+if [ -z "${wallpaper}" ] && [ -d "${WALLPAPER_DIR:-}" ]; then
+  wallpaper="$(find "${WALLPAPER_DIR}" -maxdepth 1 -type f | sort | sed -n '1p')"
+fi
+if [ -n "${wallpaper}" ]; then
+  swaybg -i "${wallpaper}" -m fill &
+fi
 aptura-panel &
 
 if command -v nm-applet >/dev/null 2>&1; then

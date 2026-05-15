@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Aptura System Check
-Comment=Review update, firmware, power, security, and disk status
+Comment=Review update, firmware, power, security, and storage status
 Exec=aptura-system-check
 Icon=aptura-system-check
-Terminal=true
-Categories=System;Settings;
-Keywords=aptura;health;updates;firmware;security;status;
+Terminal=false
+Categories=System;
+Keywords=aptura;system;check;health;updates;
