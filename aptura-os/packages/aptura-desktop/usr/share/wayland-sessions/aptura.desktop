@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Aptura Shell
-Comment=Aptura's Wayland desktop session
-Exec=aptura-session
-Type=Application
-DesktopNames=Aptura

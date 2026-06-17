@@ -1,7 +1,0 @@
-export APTURA_BRAND_ID="aptura"
-export APTURA_BRAND_NAME="Aptura OS"
-export APTURA_BRAND_SHORT_NAME="Aptura"
-export APTURA_BRAND_EDITION="Aptura Shell"
-export APTURA_BRAND_ACCENT="#00d9c0"
-export APTURA_BRAND_WALLPAPER="/usr/share/backgrounds/aptura/aptura-context-grid.svg"
-export APTURA_BRAND_ICON_THEME="Aptura-Shell"
