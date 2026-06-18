@@ -1,0 +1,12 @@
+# Build artifacts
+/build/
+/dist/
+
+# Local, untracked overrides
+config/distro.local.env
+config/branding.local.env
+
+# Editor / OS noise
+*.swp
+.DS_Store
+Thumbs.db

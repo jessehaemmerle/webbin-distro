@@ -1,0 +1,9 @@
+payload/os-release usr/lib/
+payload/lsb-release etc/
+payload/plymouth/aptura.plymouth usr/share/plymouth/themes/aptura/
+payload/plymouth/aptura.script usr/share/plymouth/themes/aptura/
+payload/grub/theme.txt usr/share/grub/themes/aptura/
+payload/sddm/theme.conf usr/share/sddm/themes/aptura/
+payload/assets/logo.svg usr/share/icons/hicolor/scalable/apps/
+payload/assets/wallpaper-aurora.svg usr/share/backgrounds/aptura/
+payload/assets/wallpaper-grid.svg usr/share/backgrounds/aptura/

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Aptura Shell labwc configuration. Keyboard-friendly, familiar window
+     behaviour with Aptura keybindings. -->
+<labwc_config>
+  <theme>
+    <name>Aptura-Shell</name>
+    <cornerRadius>8</cornerRadius>
+    <font place="ActiveWindow"><name>Inter</name><size>11</size></font>
+  </theme>
+
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>yes</raiseOnFocus>
+  </focus>
+
+  <keyboard>
+    <!-- Launcher, terminal, file manager -->
+    <keybind key="W-d"><action name="Execute"><command>wofi --show drun</command></action></keybind>
+    <keybind key="W-Return"><action name="Execute"><command>foot</command></action></keybind>
+    <keybind key="W-e"><action name="Execute"><command>nautilus</command></action></keybind>
+    <keybind key="Print"><action name="Execute"><command>aptura-screenshot</command></action></keybind>
+    <keybind key="W-l"><action name="Execute"><command>swaylock -f</command></action></keybind>
+    <keybind key="XF86PowerOff"><action name="Execute"><command>aptura-power-menu</command></action></keybind>
+
+    <!-- Window management -->
+    <keybind key="A-Tab"><action name="NextWindow"/></keybind>
+    <keybind key="W-q"><action name="Close"/></keybind>
+    <keybind key="W-f"><action name="ToggleMaximize"/></keybind>
+    <keybind key="W-Left"><action name="SnapToEdge"><direction>left</direction></action></keybind>
+    <keybind key="W-Right"><action name="SnapToEdge"><direction>right</direction></action></keybind>
+  </keyboard>
+
+  <mouse>
+    <context name="Root">
+      <mousebind button="Right" action="Press"><action name="ShowMenu"><menu>root-menu</menu></action></mousebind>
+    </context>
+  </mouse>
+</labwc_config>

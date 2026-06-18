@@ -1,0 +1,21 @@
+Source: aptura-settings
+Section: admin
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-settings
+Architecture: all
+Depends: ${misc:Depends},
+ apparmor,
+ apparmor-utils,
+ ufw,
+ unattended-upgrades,
+ systemd-timesyncd
+Description: Aptura OS system policy and security defaults
+ Conservative defaults for a daily-driver desktop: AppArmor enforcing, UFW
+ default-deny incoming with no SSH server, automatic security updates, sane
+ sysctl tweaks, the SDDM Aptura theme/session, and privacy-respecting
+ NetworkManager/journald settings.

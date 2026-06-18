@@ -1,0 +1,17 @@
+Source: aptura-branding
+Section: misc
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-branding
+Architecture: all
+Depends: ${misc:Depends}, plymouth, plymouth-themes
+Recommends: grub2-themes-* | grub-common
+Description: Aptura OS identity and theming
+ System identity for Aptura OS rendered into a single visual language:
+ os-release/lsb-release, Plymouth boot splash, GRUB theme, SDDM greeter theme,
+ wallpapers and the Aptura logo. Generated from config/distro.env and
+ config/branding.conf by scripts/render-branding.sh.

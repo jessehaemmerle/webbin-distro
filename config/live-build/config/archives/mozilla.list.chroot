@@ -1,0 +1,4 @@
+# Mozilla APT repository so `firefox` resolves to a real .deb (not the Ubuntu
+# snap transitional package). The signing key is fetched into mozilla.key.chroot
+# by scripts/build-iso.sh on the Linux build host.
+deb [signed-by=/etc/apt/trusted.gpg.d/mozilla.key.asc] https://packages.mozilla.org/apt mozilla main

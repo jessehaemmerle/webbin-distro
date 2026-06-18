@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Aptura Shell
+Comment=Aptura OS Wayland session (labwc)
+Exec=/usr/bin/aptura-session
+Type=Application
+DesktopNames=Aptura
+Keywords=wayland;labwc;aptura;

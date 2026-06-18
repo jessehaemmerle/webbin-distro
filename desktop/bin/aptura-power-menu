@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Aptura Shell power menu via wofi. Lock / logout / suspend / reboot / shutdown.
+set -eu
+
+choice="$(printf '%s\n' \
+  " Lock" \
+  " Logout" \
+  " Suspend" \
+  " Reboot" \
+  " Shutdown" | wofi --dmenu --prompt "Power" --width 280 --height 240)"
+
+case "${choice}" in
+  *Lock)     swaylock -f ;;
+  *Logout)   labwc --exit 2>/dev/null || pkill -TERM labwc ;;
+  *Suspend)  systemctl suspend ;;
+  *Reboot)   systemctl reboot ;;
+  *Shutdown) systemctl poweroff ;;
+  *) exit 0 ;;
+esac

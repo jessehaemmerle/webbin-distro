@@ -1,0 +1,6 @@
+// Aptura OS: apply security updates automatically for a low-maintenance desktop.
+// Users can disable by editing or removing this file.
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "7";
+Unattended-Upgrade::Remove-Unused-Dependencies "true";

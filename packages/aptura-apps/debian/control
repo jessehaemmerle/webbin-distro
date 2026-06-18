@@ -1,0 +1,35 @@
+Source: aptura-apps
+Section: metapackages
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-apps
+Architecture: all
+Depends: ${misc:Depends},
+ libreoffice,
+ thunderbird,
+ firefox,
+ flatpak,
+ gnome-software,
+ gnome-software-plugin-flatpak,
+ deja-dup,
+ file-roller,
+ gstreamer1.0-libav,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-bad,
+ gstreamer1.0-plugins-ugly,
+ fwupd,
+ cups,
+ system-config-printer
+Recommends: timeshift, libreoffice-l10n-de, fonts-liberation
+Description: Aptura OS everyday application set
+ The daily-work software bundle: LibreOffice (office), Thunderbird (mail),
+ Firefox (browser), GNOME Software with Flatpak/Flathub, backups, archives,
+ multimedia codecs, firmware updates and printing. Spotify is installed as a
+ Flatpak by the build hook (not available via APT).
+ .
+ Firefox is provided as a real .deb from the Mozilla APT repository configured
+ by the build (not the Ubuntu snap transitional package).

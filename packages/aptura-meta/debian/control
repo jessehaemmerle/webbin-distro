@@ -1,0 +1,26 @@
+Source: aptura-meta
+Section: metapackages
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-meta
+Architecture: all
+Depends: ${misc:Depends},
+ aptura-branding,
+ aptura-desktop,
+ aptura-settings,
+ aptura-apps,
+ aptura-kernel,
+ ubuntu-standard,
+ network-manager,
+ sddm
+Recommends: aptura-apps
+Description: Aptura OS default system metapackage
+ Top-level dependency package that pulls in the complete default Aptura OS
+ install: branding, the Aptura Shell desktop, system policy defaults, the
+ everyday application set, and the Aptura custom kernel.
+ .
+ Editing this package's dependencies is how the default install evolves.

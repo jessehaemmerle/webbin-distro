@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Aptura Shell screenshot helper. Region select -> clipboard + saved file.
+set -eu
+
+dir="${XDG_PICTURES_DIR:-${HOME}/Pictures}/Screenshots"
+mkdir -p "${dir}"
+file="${dir}/aptura-$(date +%Y%m%d-%H%M%S).png"
+
+if [ "${1:-region}" = "full" ]; then
+  grim "${file}"
+else
+  grim -g "$(slurp)" "${file}"
+fi
+
+wl-copy < "${file}"
+if command -v notify-send >/dev/null 2>&1; then
+  notify-send "Aptura screenshot" "Saved to ${file} and copied to clipboard"
+fi

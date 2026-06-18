@@ -1,0 +1,25 @@
+#!/bin/sh
+# Enable Aptura security defaults on first configure.
+set -e
+
+case "$1" in
+  configure)
+    # AppArmor: ensure the service is enabled (enforcing profiles ship with it).
+    if [ -d /run/systemd/system ]; then
+      systemctl enable apparmor.service >/dev/null 2>&1 || true
+      systemctl enable unattended-upgrades.service >/dev/null 2>&1 || true
+    fi
+
+    # UFW: default deny incoming, allow outgoing, no SSH opened by default.
+    if command -v ufw >/dev/null 2>&1; then
+      ufw --force default deny incoming >/dev/null 2>&1 || true
+      ufw --force default allow outgoing >/dev/null 2>&1 || true
+      ufw --force enable >/dev/null 2>&1 || true
+    fi
+
+    sysctl --system >/dev/null 2>&1 || true
+    ;;
+esac
+
+#DEBHELPER#
+exit 0

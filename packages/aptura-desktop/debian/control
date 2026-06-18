@@ -1,0 +1,43 @@
+Source: aptura-desktop
+Section: x11
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-desktop
+Architecture: all
+Depends: ${misc:Depends},
+ labwc,
+ waybar,
+ wofi,
+ swaybg,
+ mako-notifier,
+ foot,
+ grim,
+ slurp,
+ wl-clipboard,
+ swaylock,
+ swayidle,
+ xdg-desktop-portal-wlr,
+ xdg-desktop-portal-gtk,
+ sddm,
+ nautilus,
+ gnome-control-center,
+ network-manager-gnome,
+ blueman,
+ pavucontrol,
+ wireplumber,
+ pipewire,
+ pipewire-pulse,
+ policykit-1-gnome,
+ brightnessctl,
+ power-profiles-daemon,
+ fonts-inter
+Recommends: gnome-disk-utility, gnome-system-monitor, fonts-noto
+Description: Aptura Shell Wayland desktop session
+ The distro-owned default desktop: a labwc Wayland session with waybar,
+ wofi, swaybg, mako and Aptura session/screenshot/power helpers, plus the
+ supporting tray applets, audio stack and portals. SDDM is the display
+ manager. Configuration ships in /etc/xdg so users keep the Aptura baseline.

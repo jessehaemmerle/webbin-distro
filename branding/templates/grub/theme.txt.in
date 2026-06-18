@@ -1,0 +1,37 @@
+# @BRAND_NAME@ GRUB theme
+title-text: ""
+desktop-color: "@COLOR_BACKGROUND@"
+terminal-font: "Unifont Regular 16"
+
++ boot_menu {
+  left = 25%
+  width = 50%
+  top = 38%
+  height = 40%
+  item_color = "@COLOR_NEUTRAL@"
+  selected_item_color = "@COLOR_PRIMARY@"
+  item_height = 32
+  item_spacing = 10
+  selected_item_pixmap_style = "select_*.png"
+}
+
++ label {
+  top = 86%
+  left = 0
+  width = 100%
+  align = "center"
+  color = "@COLOR_TEXT@"
+  font = "Unifont Regular 16"
+  text = "@DISTRO_PRETTY_NAME@"
+}
+
++ progress_bar {
+  id = "__timeout__"
+  left = 25%
+  width = 50%
+  top = 80%
+  height = 16
+  fg_color = "@COLOR_ACCENT@"
+  bg_color = "@COLOR_BACKGROUND@"
+  border_color = "@COLOR_NEUTRAL@"
+}

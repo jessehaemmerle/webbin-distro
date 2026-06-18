@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+  <rect width="900" height="220" fill="#12142b"/>
+  <text x="48" y="110" font-family="Inter, sans-serif" font-size="48" font-weight="700" fill="#00d9c0">Aptura OS</text>
+  <text x="50" y="156" font-family="Inter, sans-serif" font-size="22" fill="#eef1ff">A calm Linux for everyday work</text>
+  <rect x="50" y="176" width="180" height="6" rx="3" fill="#ff4fd8"/>
+</svg>

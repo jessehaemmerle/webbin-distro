@@ -1,0 +1,18 @@
+Source: aptura-kernel
+Section: kernel
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-kernel
+Architecture: all
+Depends: ${misc:Depends},
+ linux-image-@KERNEL_VERSION@-aptura,
+ linux-headers-@KERNEL_VERSION@-aptura
+Description: Aptura OS custom kernel selector
+ Pulls in the Aptura-branded custom mainline kernel (@KERNEL_VERSION@-aptura)
+ built from kernel/ and served by the local Aptura repository. Keeping this as
+ a metapackage means the default kernel version is changed in one place
+ (config/distro.env) and rebuilt.

@@ -1,0 +1,10 @@
+# APT sources for the installed Aptura OS system (Ubuntu noble base).
+# scripts/build-iso.sh regenerates this from config/distro.env so the suite,
+# components, and mirrors stay in sync with the build configuration.
+#
+# The local Aptura repository line is appended by the build when it is signed.
+
+deb http://archive.ubuntu.com/ubuntu noble main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu noble-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu noble-security main restricted universe multiverse

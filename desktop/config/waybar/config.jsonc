@@ -1,0 +1,48 @@
+{
+  // Aptura Shell top panel
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 6,
+  "modules-left": ["custom/launcher", "wlr/taskbar"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "pulseaudio", "network", "battery", "custom/power"],
+
+  "custom/launcher": {
+    "format": "Aptura",
+    "tooltip": false,
+    "on-click": "wofi --show drun"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "on-click": "activate"
+  },
+  "clock": {
+    "format": "{:%a %d %b  %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "tray": { "spacing": 8 },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "mute",
+    "format-icons": { "default": ["", "", ""] },
+    "on-click": "pavucontrol"
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": " ",
+    "format-disconnected": "offline",
+    "on-click": "nm-connection-editor"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "states": { "warning": 25, "critical": 10 }
+  },
+  "custom/power": {
+    "format": "power",
+    "tooltip": false,
+    "on-click": "aptura-power-menu"
+  }
+}

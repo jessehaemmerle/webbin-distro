@@ -1,0 +1,18 @@
+/* Aptura Shell launcher */
+window {
+  background-color: rgba(18, 20, 43, 0.96);
+  border: 2px solid #7a4dff;
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+}
+#input {
+  margin: 8px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1a1d3f;
+  color: #eef1ff;
+}
+#entry { padding: 6px 10px; color: #eef1ff; }
+#entry:selected { background-color: #00d9c0; color: #12142b; border-radius: 8px; }
+#text:selected { color: #12142b; }

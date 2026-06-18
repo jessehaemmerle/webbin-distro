@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Aptura Shell session entry point. Exports session identity and launches labwc,
+# which in turn starts the panel, wallpaper, notifications and portals via its
+# autostart file (/etc/xdg/labwc/autostart, shipped by aptura-desktop).
+set -eu
+
+export XDG_CURRENT_DESKTOP=Aptura
+export XDG_SESSION_DESKTOP=aptura
+export XDG_SESSION_TYPE=wayland
+export QT_QPA_PLATFORM=wayland
+export GDK_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Make Aptura GTK/icon themes the default where applications honour them.
+export GTK_THEME="${GTK_THEME:-Aptura-Shell}"
+
+exec labwc

@@ -1,0 +1,5 @@
+payload/etc/sysctl.d/60-aptura.conf etc/sysctl.d/
+payload/etc/sddm.conf.d/10-aptura.conf etc/sddm.conf.d/
+payload/etc/apt/apt.conf.d/51aptura-unattended etc/apt/apt.conf.d/
+payload/etc/NetworkManager/conf.d/10-aptura-privacy.conf etc/NetworkManager/conf.d/
+payload/etc/systemd/journald.conf.d/10-aptura.conf etc/systemd/journald.conf.d/

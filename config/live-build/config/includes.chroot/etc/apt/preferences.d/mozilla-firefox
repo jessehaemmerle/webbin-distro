@@ -1,0 +1,8 @@
+# Prefer Mozilla's Firefox .deb over the Ubuntu snap transitional package.
+Package: firefox*
+Pin: origin packages.mozilla.org
+Pin-Priority: 1001
+
+Package: firefox*
+Pin: release o=Ubuntu*
+Pin-Priority: -1

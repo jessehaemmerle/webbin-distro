@@ -1,0 +1,36 @@
+---
+componentName: aptura
+
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 900px,560px
+windowPlacement: center
+
+strings:
+  productName:         "Aptura OS"
+  shortProductName:    "Aptura"
+  version:             "0.1.0"
+  shortVersion:        "0.1.0"
+  versionedName:       "Aptura OS 0.1.0 Aurora"
+  shortVersionedName:  "Aptura 0.1.0"
+  bootloaderEntryName: "Aptura OS"
+  productUrl:          "https://aptura.example"
+  supportUrl:          "https://aptura.example/support"
+  releaseNotesUrl:     "https://aptura.example/notes"
+
+images:
+  productLogo:   "logo.svg"
+  productIcon:   "logo.svg"
+  productWelcome: "welcome.svg"
+
+slideshow: "show.qml"
+
+style:
+  sidebarBackground:    "#12142b"
+  sidebarText:          "#eef1ff"
+  sidebarTextSelect:    "#00d9c0"
+  sidebarTextHighlight: "#7a4dff"
+
+uploadServer:
+  type: none

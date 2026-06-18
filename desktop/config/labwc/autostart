@@ -1,0 +1,25 @@
+# Aptura Shell autostart (labwc).
+# Runs once when the labwc session starts.
+
+# Wallpaper
+swaybg -m fill -i /usr/share/backgrounds/aptura/wallpaper-aurora.svg &
+
+# Notification daemon
+mako &
+
+# Panel + task list + tray + clock + status
+waybar &
+
+# Desktop portals (screen sharing, file pickers)
+/usr/libexec/xdg-desktop-portal-wlr &
+/usr/libexec/xdg-desktop-portal &
+
+# Network/Bluetooth/audio applets in the tray
+nm-applet --indicator &
+blueman-applet &
+
+# Authentication agent for privileged GUI actions (PolicyKit)
+/usr/libexec/polkit-gnome-authentication-agent-1 &
+
+# Idle + lock (conservative defaults)
+swayidle -w timeout 600 'swaylock -f' &

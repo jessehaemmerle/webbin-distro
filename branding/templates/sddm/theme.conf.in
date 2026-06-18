@@ -1,0 +1,14 @@
+[General]
+# @BRAND_NAME@ SDDM greeter configuration.
+background=/usr/share/backgrounds/@DISTRO_ID@/wallpaper-aurora.svg
+type=color
+color=@COLOR_BACKGROUND@
+fontSize=11
+passwordCharacter=*
+
+[Aptura]
+brandName=@BRAND_NAME@
+accentColor=@COLOR_PRIMARY@
+highlightColor=@COLOR_HIGHLIGHT@
+textColor=@COLOR_TEXT@
+sessionDefault=@DISTRO_ID@

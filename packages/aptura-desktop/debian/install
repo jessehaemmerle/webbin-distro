@@ -1,0 +1,12 @@
+payload/wayland-sessions/aptura.desktop usr/share/wayland-sessions/
+payload/bin/aptura-session usr/bin/
+payload/bin/aptura-screenshot usr/bin/
+payload/bin/aptura-power-menu usr/bin/
+payload/config/labwc/rc.xml etc/xdg/labwc/
+payload/config/labwc/menu.xml etc/xdg/labwc/
+payload/config/labwc/autostart etc/xdg/labwc/
+payload/config/waybar/config.jsonc etc/xdg/waybar/
+payload/config/waybar/style.css etc/xdg/waybar/
+payload/config/wofi/config etc/xdg/wofi/
+payload/config/wofi/style.css etc/xdg/wofi/
+payload/config/mako/config etc/xdg/mako/

@@ -1,0 +1,38 @@
+# Human-readable overview of the default Aptura OS package selection.
+# This file documents intent. The authoritative selection lives in the
+# Aptura metapackage dependencies under packages/.
+
+## Custom kernel
+linux-image-${KERNEL_VERSION}-aptura   # built locally, see kernel/
+linux-headers-${KERNEL_VERSION}-aptura
+
+## Aptura Shell desktop (labwc-based Wayland session)
+labwc waybar wofi swaybg mako-notifier
+grim slurp wl-clipboard
+xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+sddm
+network-manager-gnome blueman pavucontrol wireplumber pipewire pipewire-pulse
+power-profiles-daemon brightnessctl
+nautilus gnome-disk-utility gnome-system-monitor
+
+## Everyday applications
+libreoffice                # office suite (chosen default)
+thunderbird                # mail
+firefox                    # browser, installed as .deb from Mozilla apt repo (not snap)
+# spotify -> installed as Flatpak (com.spotify.Client) via hook, not APT
+gnome-software gnome-software-plugin-flatpak
+flatpak
+deja-dup                   # backups
+timeshift                  # system snapshots
+file-roller                # archives
+
+## Multimedia / codecs / firmware
+ubuntu-restricted-extras gstreamer1.0-libav gstreamer1.0-plugins-good
+gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+fwupd
+cups system-config-printer
+
+## Security / base
+apparmor apparmor-utils
+ufw
+unattended-upgrades

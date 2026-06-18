@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=@BRAND_NAME@
+Description=@BRAND_NAME@ boot splash (@BRAND_TAGLINE@)
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/@PLYMOUTH_THEME_NAME@
+ScriptFile=/usr/share/plymouth/themes/@PLYMOUTH_THEME_NAME@/@PLYMOUTH_THEME_NAME@.script

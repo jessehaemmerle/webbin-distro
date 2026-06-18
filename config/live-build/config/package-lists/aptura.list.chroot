@@ -1,0 +1,22 @@
+# Top-level package selection for the live image.
+#
+# Almost everything is pulled in declaratively through the Aptura metapackages
+# (see packages/). Keeping this list short means defaults evolve by editing the
+# metapackage dependencies instead of this file.
+#
+# live-build resolves these from the Ubuntu archive plus the local Aptura
+# repository that scripts/build-iso.sh wires in.
+
+aptura-meta
+aptura-branding
+aptura-desktop
+aptura-settings
+aptura-apps
+
+# Safety net base packages (also pulled by aptura-meta, listed for clarity).
+# Calamares branding/config is injected into the live filesystem by a chroot
+# hook (hooks/040-installer.sh), not a separate package.
+ubuntu-standard
+casper
+calamares
+calamares-settings-debian
