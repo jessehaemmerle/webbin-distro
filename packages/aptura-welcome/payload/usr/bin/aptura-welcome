@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+# Aptura OS first-run welcome app (GTK4 / libadwaita).
+#
+# Shown once after the first login. Offers the common day-one tasks: update the
+# system, install firmware, set up backups, adjust language/region, and open the
+# software centre. A "show on startup" switch controls the autostart flag.
+import os
+import subprocess
+import sys
+
+import gi
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+from gi.repository import Adw, Gio, Gtk  # noqa: E402
+
+FLAG_DIR = os.path.join(
+    os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "aptura"
+)
+FLAG_FILE = os.path.join(FLAG_DIR, "welcome-done")
+
+
+def mark_done():
+    os.makedirs(FLAG_DIR, exist_ok=True)
+    open(FLAG_FILE, "w").close()
+
+
+def launch(*argv):
+    try:
+        subprocess.Popen(argv)
+    except FileNotFoundError:
+        pass
+
+
+class WelcomeWindow(Adw.ApplicationWindow):
+    def __init__(self, app):
+        super().__init__(application=app, title="Willkommen bei Aptura OS")
+        self.set_default_size(560, 600)
+
+        toolbar = Adw.ToolbarView()
+        header = Adw.HeaderBar()
+        toolbar.add_top_bar(header)
+
+        page = Adw.PreferencesPage()
+        group = Adw.PreferencesGroup(
+            title="Willkommen bei Aptura OS",
+            description="Ein paar Schritte für den Start in den Alltag.",
+        )
+
+        group.add(self._row(
+            "System aktualisieren", "Neueste Updates installieren",
+            "software-update-available-symbolic",
+            lambda *_: launch("pkexec", "sh", "-c", "apt update && apt -y full-upgrade")))
+        group.add(self._row(
+            "Firmware-Updates", "Geräte-Firmware über fwupd prüfen",
+            "application-x-firmware-symbolic",
+            lambda *_: launch("gnome-firmware") or launch("fwupdmgr", "update")))
+        group.add(self._row(
+            "Datensicherung einrichten", "Backups mit Déjà Dup konfigurieren",
+            "drive-multidisk-symbolic",
+            lambda *_: launch("deja-dup", "--prefs")))
+        group.add(self._row(
+            "Sprache & Region", "Tastatur, Sprache und Zeitzone anpassen",
+            "preferences-desktop-locale-symbolic",
+            lambda *_: launch("gnome-control-center", "region")))
+        group.add(self._row(
+            "Software-Center öffnen", "Apps und Flatpaks aus Flathub",
+            "system-software-install-symbolic",
+            lambda *_: launch("gnome-software")))
+        page.add(group)
+
+        startup = Adw.PreferencesGroup()
+        self.show_switch = Adw.SwitchRow(
+            title="Beim Start anzeigen",
+            subtitle="Dieses Fenster beim nächsten Login erneut öffnen")
+        self.show_switch.set_active(not os.path.exists(FLAG_FILE))
+        self.show_switch.connect("notify::active", self._toggle_startup)
+        startup.add(self.show_switch)
+        page.add(startup)
+
+        toolbar.set_content(page)
+        self.set_content(toolbar)
+
+    def _row(self, title, subtitle, icon, cb):
+        row = Adw.ActionRow(title=title, subtitle=subtitle)
+        row.add_prefix(Gtk.Image.new_from_icon_name(icon))
+        btn = Gtk.Button(label="Öffnen", valign=Gtk.Align.CENTER)
+        btn.add_css_class("suggested-action")
+        btn.connect("clicked", cb)
+        row.add_suffix(btn)
+        row.set_activatable_widget(btn)
+        return row
+
+    def _toggle_startup(self, switch, _param):
+        if switch.get_active():
+            try:
+                os.remove(FLAG_FILE)
+            except FileNotFoundError:
+                pass
+        else:
+            mark_done()
+
+
+class WelcomeApp(Adw.Application):
+    def __init__(self):
+        super().__init__(application_id="os.aptura.Welcome",
+                         flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
+
+    def do_command_line(self, command_line):
+        args = command_line.get_arguments()
+        # Autostart entry calls us with --autostart: skip if already dismissed.
+        if "--autostart" in args and os.path.exists(FLAG_FILE):
+            return 0
+        self.activate()
+        return 0
+
+    def do_activate(self):
+        win = self.get_active_window() or WelcomeWindow(self)
+        win.present()
+
+
+if __name__ == "__main__":
+    sys.exit(WelcomeApp().run(sys.argv))

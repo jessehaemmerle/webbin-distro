@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=@BRAND_NAME@
+Description=@BRAND_NAME@ greeter (@BRAND_TAGLINE@)
+Author=@BRAND_VENDOR@
+License=MIT
+Type=sddm-theme
+Version=@DISTRO_VERSION@
+Website=@DISTRO_HOME_URL@
+Screenshot=
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=
+Theme-Id=@SDDM_THEME_NAME@
+Theme-API=2.0

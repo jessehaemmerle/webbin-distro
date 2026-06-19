@@ -20,7 +20,7 @@ OUT_DIR="${REPO_ROOT}/${PACKAGE_OUTPUT_DIR}"
 rm -rf "${SRC_ROOT}"
 mkdir -p "${SRC_ROOT}" "${OUT_DIR}"
 
-PACKAGES="aptura-branding aptura-desktop aptura-settings aptura-apps aptura-kernel aptura-meta"
+PACKAGES="aptura-branding aptura-desktop aptura-settings aptura-apps aptura-welcome aptura-secureboot aptura-kernel aptura-meta"
 
 gen_boilerplate() {
   local dir="$1" name="$2"

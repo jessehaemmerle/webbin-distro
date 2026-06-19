@@ -5,14 +5,14 @@ local Aptura APT repository. The default install is declarative: editing
 `aptura-meta`'s dependencies (and the leaf metapackages below) changes what a
 fresh system gets.
 
-| Package          | Role                                                        |
-|------------------|-------------------------------------------------------------|
-| `aptura-meta`    | Top-level dependency package for the default install.       |
-| `aptura-branding`| os-release, Plymouth, GRUB, SDDM theme, wallpapers, logo.    |
-| `aptura-desktop` | Aptura Shell (labwc) session + supporting desktop stack.    |
-| `aptura-settings`| Security/policy defaults (AppArmor, UFW, auto-updates, …).   |
-| `aptura-apps`    | Everyday apps (LibreOffice, Thunderbird, Firefox, …).       |
-| `aptura-kernel`  | Selector metapackage for the custom `*-aptura` kernel.      |
+- `aptura-meta` — top-level dependency package for the default install.
+- `aptura-branding` — os-release, Plymouth, GRUB, SDDM theme, icon theme, wallpapers.
+- `aptura-desktop` — Aptura Shell (labwc) session + GTK/labwc theme + desktop stack.
+- `aptura-settings` — security/policy defaults (AppArmor, UFW, auto-updates, …).
+- `aptura-apps` — everyday apps (LibreOffice, Thunderbird, Firefox, …) + German langpacks.
+- `aptura-kernel` — selector metapackage for the custom `*-aptura` kernel.
+- `aptura-welcome` — first-run GTK4 welcome app (update/firmware/backups/region).
+- `aptura-secureboot` — per-machine MOK signing + enrollment for the custom kernel.
 
 ## Conventions
 

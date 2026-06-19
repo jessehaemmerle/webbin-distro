@@ -1,0 +1,21 @@
+Source: aptura-welcome
+Section: x11
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-welcome
+Architecture: all
+Depends: ${misc:Depends},
+ python3,
+ python3-gi,
+ gir1.2-gtk-4.0,
+ gir1.2-adw-1,
+ polkitd
+Recommends: gnome-software, deja-dup, fwupd
+Description: Aptura OS first-run welcome app
+ A small GTK4/libadwaita app shown once after the first login. It offers the
+ common day-one tasks — system update, firmware, backups, language/region and
+ the software centre — and self-suppresses once dismissed.

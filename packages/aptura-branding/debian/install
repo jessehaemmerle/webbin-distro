@@ -4,6 +4,10 @@ payload/plymouth/aptura.plymouth usr/share/plymouth/themes/aptura/
 payload/plymouth/aptura.script usr/share/plymouth/themes/aptura/
 payload/grub/theme.txt usr/share/grub/themes/aptura/
 payload/sddm/theme.conf usr/share/sddm/themes/aptura/
+payload/sddm/Main.qml usr/share/sddm/themes/aptura/
+payload/sddm/metadata.desktop usr/share/sddm/themes/aptura/
 payload/assets/logo.svg usr/share/icons/hicolor/scalable/apps/
+payload/assets/logo.svg usr/share/icons/Aptura-Shell/scalable/apps/
+payload/assets/icons/Aptura-Shell/index.theme usr/share/icons/Aptura-Shell/
 payload/assets/wallpaper-aurora.svg usr/share/backgrounds/aptura/
 payload/assets/wallpaper-grid.svg usr/share/backgrounds/aptura/

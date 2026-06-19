@@ -23,8 +23,16 @@ Depends: ${misc:Depends},
  gstreamer1.0-plugins-ugly,
  fwupd,
  cups,
- system-config-printer
-Recommends: timeshift, libreoffice-l10n-de, fonts-liberation
+ system-config-printer,
+ language-pack-de,
+ language-pack-gnome-de,
+ libreoffice-l10n-de,
+ firefox-l10n-de,
+ thunderbird-l10n-de,
+ hunspell-de-at,
+ hyphen-de,
+ mythes-de
+Recommends: timeshift, fonts-liberation
 Description: Aptura OS everyday application set
  The daily-work software bundle: LibreOffice (office), Thunderbird (mail),
  Firefox (browser), GNOME Software with Flatpak/Flathub, backups, archives,

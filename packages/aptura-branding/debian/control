@@ -8,8 +8,8 @@ Rules-Requires-Root: no
 
 Package: aptura-branding
 Architecture: all
-Depends: ${misc:Depends}, plymouth, plymouth-themes
-Recommends: grub2-themes-* | grub-common
+Depends: ${misc:Depends}, plymouth, plymouth-themes, adwaita-icon-theme
+Recommends: grub-common, papirus-icon-theme, fonts-inter
 Description: Aptura OS identity and theming
  System identity for Aptura OS rendered into a single visual language:
  os-release/lsb-release, Plymouth boot splash, GRUB theme, SDDM greeter theme,

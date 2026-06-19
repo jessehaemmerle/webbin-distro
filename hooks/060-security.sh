@@ -14,6 +14,10 @@ fi
 systemctl enable apparmor.service 2>/dev/null || true
 systemctl enable unattended-upgrades.service 2>/dev/null || true
 
+# First-boot Secure Boot setup (per-machine MOK + kernel signing). Enabled
+# offline here because the package postinst skips enabling inside the chroot.
+systemctl enable aptura-secureboot.service 2>/dev/null || true
+
 # Disable any telemetry packages that may have been pulled in.
 for pkg in popularity-contest apport whoopsie; do
   dpkg -l "$pkg" >/dev/null 2>&1 && apt-get purge -y "$pkg" || true

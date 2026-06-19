@@ -1,0 +1,14 @@
+[Icon Theme]
+Name=Aptura-Shell
+Comment=Aptura OS icon theme
+# Start as a thin layer over well-maintained bases; Aptura overrides land in
+# this theme's own directories over time (see hicolor/scalable/apps/logo.svg).
+Inherits=Papirus-Dark,Adwaita,hicolor
+Directories=scalable/apps
+
+[scalable/apps]
+Size=256
+MinSize=16
+MaxSize=512
+Context=Applications
+Type=Scalable

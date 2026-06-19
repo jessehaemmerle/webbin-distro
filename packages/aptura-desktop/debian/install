@@ -10,3 +10,9 @@ payload/config/waybar/style.css etc/xdg/waybar/
 payload/config/wofi/config etc/xdg/wofi/
 payload/config/wofi/style.css etc/xdg/wofi/
 payload/config/mako/config etc/xdg/mako/
+payload/config/gtk-3.0/settings.ini etc/gtk-3.0/
+payload/config/gtk-4.0/settings.ini etc/gtk-4.0/
+payload/themes/Aptura-Shell/index.theme usr/share/themes/Aptura-Shell/
+payload/themes/Aptura-Shell/labwc/themerc usr/share/themes/Aptura-Shell/labwc/
+payload/themes/Aptura-Shell/gtk-3.0/gtk.css usr/share/themes/Aptura-Shell/gtk-3.0/
+payload/themes/Aptura-Shell/gtk-4.0/gtk.css usr/share/themes/Aptura-Shell/gtk-4.0/

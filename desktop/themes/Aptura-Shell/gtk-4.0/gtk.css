@@ -1,0 +1,12 @@
+/* Aptura-Shell GTK4 / libadwaita accent override.
+   libadwaita provides the widget styling; we set the Aptura accent and a dark
+   window background. Honoured by libadwaita 1.6+ and plain GTK4 apps. */
+@define-color accent_color    #00d9c0;
+@define-color accent_bg_color #00d9c0;
+@define-color accent_fg_color #12142b;
+
+@define-color window_bg_color #12142b;
+@define-color window_fg_color #eef1ff;
+@define-color view_bg_color   #1a1d3f;
+@define-color view_fg_color   #eef1ff;
+@define-color destructive_color #ff4fd8;

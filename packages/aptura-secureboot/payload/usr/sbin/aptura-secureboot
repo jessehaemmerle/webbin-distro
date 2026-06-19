@@ -1,0 +1,132 @@
+#!/bin/sh
+# aptura-secureboot: per-machine Secure Boot key management for the custom
+# Aptura kernel.
+#
+# A Machine Owner Key (MOK) is generated once per installed machine, used to
+# sign every installed Aptura kernel, and enrolled by the user via the firmware
+# at the next reboot. The private key never leaves the machine and is not shipped
+# in the image.
+#
+# Subcommands:
+#   gen-key        Create the MOK keypair if it does not exist.
+#   sign [VMLINUZ] Sign one kernel (default: all /boot/vmlinuz-*-aptura).
+#   enroll         Queue the MOK for enrollment (interactive: sets a one-time
+#                  password you re-enter in the firmware on reboot).
+#   status         Show Secure Boot + enrollment state.
+#   auto           First-boot flow: if Secure Boot is on, gen-key + sign + notify.
+set -eu
+
+MOK_DIR=/var/lib/aptura/mok
+KEY="${MOK_DIR}/MOK.key"
+CRT="${MOK_DIR}/MOK.crt"
+DER="${MOK_DIR}/MOK.der"
+
+log() { echo "[aptura-secureboot] $*"; }
+
+need_root() { [ "$(id -u)" -eq 0 ] || { echo "run as root" >&2; exit 1; }; }
+
+sb_enabled() {
+  command -v mokutil >/dev/null 2>&1 || return 1
+  mokutil --sb-state 2>/dev/null | grep -qi "enabled"
+}
+
+gen_key() {
+  need_root
+  [ -f "${KEY}" ] && { log "MOK already present"; return 0; }
+  command -v openssl >/dev/null 2>&1 || { echo "openssl missing" >&2; exit 1; }
+  mkdir -p "${MOK_DIR}"; chmod 700 "${MOK_DIR}"
+  log "generating per-machine MOK"
+  openssl req -new -x509 -newkey rsa:2048 -nodes -days 3650 \
+    -subj "/CN=Aptura OS Machine Owner Key/" \
+    -keyout "${KEY}" -out "${CRT}"
+  openssl x509 -in "${CRT}" -outform DER -out "${DER}"
+  chmod 600 "${KEY}"
+}
+
+sign_one() {
+  vmlinuz="$1"
+  command -v sbsign >/dev/null 2>&1 || { echo "sbsign (sbsigntool) missing" >&2; exit 1; }
+  [ -f "${vmlinuz}" ] || return 0
+  if sbverify --cert "${CRT}" "${vmlinuz}" >/dev/null 2>&1; then
+    log "already signed: ${vmlinuz}"; return 0
+  fi
+  log "signing ${vmlinuz}"
+  sbsign --key "${KEY}" --cert "${CRT}" --output "${vmlinuz}" "${vmlinuz}"
+}
+
+sign() {
+  need_root; gen_key
+  if [ "${1:-}" != "" ]; then
+    sign_one "$1"
+  else
+    for k in /boot/vmlinuz-*-aptura; do
+      [ -e "${k}" ] && sign_one "${k}"
+    done
+  fi
+}
+
+enroll() {
+  need_root; gen_key
+  command -v mokutil >/dev/null 2>&1 || { echo "mokutil missing" >&2; exit 1; }
+  if mokutil --test-key "${DER}" 2>/dev/null | grep -qi "already enrolled"; then
+    log "MOK already enrolled"; return 0
+  fi
+  log "Queuing MOK enrollment. You will set a one-time password now and must"
+  log "re-enter it in the blue MOK Manager screen on the next reboot."
+  mokutil --import "${DER}"
+  log "Done. Reboot and follow 'Enroll MOK' -> 'Continue'."
+}
+
+status() {
+  if sb_enabled; then echo "Secure Boot: enabled"; else echo "Secure Boot: disabled/unsupported"; fi
+  if [ -f "${DER}" ]; then
+    echo "MOK: present (${DER})"
+    mokutil --test-key "${DER}" 2>/dev/null || true
+  else
+    echo "MOK: not generated"
+  fi
+  for k in /boot/vmlinuz-*-aptura; do
+    [ -e "${k}" ] || continue
+    if sbverify --cert "${CRT}" "${k}" >/dev/null 2>&1; then
+      echo "signed:   ${k}"
+    else
+      echo "UNSIGNED: ${k}"
+    fi
+  done
+}
+
+notify_enroll() {
+  # Best-effort desktop notification to the logged-in user.
+  for bus_user in $(loginctl list-users --no-legend 2>/dev/null | awk '{print $2}'); do
+    uid=$(id -u "${bus_user}" 2>/dev/null) || continue
+    su - "${bus_user}" -c \
+      "DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus \
+       notify-send -u critical 'Secure Boot' \
+       'Aptura-Kernel signiert. Zum Aktivieren: sudo aptura-secureboot enroll, dann neu starten.'" \
+      >/dev/null 2>&1 || true
+  done
+}
+
+auto() {
+  need_root
+  if ! sb_enabled; then
+    log "Secure Boot not enabled; nothing to do."
+    return 0
+  fi
+  gen_key
+  sign ""
+  if ! mokutil --test-key "${DER}" 2>/dev/null | grep -qi "already enrolled"; then
+    log "MOK not yet enrolled; notifying user."
+    notify_enroll
+  fi
+}
+
+cmd="${1:-status}"; shift 2>/dev/null || true
+case "${cmd}" in
+  gen-key) gen_key ;;
+  sign)    sign "${1:-}" ;;
+  enroll)  enroll ;;
+  status)  status ;;
+  auto)    auto ;;
+  *) echo "usage: aptura-secureboot {gen-key|sign [vmlinuz]|enroll|status|auto}" >&2; exit 2 ;;
+esac

@@ -1,0 +1,3 @@
+payload/usr/sbin/aptura-secureboot usr/sbin/
+payload/etc/kernel/postinst.d/zz-aptura-secureboot etc/kernel/postinst.d/
+payload/usr/lib/systemd/system/aptura-secureboot.service usr/lib/systemd/system/

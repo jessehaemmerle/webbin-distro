@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Aptura Welcome (first run)
+Exec=aptura-welcome --autostart
+Icon=logo
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+# The app self-suppresses once the user clears "show on startup"
+# (~/.config/aptura/welcome-done).

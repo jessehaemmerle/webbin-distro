@@ -1,0 +1,21 @@
+Source: aptura-secureboot
+Section: admin
+Priority: optional
+Maintainer: Aptura <packages@aptura.example>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: aptura-secureboot
+Architecture: all
+Depends: ${misc:Depends},
+ sbsigntool,
+ mokutil,
+ openssl,
+ efibootmgr
+Description: Aptura OS Secure Boot key management
+ Lets the custom (unsigned-by-upstream) Aptura kernel boot with Secure Boot
+ enabled. Generates a per-machine Machine Owner Key on first boot, signs every
+ installed Aptura kernel with it (also on kernel updates), and guides the user
+ through the one-time firmware enrollment. The private key never leaves the
+ machine and is not part of the image.

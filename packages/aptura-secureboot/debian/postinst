@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+case "$1" in
+  configure)
+    chmod 0755 /usr/sbin/aptura-secureboot 2>/dev/null || true
+    chmod 0755 /etc/kernel/postinst.d/zz-aptura-secureboot 2>/dev/null || true
+    # Enable the first-boot setup on real systems only (not the build chroot).
+    if [ -d /run/systemd/system ]; then
+      systemctl enable aptura-secureboot.service >/dev/null 2>&1 || true
+    fi
+    ;;
+esac
+#DEBHELPER#
+exit 0

@@ -29,7 +29,7 @@ check "base family is ubuntu" "[ '${BASE_FAMILY}' = 'ubuntu' ]"
 check "arch is set" "[ -n '${ARCH}' ]"
 
 # Each package has a control (or control.in).
-for pkg in aptura-meta aptura-branding aptura-desktop aptura-settings aptura-apps aptura-kernel; do
+for pkg in aptura-meta aptura-branding aptura-desktop aptura-settings aptura-apps aptura-kernel aptura-welcome aptura-secureboot; do
   check "package ${pkg} has control" \
     "[ -f '${REPO_ROOT}/packages/${pkg}/debian/control' ] || [ -f '${REPO_ROOT}/packages/${pkg}/debian/control.in' ]"
 done

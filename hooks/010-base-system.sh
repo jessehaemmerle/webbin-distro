@@ -3,12 +3,40 @@
 # Runs inside the live-build chroot as root.
 set -e
 
+# Build variables exported by build-iso.sh into the image.
+[ -f /etc/aptura/build.env ] && . /etc/aptura/build.env
+
 echo "[aptura][hook] 010 base system"
 
-# Default locale and timezone (installer lets the user change both).
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen || true
+# Default locale, language, keyboard and timezone (installer lets the user
+# change all of them). Defaults come from config/distro.env (German / Austria).
+DEFAULT_LOCALE="${DEFAULT_LOCALE:-de_AT.UTF-8}"
+SECONDARY_LOCALE="${SECONDARY_LOCALE:-en_US.UTF-8}"
+DEFAULT_LANGUAGE="${DEFAULT_LANGUAGE:-de_AT:de}"
+DEFAULT_KEYBOARD_LAYOUT="${DEFAULT_KEYBOARD_LAYOUT:-de}"
+DEFAULT_KEYBOARD_VARIANT="${DEFAULT_KEYBOARD_VARIANT:-nodeadkeys}"
+DEFAULT_KEYBOARD_MODEL="${DEFAULT_KEYBOARD_MODEL:-pc105}"
+DEFAULT_TIMEZONE="${DEFAULT_TIMEZONE:-Europe/Vienna}"
+
+{
+  echo "${DEFAULT_LOCALE} UTF-8"
+  echo "${SECONDARY_LOCALE} UTF-8"
+} >> /etc/locale.gen
 locale-gen || true
-update-locale LANG=en_US.UTF-8 || true
+update-locale "LANG=${DEFAULT_LOCALE}" "LANGUAGE=${DEFAULT_LANGUAGE}" || true
+
+# Console + X11 keyboard defaults.
+cat > /etc/default/keyboard <<EOF
+XKBMODEL="${DEFAULT_KEYBOARD_MODEL}"
+XKBLAYOUT="${DEFAULT_KEYBOARD_LAYOUT}"
+XKBVARIANT="${DEFAULT_KEYBOARD_VARIANT}"
+XKBOPTIONS=""
+BACKSPACE="guess"
+EOF
+
+# Timezone.
+ln -sf "/usr/share/zoneinfo/${DEFAULT_TIMEZONE}" /etc/localtime || true
+echo "${DEFAULT_TIMEZONE}" > /etc/timezone || true
 
 # Hostname identity.
 echo "aptura" > /etc/hostname

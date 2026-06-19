@@ -2,6 +2,8 @@
 # Chroot hook: wire up Flatpak/Flathub and queue Spotify (not in APT).
 set -e
 
+[ -f /etc/aptura/build.env ] && . /etc/aptura/build.env
+
 echo "[aptura][hook] 050 flatpak apps"
 
 if [ "${ENABLE_FLATPAK:-true}" != "true" ]; then

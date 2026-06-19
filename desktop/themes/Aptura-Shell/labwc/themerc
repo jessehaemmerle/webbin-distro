@@ -1,0 +1,24 @@
+# Aptura-Shell labwc (openbox-format) window theme.
+border.width: 2
+padding.height: 6
+window.label.text.justify: center
+
+window.active.title.bg.color: #12142b
+window.active.label.text.color: #eef1ff
+window.active.border.color: #7a4dff
+window.active.button.unpressed.image.color: #00d9c0
+window.active.button.hover.image.color: #ff4fd8
+
+window.inactive.title.bg.color: #1a1d3f
+window.inactive.label.text.color: #c0c0c0
+window.inactive.border.color: #2a2d52
+window.inactive.button.unpressed.image.color: #c0c0c0
+
+menu.items.bg.color: #12142b
+menu.items.text.color: #eef1ff
+menu.items.active.bg.color: #00d9c0
+menu.items.active.text.color: #12142b
+
+osd.bg.color: #12142b
+osd.border.color: #7a4dff
+osd.label.text.color: #eef1ff

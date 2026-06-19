@@ -15,4 +15,13 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Make Aptura GTK/icon themes the default where applications honour them.
 export GTK_THEME="${GTK_THEME:-Aptura-Shell}"
 
+# Keyboard layout for the Wayland session, from /etc/default/keyboard.
+if [ -r /etc/default/keyboard ]; then
+  . /etc/default/keyboard
+  export XKB_DEFAULT_LAYOUT="${XKBLAYOUT:-us}"
+  export XKB_DEFAULT_VARIANT="${XKBVARIANT:-}"
+  export XKB_DEFAULT_MODEL="${XKBMODEL:-pc105}"
+  export XKB_DEFAULT_OPTIONS="${XKBOPTIONS:-}"
+fi
+
 exec labwc

@@ -1,0 +1,89 @@
+// @BRAND_NAME@ SDDM greeter.
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import SddmComponents 2.0
+
+Rectangle {
+    id: root
+    width: 1920; height: 1080
+    color: "@COLOR_BACKGROUND@"
+
+    // Wallpaper, falling back to the flat background colour if missing.
+    Image {
+        anchors.fill: parent
+        source: "/usr/share/backgrounds/@DISTRO_ID@/wallpaper-aurora.svg"
+        fillMode: Image.PreserveAspectCrop
+        asynchronous: true
+        onStatusChanged: if (status === Image.Error) visible = false
+    }
+
+    TextConstants { id: textConstants }
+
+    ColumnLayout {
+        anchors.centerIn: parent
+        spacing: 18
+        width: 360
+
+        Label {
+            Layout.alignment: Qt.AlignHCenter
+            text: "@BRAND_NAME@"
+            color: "@COLOR_PRIMARY@"
+            font.pixelSize: 40
+            font.bold: true
+        }
+        Label {
+            Layout.alignment: Qt.AlignHCenter
+            text: "@BRAND_TAGLINE@"
+            color: "@COLOR_TEXT@"
+            font.pixelSize: 15
+            opacity: 0.8
+        }
+
+        ComboBox {
+            id: userBox
+            Layout.fillWidth: true
+            model: userModel
+            textRole: "name"
+            currentIndex: userModel.lastIndex
+        }
+
+        TextField {
+            id: password
+            Layout.fillWidth: true
+            echoMode: TextInput.Password
+            placeholderText: "Passwort"
+            color: "@COLOR_TEXT@"
+            background: Rectangle { color: "#1a1d3f"; radius: 8 }
+            onAccepted: sddm.login(userBox.currentText, password.text, sessionBox.currentIndex)
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            ComboBox {
+                id: sessionBox
+                Layout.fillWidth: true
+                model: sessionModel
+                textRole: "name"
+                currentIndex: sessionModel.lastIndex
+            }
+            Button {
+                text: "Anmelden"
+                onClicked: sddm.login(userBox.currentText, password.text, sessionBox.currentIndex)
+                background: Rectangle { color: "@COLOR_PRIMARY@"; radius: 8 }
+            }
+        }
+
+        Label {
+            id: errorLabel
+            Layout.alignment: Qt.AlignHCenter
+            color: "@COLOR_HIGHLIGHT@"
+            text: ""
+        }
+    }
+
+    Connections {
+        target: sddm
+        function onLoginFailed() { errorLabel.text = "Anmeldung fehlgeschlagen"; password.text = "" }
+    }
+}

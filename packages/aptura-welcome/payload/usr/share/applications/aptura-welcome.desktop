@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Willkommen bei Aptura OS
+Name[en]=Welcome to Aptura OS
+Comment=Erste Schritte und Einrichtung
+Exec=aptura-welcome
+Icon=logo
+Terminal=false
+Categories=System;Settings;
+Keywords=welcome;willkommen;setup;einrichtung;

@@ -1,0 +1,3 @@
+payload/usr/bin/aptura-welcome usr/bin/
+payload/usr/share/applications/aptura-welcome.desktop usr/share/applications/
+payload/etc/xdg/autostart/aptura-welcome.desktop etc/xdg/autostart/

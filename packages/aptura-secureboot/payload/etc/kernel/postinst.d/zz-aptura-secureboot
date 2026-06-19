@@ -1,0 +1,20 @@
+#!/bin/sh
+# Kernel postinst.d hook: re-sign a freshly installed Aptura kernel with the
+# machine MOK, so Secure Boot stays satisfied across kernel updates.
+#
+# Skips during image construction (no running systemd) so the build chroot does
+# not bake a per-machine key into the shipped squashfs.
+set -e
+
+version="$1"
+[ -n "${version}" ] || exit 0
+case "${version}" in *-aptura) : ;; *) exit 0 ;; esac
+
+# Only act on a real, booted machine.
+[ -d /run/systemd/system ] || exit 0
+command -v sbsign >/dev/null 2>&1 || exit 0
+
+if [ -x /usr/sbin/aptura-secureboot ]; then
+  /usr/sbin/aptura-secureboot sign "/boot/vmlinuz-${version}" || true
+fi
+exit 0

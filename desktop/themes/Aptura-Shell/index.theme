@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Aptura-Shell
+Comment=Aptura OS desktop theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Aptura-Shell
+IconTheme=Aptura-Shell
+CursorTheme=Adwaita
+ButtonLayout=:minimize,maximize,close

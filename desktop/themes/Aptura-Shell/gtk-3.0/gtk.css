@@ -1,0 +1,14 @@
+/* Aptura-Shell GTK3 theme: stock Adwaita dark with the Aptura accent.
+   Imports GTK's embedded dark Adwaita, then overrides the accent colours so
+   widgets stay fully styled and maintained upstream. */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+
+@define-color theme_selected_bg_color #00d9c0;
+@define-color theme_selected_fg_color #12142b;
+@define-color accent_color           #00d9c0;
+@define-color accent_bg_color        #00d9c0;
+@define-color accent_fg_color        #12142b;
+@define-color theme_bg_color         #12142b;
+@define-color insensitive_bg_color   #1a1d3f;
+
+* { -gtk-secondary-caret-color: #ff4fd8; }

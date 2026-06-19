@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 load_distro_env
 
 fails=0
-for pkg in aptura-meta aptura-branding aptura-desktop aptura-settings aptura-apps aptura-kernel; do
+for pkg in aptura-meta aptura-branding aptura-desktop aptura-settings aptura-apps aptura-kernel aptura-welcome aptura-secureboot; do
   ctrl="${REPO_ROOT}/packages/${pkg}/debian/control"
   [ -f "${ctrl}" ] || ctrl="${REPO_ROOT}/packages/${pkg}/debian/control.in"
   if [ ! -f "${ctrl}" ]; then warn "FAIL: ${pkg} has no control"; fails=$((fails+1)); continue; fi

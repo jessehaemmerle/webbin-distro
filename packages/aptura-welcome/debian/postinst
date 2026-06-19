@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+case "$1" in
+  configure)
+    [ -f /usr/bin/aptura-welcome ] && chmod 0755 /usr/bin/aptura-welcome
+    ;;
+esac
+#DEBHELPER#
+exit 0

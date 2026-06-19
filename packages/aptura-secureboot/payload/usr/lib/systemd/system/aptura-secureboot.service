@@ -1,0 +1,12 @@
+[Unit]
+Description=Aptura Secure Boot key setup and kernel signing
+After=local-fs.target
+ConditionPathExists=/usr/sbin/aptura-secureboot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/aptura-secureboot auto
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

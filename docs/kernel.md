@@ -34,6 +34,8 @@ flavour).
 
 ## Secure Boot
 
-A custom unsigned kernel will not boot with Secure Boot enabled. Either disable
-Secure Boot, or sign the kernel with an enrolled MOK. Implementing a signing
-flow is on the roadmap and currently out of scope.
+A custom unsigned kernel will not boot with Secure Boot enabled. Aptura ships a
+per-machine MOK signing + enrollment flow in the `aptura-secureboot` package —
+see [secureboot.md](secureboot.md). In short: a Machine Owner Key is generated on
+first boot, used to sign every Aptura kernel (including updates), and enrolled
+once by the user via `sudo aptura-secureboot enroll`.
